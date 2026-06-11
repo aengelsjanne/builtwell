@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Builtwell — Web &amp; Mobile Apps for Small Businesses</title>
+  <meta name="description" content="I build web apps and mobile apps that help small businesses grow. Designed clean, delivered on time.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #F8F7F4;
+      --dark:        #111008;
+      --text:        #111008;
+      --muted:       #706F6A;
+      --rule:        #E2E0DA;
+      --serif:       'DM Serif Display', Georgia, serif;
+      --sans:        'Plus Jakarta Sans', system-ui, sans-serif;
+      --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --max:         1100px;
+      --pad:         3rem;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem var(--pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s, border-color 0.4s;
+    }
+
+    header.scrolled {
+      background: rgba(17, 16, 8, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(248, 247, 244, 0.07);
+    }
+
+    .logo {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--bg);
+      text-decoration: none;
+    }
+
+    .header-email {
+      font-size: 0.8125rem;
+      color: rgba(248, 247, 244, 0.55);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .header-email:hover { color: var(--bg); }
+
+    header.light .logo { color: var(--text); }
+    header.light .header-email { color: var(--muted); }
+    header.light .header-email:hover { color: var(--text); }
+    header.scrolled.light {
+      background: rgba(248, 247, 244, 0.92);
+      border-bottom-color: var(--rule);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 12rem;
+      overflow: hidden;
+    }
+
+    #wire-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-bg-num {
+      position: absolute;
+      bottom: -0.15em;
+      right: -0.04em;
+      font-family: var(--serif);
+      font-size: clamp(18rem, 30vw, 32rem);
+      line-height: 1;
+      color: rgba(248, 247, 244, 0.028);
+      pointer-events: none;
+      user-select: none;
+      font-style: italic;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+      width: 100%;
+      will-change: opacity, transform, filter;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.4);
+      font-weight: 500;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.75s var(--ease-out) 0.1s forwards;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(3.25rem, 7.5vw, 8.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin-bottom: 4rem;
+      max-width: 860px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.22s forwards;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: rgba(248, 247, 244, 0.38);
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.75s var(--ease-out) 0.42s forwards;
+    }
+
+    .hero-sub {
+      font-size: 1.0625rem;
+      color: rgba(248, 247, 244, 0.48);
+      max-width: 360px;
+      line-height: 1.75;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease-out) 1s forwards;
+      z-index: 2;
+    }
+    .hero-scroll span {
+      font-size: 0.625rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.28);
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, rgba(248,247,244,0.28), rgba(248,247,244,0));
+      animation: scrollPulse 2s ease-in-out 1.5s infinite;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      background: var(--bg);
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      border-radius: 2px;
+      flex-shrink: 0;
+      transition: transform 0.35s var(--ease-spring), box-shadow 0.35s ease, gap 0.3s var(--ease-out);
+    }
+    .cta:hover {
+      transform: translateY(-2px) scale(1.025);
+      box-shadow: 0 10px 32px rgba(17, 16, 8, 0.22);
+      gap: 0.9rem;
+    }
+    .cta:active { transform: translateY(0) scale(0.98); transition-duration: 0.1s; }
+
+    hr { border: none; border-top: 1px solid var(--rule); }
+
+    /* ── Section ── */
+    .section { padding: 6rem 0; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 4rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 1.75rem;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    /* ── Capabilities — sticky scroll zone ── */
+    .cap-zone {
+      height: 450vh;
+      position: relative;
+    }
+
+    .cap-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+
+    .cap-sticky-head {
+      flex-shrink: 0;
+      padding: 7rem var(--pad) 0.75rem;
+      max-width: var(--max);
+      width: 100%;
+      margin: 0 auto;
+    }
+    .cap-sticky-head .section-label { margin-bottom: 0; }
+
+    .cap-slides {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cap-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(48px);
+      pointer-events: none;
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+      will-change: opacity, transform;
+    }
+    .cap-slide.active {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+    .cap-slide.prev {
+      opacity: 0;
+      transform: translateY(-48px);
+    }
+
+    .cap-slide-inner {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 8rem;
+      align-items: center;
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    .cap-illus { width: 100%; }
+    .cap-illus svg { width: 100%; height: auto; display: block; }
+    .cap-illus .ig { opacity: 0; }
+    .cap-slide.active .cap-illus .ig {
+      animation: ig-in 0.45s ease-out forwards;
+      animation-delay: var(--d, 0s);
+    }
+    @keyframes ig-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ig-flow { opacity: 0; }
+    .cap-slide.active .ig-flow {
+      opacity: 1;
+      animation: ig-flow-move 2s linear infinite;
+    }
+    @keyframes ig-flow-move { to { stroke-dashoffset: -40; } }
+    .chart-cursor { opacity: 0; }
+    .cap-slide.active .chart-cursor {
+      opacity: 1;
+      animation: chart-cursor-move 3s linear infinite;
+    }
+    @keyframes chart-cursor-move { to { stroke-dashoffset: -1; } }
+    .notif-pulse { transform-box: fill-box; transform-origin: center; }
+    .cap-slide.active .notif-pulse {
+      animation: notif-pulse 2s ease-in-out infinite;
+    }
+    @keyframes notif-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.38); opacity: 0.55; }
+    }
+
+    .cap-left { position: relative; }
+
+    .cap-num {
+      display: block;
+      font-family: var(--serif);
+      font-size: 6rem;
+      line-height: 0.9;
+      color: var(--rule);
+      font-style: italic;
+      transition: color 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+      margin-bottom: 1rem;
+    }
+    .cap-slide:hover .cap-num { color: var(--text); transform: translateY(-5px); }
+
+    .cap-title {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      line-height: 1.15;
+      transition: transform 0.35s var(--ease-out);
+    }
+    .cap-slide:hover .cap-title { transform: translateX(5px); }
+
+    .cap-desc {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      max-width: 520px;
+      font-family: var(--serif);
+      font-style: italic;
+    }
+    .cap-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.78;
+      max-width: 500px;
+    }
+
+    /* progress dots */
+    .cap-dots {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0 var(--pad) 3rem;
+      width: 100%;
+    }
+
+    .cap-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rule);
+      transition: background 0.35s ease, transform 0.35s var(--ease-spring);
+    }
+    .cap-dot.active {
+      background: var(--text);
+      transform: scale(1.4);
+    }
+
+    /* ── Work — horizontal scroll zone ── */
+    .work-zone { height: 550vh; position: relative; }
+
+    .work-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .work-sticky-head {
+      position: absolute;
+      top: 7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--max);
+      padding: 0 var(--pad);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .work-rail {
+      display: flex;
+      height: 100%;
+      will-change: transform;
+    }
+
+    .work-slide {
+      flex-shrink: 0;
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .work-slide-inner {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      width: 100%;
+      max-width: var(--max);
+      padding: 7rem var(--pad) 5rem;
+    }
+
+    .work-slide-thumb {
+      display: block;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      height: clamp(300px, 54vh, 500px);
+      width: 100%;
+      text-decoration: none;
+      transition: transform 0.55s var(--ease-out), box-shadow 0.55s ease;
+    }
+    .work-slide-thumb:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 30px 64px rgba(17, 16, 8, 0.14);
+    }
+
+    .thumb-1 { background: linear-gradient(135deg, #6E9178 0%, #A2C4A9 55%, #C0D5B8 100%); }
+    .thumb-2 { background: linear-gradient(135deg, #A86850 0%, #CE9278 55%, #E0AF96 100%); }
+    .thumb-3 { background: linear-gradient(135deg, #565E84 0%, #8591B8 55%, #A3ACD0 100%); }
+    .thumb-4 { background: linear-gradient(135deg, #383834 0%, #666660 55%, #828278 100%); }
+
+    .work-slide-thumb::before {
+      content: '';
+      position: absolute;
+      width: 55%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      opacity: 0.15;
+      background: #fff;
+      top: -15%;
+      right: -8%;
+      transition: transform 0.7s var(--ease-out);
+    }
+    .work-slide-thumb:hover::before { transform: scale(1.1) translate(3%, -3%); }
+
+    .work-slide-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(17,16,8,0);
+      transition: background 0.4s ease;
+    }
+    .work-slide-thumb:hover::after { background: rgba(17,16,8,0.04); }
+
+    .work-slide-num {
+      display: none;
+      font-family: var(--serif);
+      font-size: 5.5rem;
+      line-height: 0.88;
+      color: var(--rule);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .work-slide-tag {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .work-slide-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.2vw, 3.25rem);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+      transition: transform 0.35s var(--ease-out);
+    }
+    .work-slide:hover .work-slide-title { transform: translateX(5px); }
+
+    .work-slide-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 0;
+      max-width: 400px;
+    }
+
+    .work-nav {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      z-index: 10;
+      width: 100%;
+      max-width: var(--max);
+      padding: 0 var(--pad);
+    }
+
+    .work-nav-counter {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .work-nav-counter strong { color: var(--text); font-weight: 600; }
+
+    .work-nav-track {
+      width: 160px;
+      height: 1px;
+      background: var(--rule);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .work-nav-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--text);
+      width: 0%;
+    }
+
+    .work-nav-arrows { margin-left: auto; display: flex; gap: 0.5rem; }
+
+    .work-nav-arrow {
+      width: 36px; height: 36px;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      user-select: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1;
+    }
+    .work-nav-arrow:hover { border-color: var(--text); color: var(--text); background: rgba(17,16,8,0.04); }
+
+    /* ── Testimonials ── */
+    .testi-zone { height: 220vh; }
+    .testi-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .testi-hud {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      padding: 2.75rem max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .testi-counter {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .testi-card {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+      pointer-events: none;
+    }
+    .testi-card.active { opacity: 1; transform: none; pointer-events: auto; }
+    .testi-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 5rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .testi-author { display: flex; flex-direction: column; gap: 1rem; }
+
+    .testi-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--rule);
+      overflow: hidden;
+      position: relative;
+    }
+    .testi-avatar img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testi-name { font-size: 0.9375rem; font-weight: 600; }
+    .testi-company { font-size: 0.8125rem; color: var(--muted); margin-top: 0.1rem; }
+
+    .testi-mark {
+      display: block;
+      font-family: var(--serif);
+      font-size: 5rem;
+      line-height: 0.75;
+      color: var(--rule);
+      font-style: italic;
+      margin-bottom: 0.875rem;
+    }
+
+    .testi-text {
+      font-family: var(--serif);
+      font-size: 1.375rem;
+      line-height: 1.55;
+      font-style: italic;
+      color: var(--text);
+    }
+
+    /* ── About ── */
+    .about-zone { height: 240vh; }
+    .about-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      padding: 0 max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: center;
+      width: 100%;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #D4C9B8 0%, #B8AD9E 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .about-photo-hint {
+      font-size: 0.75rem;
+      color: rgba(17,16,8,0.35);
+      font-style: italic;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .about-headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.5rem;
+    }
+    .about-headline em { font-style: italic; color: var(--muted); }
+    .about-body {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+    .about-diffs { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+    .about-diff {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      font-size: 0.9375rem;
+      color: var(--text);
+      line-height: 1.55;
+      opacity: 0.15;
+      transform: translateX(-12px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .about-diff.active { opacity: 1; transform: none; }
+    .about-diff-dash {
+      color: var(--muted);
+      font-family: var(--serif);
+      font-style: italic;
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+
+    /* ── Process (split sticky) ── */
+    .proc-zone { height: 280vh; }
+    .proc-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      background: var(--dark);
+    }
+
+    /* Left nav — always shows all 4 steps */
+    .proc-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem var(--pad) 5rem max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+      border-right: 1px solid rgba(248,247,244,0.18);
+    }
+    .proc-nav .section-label { margin-bottom: 1.25rem; color: rgba(248,247,244,0.75); }
+    .proc-nav-title {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: rgba(248,247,244,0.95);
+      margin-bottom: 2.75rem;
+    }
+    .proc-steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .proc-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-bottom: 2.25rem;
+      position: relative;
+      cursor: default;
+    }
+    .proc-step-item:last-child { padding-bottom: 0; }
+    /* vertical spine line between steps */
+    .proc-step-item::after {
+      content: '';
+      position: absolute;
+      left: 0.55rem;
+      top: 1.6rem;
+      width: 1px;
+      bottom: 0;
+      background: rgba(248,247,244,0.2);
+      transition: background 0.5s var(--ease-out);
+    }
+    .proc-step-item:last-child::after { display: none; }
+    .proc-step-item.done::after { background: rgba(248,247,244,0.55); }
+    .proc-step-num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: rgba(248,247,244,0.4);
+      flex-shrink: 0;
+      line-height: 1.4;
+      transition: color 0.35s var(--ease-out);
+      width: 1.25rem;
+    }
+    .proc-step-name {
+      font-family: var(--serif);
+      font-size: 1.0625rem;
+      color: rgba(248,247,244,0.4);
+      line-height: 1.35;
+      transition: color 0.35s var(--ease-out), font-size 0.35s var(--ease-out);
+    }
+    .proc-step-item.active .proc-step-num { color: rgba(248,247,244,0.95); }
+    .proc-step-item.active .proc-step-name { color: rgba(248,247,244,0.95); font-size: 1.25rem; }
+    .proc-step-item.done .proc-step-num,
+    .proc-step-item.done .proc-step-name { color: rgba(248,247,244,0.25); }
+
+    /* Right detail — step panels fade in/out */
+    .proc-detail {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 5rem 4rem 5rem 5rem;
+      overflow: hidden;
+    }
+    .proc-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 5rem;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+      pointer-events: none;
+    }
+    .proc-panel.active {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+    .proc-panel-num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 5rem;
+      line-height: 0.9;
+      color: rgba(248,247,244,0.22);
+      margin-bottom: 1.75rem;
+      display: block;
+    }
+    .proc-panel-title {
+      font-family: var(--serif);
+      font-size: clamp(2.75rem, 4.2vw, 4.5rem);
+      line-height: 1.07;
+      letter-spacing: -0.02em;
+      color: rgba(248,247,244,0.95);
+      margin-bottom: 1.5rem;
+    }
+    .proc-panel-desc {
+      font-size: 1.0625rem;
+      color: rgba(248,247,244,0.48);
+      line-height: 1.8;
+      max-width: 460px;
+    }
+
+    /* ── Intake form ── */
+    .form-section {
+      background: var(--dark);
+      padding: 9rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-section-head { margin-bottom: 4rem; text-align: center; }
+    .form-section-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(248,247,244,0.35);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .form-section-headline {
+      font-family: var(--serif);
+      font-size: clamp(2.75rem, 5vw, 4.5rem);
+      color: var(--bg);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+    }
+    .form-section-headline em { font-style: italic; color: rgba(248,247,244,0.38); }
+    .form-card {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 3.5rem 4rem;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .form-progress-bar {
+      height: 2px;
+      background: var(--rule);
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+    }
+    .form-progress-fill {
+      height: 100%;
+      background: var(--text);
+      width: 20%;
+      transition: width 0.4s var(--ease-out);
+    }
+    .hidden { display: none !important; }
+    .form-step-q { transition: opacity 0.2s ease; }
+    .form-options-clip { overflow: hidden; }
+    .form-options { will-change: transform; }
+    #form-fields-area { transition: opacity 0.28s ease; }
+    .form-step-q {
+      font-family: var(--serif);
+      font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+      line-height: 1.25;
+      margin-bottom: 1.75rem;
+    }
+    .form-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+    .form-option {
+      padding: 1rem 1.25rem;
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9375rem;
+      color: var(--text);
+      line-height: 1.4;
+      background: var(--bg);
+      transition: border-color 0.2s, background 0.25s, color 0.25s, transform 0.15s var(--ease-spring);
+      user-select: none;
+    }
+    .form-option:hover { border-color: rgba(17,16,8,0.3); transform: translateX(3px); }
+    .form-option.selected { border-color: var(--text); background: var(--text); color: var(--bg); transform: none; }
+    .form-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; }
+    .form-step-counter { font-size: 0.8125rem; color: var(--muted); }
+    .form-back {
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.18s;
+      letter-spacing: 0.01em;
+    }
+    .form-back:hover { color: var(--text); }
+    .form-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.875rem 1.75rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.3s var(--ease-spring), gap 0.25s var(--ease-out);
+    }
+    .form-btn:disabled { opacity: 0.28; cursor: default; transform: none !important; }
+    .form-btn:not(:disabled):hover { transform: translateY(-1px); gap: 0.8rem; }
+    .form-fields { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.8125rem; font-weight: 500; color: var(--muted); }
+    .form-input, .form-textarea {
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-family: var(--sans);
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--text); }
+    .form-confirm {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 0 1rem;
+      gap: 1rem;
+    }
+    .form-confirm.visible { display: flex; }
+    .form-confirm-check {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--text);
+      color: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      animation: popIn 0.5s var(--ease-spring) forwards;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .form-confirm-title { font-family: var(--serif); font-size: 1.75rem; line-height: 1.2; }
+    .form-confirm-sub { font-size: 0.9375rem; color: var(--muted); line-height: 1.7; max-width: 380px; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-copy { font-size: 0.8125rem; color: var(--muted); }
+    .footer-link { font-size: 0.8125rem; color: var(--muted); text-decoration: none; transition: color 0.18s; }
+    .footer-link:hover { color: var(--text); }
+
+    /* ── Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Keyframes ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+      to   { opacity: 1; transform: none; filter: blur(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50%       { opacity: 0.7; transform: scaleY(1.3); }
+    }
+
+    /* ── Accessibility ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+      .cap-slide { opacity: 1 !important; transform: none !important; }
+      .work-zone { height: auto; }
+      .work-sticky { position: static; height: auto; overflow: visible; }
+      .work-rail { transform: none !important; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 4rem var(--pad); height: auto; }
+      .work-slide { width: auto; height: auto; display: block; }
+      .work-slide-inner { display: block; padding: 0; }
+      .work-slide-thumb { height: 220px; margin-bottom: 1.25rem; }
+      .work-slide-num { display: none; }
+      .work-nav { display: none; }
+      .work-sticky-head { position: static; transform: none; padding: 6rem var(--pad) 2rem; max-width: none; }
+      .proc-zone { height: auto; }
+      .proc-sticky { position: static; height: auto; display: block; }
+      .proc-nav { border-right: none; padding: 6rem var(--pad) 2rem; justify-content: flex-start; }
+      .proc-detail { padding: var(--pad); }
+      .proc-panel { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 2rem var(--pad); }
+      .proc-panel:not(.active) { display: none; }
+      .proc-step-item.active .proc-step-name { font-size: 1.0625rem; }
+      .about-zone { height: auto; }
+      .about-sticky { position: static; height: auto; padding: 6rem var(--pad); }
+      .about-diff { opacity: 1; transform: none; }
+      .testi-zone { height: auto; }
+      .testi-sticky { position: static; height: auto; }
+      .testi-hud { position: static; padding: 0 var(--pad) 2rem; }
+      .testi-card { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 0 var(--pad); }
+      .about-avail::before { animation: none; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 800px) {
+      :root { --pad: 2rem; }
+
+      /* capabilities: unpin, stack slides */
+      .cap-zone { height: auto; }
+      .cap-sticky { position: static; height: auto; display: block; padding: 6rem 0; }
+      .cap-sticky-head { padding: 0 var(--pad) 3rem; }
+      .cap-slides { position: static; overflow: visible; }
+      .cap-slide {
+        position: static !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto;
+        margin-bottom: 3rem;
+      }
+      .cap-slide:last-child { margin-bottom: 0; }
+      .cap-slide-inner { grid-template-columns: 1fr; gap: 1.25rem; }
+      .cap-num { font-size: 4rem; }
+      .cap-dots { display: none; }
+      .cap-illus .ig { opacity: 1 !important; animation: none !important; }
+      .ig-flow { display: none; }
+      .chart-cursor { display: none; }
+      .notif-pulse { animation: none !important; }
+
+      /* process: unpin, single column */
+      .proc-zone { height: auto; }
+      .proc-sticky { position: static; height: auto; grid-template-columns: 1fr; }
+      .proc-nav { border-right: none; padding: 6rem var(--pad) 2.5rem; }
+      .proc-detail { padding: 0 var(--pad) 4rem; }
+      .proc-panel { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 0; }
+      .proc-panel:not(.active) { display: none; }
+      .proc-panel-num { font-size: 3.5rem; margin-bottom: 1rem; }
+      .proc-step-item.active .proc-step-name { font-size: 1.0625rem; }
+
+      /* work: unpin, stack as grid */
+      .work-zone { height: auto; }
+      .work-sticky { position: static; height: auto; overflow: visible; }
+      .work-sticky-head { position: static; transform: none; left: auto; padding: 6rem var(--pad) 3rem; max-width: none; }
+      .work-rail { transform: none !important; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 0 var(--pad) 4rem; height: auto; }
+      .work-slide { width: auto; height: auto; display: block; }
+      .work-slide-inner { display: block; padding: 0; }
+      .work-slide-thumb { height: 200px; margin-bottom: 1.25rem; }
+      .work-slide-num { display: none; }
+      .work-slide-title { font-size: 1.375rem; margin-bottom: 0.4rem; }
+      .work-slide-desc { max-width: none; }
+      .work-nav { display: none; }
+
+      /* about: unpin, stack */
+      .about-zone { height: auto; }
+      .about-sticky { position: static; height: auto; padding: 6rem var(--pad); }
+      .about-diff { opacity: 1; transform: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-photo { aspect-ratio: 4/3; max-width: 400px; }
+
+      /* testimonials: unpin, stack both */
+      .testi-zone { height: auto; }
+      .testi-sticky { position: static; height: auto; overflow: visible; }
+      .testi-hud { position: static; padding: 6rem var(--pad) 2rem; }
+      .testi-card { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 0 var(--pad) 4rem; }
+      .testi-item { grid-template-columns: 1fr; gap: 2rem; }
+
+      /* form */
+      .form-options { grid-template-columns: 1fr; }
+      .form-card { padding: 2rem 1.75rem; }
+    }
+
+    @media (max-width: 560px) {
+      :root { --pad: 1.25rem; }
+      .hero { padding-bottom: 4.5rem; }
+      .work-rail { grid-template-columns: 1fr; }
+      .work-slide-thumb { height: 220px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      .about-photo { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header id="site-header">
+    <a href="/" class="logo">Builtwell</a>
+    <a href="mailto:aengelsjanne@gmail.com" class="header-email">aengelsjanne@gmail.com</a>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero" id="hero">
+    <canvas id="wire-canvas"></canvas>
+    <div class="hero-bg-num">B</div>
+    <div class="hero-content" id="hero-content">
+      <p class="hero-eyebrow">Web &amp; Mobile · Germany &amp; Europe</p>
+      <h1 class="hero-headline">Build the tools that grow your <em>business.</em></h1>
+      <div class="hero-bottom">
+        <p class="hero-sub">Custom apps and tools built around how your business actually works.</p>
+        <a href="mailto:aengelsjanne@gmail.com" class="cta">Get in touch &nbsp;→</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── What I can build — sticky scroll sequence ── -->
+  <div class="cap-zone" id="cap-zone">
+    <div class="cap-sticky" id="cap-sticky">
+
+      <div class="cap-sticky-head">
+        <p class="section-label">What I can build</p>
+      </div>
+
+      <div class="cap-slides">
+
+        <!-- Slide 0 — Web apps -->
+        <div class="cap-slide" data-slide="0">
+          <div class="cap-slide-inner">
+            <div class="cap-illus">
+              <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="ig" style="--d:0s">
+                  <rect x="4" y="4" width="472" height="292" rx="10" stroke="#E2E0DA" stroke-width="1.5"/>
+                  <line x1="4" y1="44" x2="476" y2="44" stroke="#E2E0DA" stroke-width="1"/>
+                  <circle cx="22" cy="24" r="5" fill="#E2E0DA"/>
+                  <circle cx="36" cy="24" r="5" fill="#E2E0DA"/>
+                  <circle cx="50" cy="24" r="5" fill="#E2E0DA"/>
+                  <rect x="86" y="14" width="196" height="20" rx="10" stroke="#E2E0DA" stroke-width="1"/>
+                </g>
+                <g class="ig" style="--d:0.07s">
+                  <rect x="4" y="44" width="106" height="252" fill="rgba(17,16,8,0.04)"/>
+                  <line x1="110" y1="44" x2="110" y2="296" stroke="#E2E0DA" stroke-width="1"/>
+                  <rect x="18" y="56" width="26" height="26" rx="4" fill="rgba(17,16,8,0.07)" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="52" y1="65" x2="96" y2="65" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="52" y1="73" x2="80" y2="73" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <g class="ig" style="--d:0.14s">
+                  <rect x="12" y="96" width="90" height="28" rx="5" fill="rgba(17,16,8,0.08)" stroke="#111008" stroke-width="0.75"/>
+                  <rect x="20" y="104" width="10" height="10" rx="2" fill="#111008"/>
+                  <line x1="38" y1="110" x2="88" y2="110" stroke="#111008" stroke-width="1.5"/>
+                </g>
+                <g class="ig" style="--d:0.20s">
+                  <rect x="20" y="134" width="10" height="10" rx="2" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="38" y1="140" x2="88" y2="140" stroke="#E2E0DA" stroke-width="1"/>
+                  <rect x="20" y="156" width="10" height="10" rx="2" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="38" y1="162" x2="82" y2="162" stroke="#E2E0DA" stroke-width="1"/>
+                  <rect x="20" y="178" width="10" height="10" rx="2" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="38" y1="184" x2="86" y2="184" stroke="#E2E0DA" stroke-width="1"/>
+                  <rect x="20" y="200" width="10" height="10" rx="2" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="38" y1="206" x2="84" y2="206" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="12" y1="222" x2="100" y2="222" stroke="#E2E0DA" stroke-width="0.5"/>
+                  <circle cx="34" cy="274" r="12" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="54" y1="270" x2="96" y2="270" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="54" y1="278" x2="84" y2="278" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <g class="ig" style="--d:0.18s">
+                  <line x1="126" y1="62" x2="266" y2="62" stroke="#111008" stroke-width="2"/>
+                  <line x1="126" y1="74" x2="206" y2="74" stroke="#E2E0DA" stroke-width="1"/>
+                  <rect x="406" y="52" width="62" height="28" rx="5" stroke="#111008" stroke-width="1" fill="rgba(17,16,8,0.05)"/>
+                  <line x1="422" y1="66" x2="452" y2="66" stroke="#111008" stroke-width="1.25"/>
+                </g>
+                <g class="ig" style="--d:0.28s">
+                  <rect x="126" y="90" width="100" height="58" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <line x1="140" y1="106" x2="182" y2="106" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="140" y1="122" x2="162" y2="122" stroke="#111008" stroke-width="2.5"/>
+                  <line x1="168" y1="122" x2="216" y2="122" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <rect x="238" y="90" width="100" height="58" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <line x1="252" y1="106" x2="294" y2="106" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="252" y1="122" x2="278" y2="122" stroke="#111008" stroke-width="2.5"/>
+                  <line x1="284" y1="122" x2="328" y2="122" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <rect x="350" y="90" width="118" height="58" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <line x1="364" y1="106" x2="406" y2="106" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="364" y1="122" x2="392" y2="122" stroke="#111008" stroke-width="2.5"/>
+                  <line x1="398" y1="122" x2="454" y2="122" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <g class="ig" style="--d:0.36s">
+                  <rect x="126" y="160" width="342" height="124" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.015)"/>
+                  <line x1="140" y1="177" x2="222" y2="177" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="146" y1="160" x2="146" y2="284" stroke="#E2E0DA" stroke-width="0.5"/>
+                  <line x1="126" y1="208" x2="468" y2="208" stroke="#E2E0DA" stroke-width="0.5" stroke-dasharray="4 4"/>
+                  <line x1="126" y1="236" x2="468" y2="236" stroke="#E2E0DA" stroke-width="0.5" stroke-dasharray="4 4"/>
+                  <line x1="126" y1="264" x2="468" y2="264" stroke="#E2E0DA" stroke-width="0.5" stroke-dasharray="4 4"/>
+                </g>
+                <g class="ig" style="--d:0.46s">
+                  <path d="M154 262 C174 250 190 256 210 234 C230 212 248 242 268 222 C288 202 308 228 332 198 C352 170 374 212 412 184 L460 188" stroke="#111008" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M154 262 C174 250 190 256 210 234 C230 212 248 242 268 222 C288 202 308 228 332 198 C352 170 374 212 412 184 L460 188 L460 280 L154 280 Z" fill="rgba(17,16,8,0.042)"/>
+                  <circle cx="210" cy="234" r="3.5" fill="#111008"/>
+                  <circle cx="268" cy="222" r="3.5" fill="#111008"/>
+                  <circle cx="332" cy="198" r="3.5" fill="#111008"/>
+                  <circle cx="412" cy="184" r="3.5" fill="#111008"/>
+                </g>
+                <path class="chart-cursor" pathLength="1" d="M154 262 C174 250 190 256 210 234 C230 212 248 242 268 222 C288 202 308 228 332 198 C352 170 374 212 412 184 L460 188" stroke="#111008" stroke-width="3.5" stroke-dasharray="0.07 0.93" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="cap-left">
+              <span class="cap-num">01</span>
+              <h2 class="cap-title">Web apps</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 1 — Mobile apps -->
+        <div class="cap-slide" data-slide="1">
+          <div class="cap-slide-inner">
+            <div class="cap-illus">
+              <svg viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Phone frame -->
+                <g class="ig" style="--d:0s">
+                  <rect x="165" y="4" width="150" height="312" rx="34" stroke="#E2E0DA" stroke-width="1.5"/>
+                  <line x1="165" y1="76" x2="165" y2="104" stroke="#E2E0DA" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="165" y1="114" x2="165" y2="140" stroke="#E2E0DA" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="315" y1="96" x2="315" y2="136" stroke="#E2E0DA" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+                <!-- Screen + Dynamic Island -->
+                <g class="ig" style="--d:0.07s">
+                  <rect x="169" y="8" width="142" height="304" rx="30" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <rect x="220" y="17" width="40" height="11" rx="5.5" fill="#111008"/>
+                </g>
+                <!-- App header -->
+                <g class="ig" style="--d:0.16s">
+                  <rect x="169" y="36" width="142" height="40" fill="rgba(17,16,8,0.05)"/>
+                  <polyline points="184,51 177,56 184,62" stroke="#111008" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="195" y1="56" x2="252" y2="56" stroke="#111008" stroke-width="1.5"/>
+                  <circle cx="301" cy="56" r="6" stroke="#111008" stroke-width="1"/>
+                  <circle cx="301" cy="56" r="2" fill="#111008"/>
+                </g>
+                <!-- Hero card -->
+                <g class="ig" style="--d:0.24s">
+                  <rect x="178" y="84" width="124" height="80" rx="8" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.03)"/>
+                  <line x1="188" y1="104" x2="230" y2="104" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="188" y1="116" x2="258" y2="116" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="188" y1="128" x2="248" y2="128" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <rect x="254" y="92" width="40" height="40" rx="6" stroke="#111008" stroke-width="1.25" fill="rgba(17,16,8,0.07)"/>
+                  <line x1="262" y1="109" x2="286" y2="109" stroke="#111008" stroke-width="1.5"/>
+                  <line x1="262" y1="119" x2="281" y2="119" stroke="#111008" stroke-width="1"/>
+                </g>
+                <!-- List rows -->
+                <g class="ig" style="--d:0.34s">
+                  <circle cx="194" cy="188" r="9" stroke="#111008" stroke-width="1"/>
+                  <line x1="210" y1="184" x2="268" y2="184" stroke="#111008" stroke-width="1.25"/>
+                  <line x1="210" y1="194" x2="252" y2="194" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="178" y1="205" x2="302" y2="205" stroke="#E2E0DA" stroke-width="0.5"/>
+                  <circle cx="194" cy="220" r="9" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="210" y1="216" x2="264" y2="216" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="210" y1="226" x2="250" y2="226" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="178" y1="237" x2="302" y2="237" stroke="#E2E0DA" stroke-width="0.5"/>
+                  <circle cx="194" cy="252" r="9" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="210" y1="248" x2="266" y2="248" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="210" y1="258" x2="252" y2="258" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="178" y1="269" x2="302" y2="269" stroke="#E2E0DA" stroke-width="0.5"/>
+                  <circle cx="194" cy="284" r="9" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="210" y1="280" x2="264" y2="280" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="210" y1="290" x2="248" y2="290" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <!-- iPhone home indicator pill -->
+                <g class="ig" style="--d:0.42s">
+                  <rect x="222" y="304" width="36" height="4" rx="2" fill="#E2E0DA"/>
+                </g>
+                <!-- Floating notification (top-right) -->
+                <g class="ig" style="--d:0.52s">
+                  <rect x="324" y="34" width="134" height="58" rx="8" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.02)"/>
+                  <circle class="notif-pulse" cx="344" cy="60" r="9" fill="#111008"/>
+                  <line x1="362" y1="55" x2="444" y2="55" stroke="#E2E0DA" stroke-width="1"/>
+                  <line x1="362" y1="65" x2="432" y2="65" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <!-- Floating stats (bottom-left) -->
+                <g class="ig" style="--d:0.60s">
+                  <rect x="6" y="210" width="128" height="68" rx="8" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.02)"/>
+                  <line x1="20" y1="228" x2="84" y2="228" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="20" y1="244" x2="50" y2="244" stroke="#111008" stroke-width="2"/>
+                  <polyline points="62,258 74,248 86,252 98,238 110,242 122,230" stroke="#111008" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <!-- Floating CTA pill (bottom-right) -->
+                <g class="ig" style="--d:0.68s">
+                  <rect x="324" y="232" width="134" height="42" rx="21" stroke="#111008" stroke-width="1.25" fill="rgba(17,16,8,0.05)"/>
+                  <circle cx="345" cy="253" r="8" fill="#111008"/>
+                  <line x1="362" y1="253" x2="442" y2="253" stroke="#111008" stroke-width="1.25"/>
+                </g>
+              </svg>
+            </div>
+            <div class="cap-left">
+              <span class="cap-num">02</span>
+              <h2 class="cap-title">Mobile apps</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 — Digital products -->
+        <div class="cap-slide" data-slide="2">
+          <div class="cap-slide-inner">
+            <div class="cap-illus">
+              <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="ig" style="--d:0s">
+                  <line x1="238" y1="112" x2="220" y2="60" stroke="#E2E0DA" stroke-width="1" stroke-dasharray="5 5"/>
+                  <line x1="295" y1="148" x2="348" y2="138" stroke="#E2E0DA" stroke-width="1" stroke-dasharray="5 5"/>
+                  <line x1="258" y1="184" x2="318" y2="228" stroke="#E2E0DA" stroke-width="1" stroke-dasharray="5 5"/>
+                  <line x1="222" y1="184" x2="164" y2="228" stroke="#E2E0DA" stroke-width="1" stroke-dasharray="5 5"/>
+                </g>
+                <line class="ig-flow" x1="238" y1="112" x2="220" y2="60" stroke="#111008" stroke-width="1.25" stroke-dasharray="6 40"/>
+                <line class="ig-flow" x1="295" y1="148" x2="348" y2="138" stroke="#111008" stroke-width="1.25" stroke-dasharray="6 40" style="--fd:1.6s"/>
+                <line class="ig-flow" x1="258" y1="184" x2="318" y2="228" stroke="#111008" stroke-width="1.25" stroke-dasharray="6 40" style="--fd:1.9s"/>
+                <line class="ig-flow" x1="222" y1="184" x2="164" y2="228" stroke="#111008" stroke-width="1.25" stroke-dasharray="6 40" style="--fd:2.2s"/>
+                <g class="ig" style="--d:0.10s">
+                  <rect x="172" y="8" width="96" height="52" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <circle cx="196" cy="30" r="11" stroke="#111008" stroke-width="1.25" fill="rgba(17,16,8,0.06)"/>
+                  <path d="M180 52 Q196 43 212 52" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="214" y1="24" x2="254" y2="24" stroke="#111008" stroke-width="1.5"/>
+                  <line x1="214" y1="36" x2="244" y2="36" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <g class="ig" style="--d:0.16s">
+                  <rect x="348" y="112" width="118" height="52" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <rect x="362" y="124" width="18" height="12" rx="2" stroke="#111008" stroke-width="1.25" fill="rgba(17,16,8,0.08)"/>
+                  <line x1="386" y1="128" x2="424" y2="128" stroke="#111008" stroke-width="1.5"/>
+                  <line x1="362" y1="144" x2="388" y2="144" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="396" y1="144" x2="420" y2="144" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="428" y1="144" x2="452" y2="144" stroke="#E2E0DA" stroke-width="0.5"/>
+                </g>
+                <g class="ig" style="--d:0.22s">
+                  <rect x="316" y="228" width="112" height="52" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <rect x="330" y="244" width="8" height="22" rx="2" fill="#E2E0DA"/>
+                  <rect x="344" y="238" width="8" height="28" rx="2" fill="#E2E0DA"/>
+                  <rect x="358" y="248" width="8" height="18" rx="2" fill="#E2E0DA"/>
+                  <rect x="372" y="233" width="8" height="33" rx="2" fill="#111008"/>
+                  <rect x="386" y="242" width="8" height="24" rx="2" fill="#E2E0DA"/>
+                  <rect x="400" y="238" width="8" height="28" rx="2" fill="#E2E0DA"/>
+                </g>
+                <g class="ig" style="--d:0.28s">
+                  <rect x="52" y="228" width="112" height="52" rx="6" stroke="#E2E0DA" stroke-width="1" fill="rgba(17,16,8,0.025)"/>
+                  <line x1="66" y1="244" x2="148" y2="244" stroke="#111008" stroke-width="1.5"/>
+                  <line x1="66" y1="256" x2="132" y2="256" stroke="#E2E0DA" stroke-width="0.75"/>
+                  <line x1="66" y1="267" x2="138" y2="267" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+                <g class="ig" style="--d:0.16s">
+                  <rect x="183" y="112" width="114" height="72" rx="8" stroke="#111008" stroke-width="1.5" fill="rgba(17,16,8,0.06)"/>
+                  <line x1="198" y1="134" x2="282" y2="134" stroke="#111008" stroke-width="1.75"/>
+                  <line x1="198" y1="150" x2="262" y2="150" stroke="#111008" stroke-width="1"/>
+                  <line x1="198" y1="164" x2="252" y2="164" stroke="#E2E0DA" stroke-width="0.75"/>
+                </g>
+              </svg>
+            </div>
+            <div class="cap-left">
+              <span class="cap-num">03</span>
+              <h2 class="cap-title">Digital products</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cap-dots" id="cap-dots">
+        <div class="cap-dot"></div>
+        <div class="cap-dot"></div>
+        <div class="cap-dot"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── About ── -->
+  <div class="about-zone" id="about-zone">
+    <div class="about-sticky">
+      <div class="about-grid">
+        <div>
+          <div class="about-photo">
+            <!-- Replace src with your actual photo -->
+            <p class="about-photo-hint">Your photo here</p>
+          </div>
+        </div>
+        <div>
+          <p class="section-label">About</p>
+          <h2 class="about-headline">Not just an app.<br><em>A business built right.</em></h2>
+          <ul class="about-diffs">
+            <li class="about-diff"><span class="about-diff-dash">—</span>Product thinking, design sensibility, and technical execution.</li>
+            <li class="about-diff"><span class="about-diff-dash">—</span>Covering everything from first call to launch.</li>
+            <li class="about-diff"><span class="about-diff-dash">—</span>Native support in German, English, French, and Spanish.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── How it works — split sticky ── -->
+  <div class="proc-zone" id="proc-zone">
+    <div class="proc-sticky">
+
+      <!-- Left: persistent step list — always shows full journey -->
+      <div class="proc-nav">
+        <h2 class="proc-nav-title">How it works.</h2>
+        <ol class="proc-steps-list" id="proc-steps-list">
+
+          <li class="proc-step-item active" data-step="0">
+            <span class="proc-step-num">01</span>
+            <span class="proc-step-name">Discovery call</span>
+          </li>
+
+          <li class="proc-step-item" data-step="1">
+            <span class="proc-step-num">02</span>
+            <span class="proc-step-name">Proposal</span>
+          </li>
+
+          <li class="proc-step-item" data-step="2">
+            <span class="proc-step-num">03</span>
+            <span class="proc-step-name">The build</span>
+          </li>
+
+          <li class="proc-step-item" data-step="3">
+            <span class="proc-step-num">04</span>
+            <span class="proc-step-name">Handoff</span>
+          </li>
+
+        </ol>
+      </div>
+
+      <!-- Right: step detail — swaps as you scroll -->
+      <div class="proc-detail">
+
+        <div class="proc-panel active" data-step="0">
+          <span class="proc-panel-num">01</span>
+          <h2 class="proc-panel-title">Discovery call</h2>
+          <p class="proc-panel-desc">30 minutes on your business and what you actually need.</p>
+        </div>
+
+        <div class="proc-panel" data-step="1">
+          <span class="proc-panel-num">02</span>
+          <h2 class="proc-panel-title">Proposal</h2>
+          <p class="proc-panel-desc">Fixed price, clear scope, realistic timeline.</p>
+        </div>
+
+        <div class="proc-panel" data-step="2">
+          <span class="proc-panel-num">03</span>
+          <h2 class="proc-panel-title">The build</h2>
+          <p class="proc-panel-desc">Structured, planned, and executed on schedule.</p>
+        </div>
+
+        <div class="proc-panel" data-step="3">
+          <span class="proc-panel-num">04</span>
+          <h2 class="proc-panel-title">Handoff</h2>
+          <p class="proc-panel-desc">Handed over with a run-through and support options.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Work — horizontal scroll ── -->
+  <div class="work-zone" id="work-zone">
+    <div class="work-sticky">
+
+      <div class="work-sticky-head">
+        <p class="section-label">Work</p>
+      </div>
+
+      <div class="work-rail" id="work-rail">
+
+        <div class="work-slide">
+          <div class="work-slide-inner">
+            <a href="#" class="work-slide-thumb thumb-1"></a>
+            <div class="work-slide-text">
+              <span class="work-slide-num">01</span>
+              <p class="work-slide-tag">Hospitality</p>
+              <h3 class="work-slide-title">Salon Suite</h3>
+              <p class="work-slide-desc">Booking and client management system for a local beauty salon — appointments, reminders, and integrated payments.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-slide">
+          <div class="work-slide-inner">
+            <a href="#" class="work-slide-thumb thumb-2"></a>
+            <div class="work-slide-text">
+              <span class="work-slide-num">02</span>
+              <p class="work-slide-tag">Logistics</p>
+              <h3 class="work-slide-title">Trackr</h3>
+              <p class="work-slide-desc">React Native app for a delivery company to manage driver routes, live tracking, and customer notifications.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-slide">
+          <div class="work-slide-inner">
+            <a href="#" class="work-slide-thumb thumb-3"></a>
+            <div class="work-slide-text">
+              <span class="work-slide-num">03</span>
+              <p class="work-slide-tag">Retail</p>
+              <h3 class="work-slide-title">Stockroom</h3>
+              <p class="work-slide-desc">Inventory and order management dashboard for a multi-location clothing retailer with real-time stock sync.</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="work-nav">
+        <span class="work-nav-counter"><strong id="work-curr">01</strong> / 03</span>
+        <div class="work-nav-track"><div class="work-nav-fill" id="work-nav-fill"></div></div>
+        <div class="work-nav-arrows">
+          <div class="work-nav-arrow" id="work-prev" role="button" aria-label="Previous project">&#8592;</div>
+          <div class="work-nav-arrow" id="work-next" role="button" aria-label="Next project">&#8594;</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Testimonials ── -->
+  <div class="testi-zone" id="testi-zone">
+    <div class="testi-sticky">
+
+      <div class="testi-hud">
+        <p class="section-label">What clients say</p>
+        <p class="testi-counter"><span id="testi-curr">1</span>&thinsp;/&thinsp;2</p>
+      </div>
+
+      <div class="testi-card active" data-testi="0">
+        <div class="testi-item">
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <img src="https://i.pravatar.cc/96?img=47" alt="Sarah M.">
+            </div>
+            <div>
+              <p class="testi-name">Sarah M.</p>
+              <p class="testi-company">Owner, Bloom Salon Studio</p>
+            </div>
+          </div>
+          <div class="testi-body">
+            <span class="testi-mark">"</span>
+            <p class="testi-text">Jan turned our manual booking chaos into a slick app our clients actually love. We saved six hours a week on admin alone — and we haven't looked back.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" data-testi="1">
+        <div class="testi-item">
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <img src="https://i.pravatar.cc/96?img=68" alt="Marco P.">
+            </div>
+            <div>
+              <p class="testi-name">Marco P.</p>
+              <p class="testi-company">Co-founder, FlexiDeliver</p>
+            </div>
+          </div>
+          <div class="testi-body">
+            <span class="testi-mark">"</span>
+            <p class="testi-text">I've worked with agencies three times the price and got less. Jan delivers clean work, on time, without drama. Exactly what a small business needs.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Intake form ── -->
+  <div class="form-section" id="start-project">
+    <div class="wrap">
+      <div class="form-section-head reveal">
+        <p class="form-section-label">Start a project</p>
+        <h2 class="form-section-headline">Tell me what <em>you're building.</em></h2>
+      </div>
+      <div class="form-card reveal">
+        <div class="form-progress-bar" id="form-progress-bar">
+          <div class="form-progress-fill" id="form-progress"></div>
+        </div>
+        <div id="form-steps-wrap">
+
+          <!-- Question — fades in place -->
+          <p class="form-step-q" id="form-q">What do you need built?</p>
+
+          <!-- Options — slides left/right -->
+          <div class="form-options-clip" id="form-options-clip">
+            <div class="form-options" id="form-options">
+              <div class="form-option" data-value="mobile-app">A mobile app for my customers</div>
+              <div class="form-option" data-value="booking-system">A booking or scheduling system</div>
+              <div class="form-option" data-value="internal-tool">An internal tool or dashboard</div>
+              <div class="form-option" data-value="other">Something else</div>
+            </div>
+          </div>
+
+          <!-- Footer — never animates -->
+          <div class="form-actions" id="form-footer">
+            <button class="form-back" id="form-back-btn" style="visibility:hidden">← Back</button>
+            <span class="form-step-counter" id="form-counter">1 of 4</span>
+            <button class="form-btn" id="form-draft" style="display:none">Draft message &nbsp;→</button>
+          </div>
+
+        </div>
+
+        <!-- Confirmation state -->
+        <div class="form-confirm" id="form-confirm">
+          <div class="form-confirm-check">✓</div>
+          <h3 class="form-confirm-title">Draft ready.</h3>
+          <p class="form-confirm-sub">Your email client should have opened with a pre-filled message — just add your name and hit send.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="wrap">
+    <footer>
+      <span class="footer-copy">© 2026 Builtwell</span>
+      <a href="mailto:aengelsjanne@gmail.com" class="footer-link">aengelsjanne@gmail.com</a>
+    </footer>
+  </div>
+
+  <script>
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ── Wire mesh factory ──
+    function makeWire(canvas, opts = {}) {
+      const ctx = canvas.getContext('2d');
+      const {
+        count    = 60,
+        maxDist  = 150,
+        speed    = 0.4,
+        dotColor = 'rgba(248,247,244,0.28)',
+        lineBase = [248, 247, 244],
+        maxAlpha = 0.13,
+        dotR     = 1.5,
+      } = opts;
+
+      let W, H, particles, mouse = { x: -999, y: -999 };
+
+      function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+
+      function init() {
+        particles = Array.from({ length: count }, () => ({
+          x:  Math.random() * W,
+          y:  Math.random() * H,
+          vx: (Math.random() - 0.5) * speed * 2,
+          vy: (Math.random() - 0.5) * speed * 2,
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const d  = Math.sqrt(dx * dx + dy * dy);
+            if (d < maxDist) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(${lineBase.join(',')},${(1 - d / maxDist) * maxAlpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        for (const p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, dotR, 0, Math.PI * 2);
+          ctx.fillStyle = dotColor;
+          ctx.fill();
+        }
+      }
+
+      function update() {
+        for (const p of particles) {
+          const dx = mouse.x - p.x, dy = mouse.y - p.y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < 180 && d > 0) { p.vx += (dx / d) * 0.025; p.vy += (dy / d) * 0.025; }
+          const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy), cap = speed * 2.5;
+          if (spd > cap) { p.vx = (p.vx / spd) * cap; p.vy = (p.vy / spd) * cap; }
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > W) p.vx *= -1;
+          if (p.y < 0 || p.y > H) p.vy *= -1;
+        }
+      }
+
+      function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+      const host = canvas.closest('section, .hero');
+      host?.addEventListener('mousemove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      });
+      host?.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+      new ResizeObserver(() => { resize(); init(); }).observe(canvas.parentElement);
+      resize(); init(); loop();
+    }
+
+    makeWire(document.getElementById('wire-canvas'), {
+      count: 72, maxDist: 165, speed: 0.38,
+      dotColor: 'rgba(248,247,244,0.22)', lineBase: [248,247,244], maxAlpha: 0.11,
+    });
+
+    // ── Header colour-switch ──
+    const header      = document.getElementById('site-header');
+    const heroEl      = document.getElementById('hero');
+    const heroContent = document.getElementById('hero-content');
+
+    function updateHeader() {
+      const heroBottom = heroEl.getBoundingClientRect().bottom;
+      header.classList.toggle('light',    heroBottom <= 80);
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }
+
+    // ── 1. Hero blur-out ──
+    function updateHeroBlur() {
+      if (reducedMotion) return;
+      const progress = Math.min(window.scrollY / heroEl.offsetHeight, 1);
+      heroContent.style.opacity   = Math.max(1 - progress * 1.6, 0);
+      heroContent.style.transform = `translateY(${-progress * 70}px)`;
+      heroContent.style.filter    = `blur(${progress * 14}px)`;
+    }
+
+    // ── 2. Capabilities sticky step ──
+    const capZone   = document.getElementById('cap-zone');
+    const capSlides = document.querySelectorAll('.cap-slide');
+    const capDots   = document.querySelectorAll('#cap-dots .cap-dot');
+    let   capStep       = 0;
+    let   capTarget     = 0;
+    let   capStepAt     = -999;
+    let   capCatchTimer = null;
+    let   capWasBefore  = true;
+
+    function applyCapStep(s) {
+      capStep   = s;
+      capStepAt = performance.now();
+      capSlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === s);
+        slide.classList.toggle('prev',   i < s);
+      });
+      capDots.forEach((dot, i) => dot.classList.toggle('active', i === s));
+    }
+
+    function capCatchup() {
+      if (capTarget === capStep) return;
+      applyCapStep(capStep + Math.sign(capTarget - capStep));
+      if (capTarget !== capStep) capCatchTimer = setTimeout(capCatchup, 220);
+    }
+
+    function updateCapabilities() {
+      if (reducedMotion || !capZone) return;
+      if (window.matchMedia('(max-width: 800px)').matches) return;
+
+      const zoneTop = capZone.offsetTop;
+      const zoneLen = capZone.offsetHeight - window.innerHeight;
+      const raw     = (window.scrollY - zoneTop) / zoneLen;
+
+      // Before zone — ensure step 0 is ready for entry
+      if (raw <= 0) {
+        capWasBefore = true;
+        if (capStep !== 0) applyCapStep(0);
+        return;
+      }
+      // After zone — lock on last step
+      if (raw >= 1) {
+        capWasBefore = false;
+        if (capStep !== 2) applyCapStep(2);
+        return;
+      }
+
+      // Entering zone from above — always land on step 0 with fresh cooldown
+      if (capWasBefore) {
+        capWasBefore = false;
+        clearTimeout(capCatchTimer);
+        applyCapStep(0);
+        capTarget = 0;
+        return;
+      }
+
+      capTarget = Math.min(Math.floor(raw * 3), 2);
+      clearTimeout(capCatchTimer);
+      if (capTarget !== capStep && performance.now() - capStepAt >= 460) {
+        applyCapStep(capStep + Math.sign(capTarget - capStep));
+      }
+      capCatchTimer = setTimeout(capCatchup, 160);
+    }
+
+    // ── 3. Work horizontal scroll with snap zones ──
+    const workZone    = document.getElementById('work-zone');
+    const workRail    = document.getElementById('work-rail');
+    const workCurr    = document.getElementById('work-curr');
+    const workFill    = document.getElementById('work-nav-fill');
+    const workPrev    = document.getElementById('work-prev');
+    const workNext    = document.getElementById('work-next');
+    const WORK_SLIDES = 3;
+
+    // Piecewise map: raw scroll progress (0→1) → display progress (0→1)
+    // Each slide has a hold zone; transitions are fast smoothstepped segments.
+    // Zone 550vh → scrollable 450vh:
+    //   slide 0 hold:  0.00→0.25  (112.5vh)
+    //   transition 0→1: 0.25→0.35  (45vh, smoothstepped)
+    //   slide 1 hold:  0.35→0.65  (135vh)
+    //   transition 1→2: 0.65→0.75  (45vh, smoothstepped)
+    //   slide 2 hold:  0.75→1.00  (112.5vh)
+    const WORK_SEGMENTS = [
+      [0.00, 0.25, 0,   0  ],
+      [0.25, 0.35, 0,   0.5],
+      [0.35, 0.65, 0.5, 0.5],
+      [0.65, 0.75, 0.5, 1  ],
+      [0.75, 1.00, 1,   1  ],
+    ];
+    // Raw progress midpoints of each slide's hold zone (used by arrow buttons)
+    const WORK_HOLD_MIDS = [0.125, 0.50, 0.875];
+
+    function workEase(p) {
+      for (const [rs, re, ds, de] of WORK_SEGMENTS) {
+        if (p <= re) {
+          const t = (re - rs < 0.0001) ? 1 : (p - rs) / (re - rs);
+          const e = t * t * (3 - 2 * t); // smoothstep (neutral for hold zones since ds===de)
+          return ds + e * (de - ds);
+        }
+      }
+      return 1;
+    }
+
+    let workCurrentX = 0;
+    let workTargetX  = 0;
+    let workRafId    = null;
+
+    function springWork() {
+      const diff = workTargetX - workCurrentX;
+      if (Math.abs(diff) < 0.15) {
+        workCurrentX = workTargetX;
+        workRail.style.transform = `translateX(${workCurrentX}px)`;
+        workRafId = null;
+        return;
+      }
+      workCurrentX += diff * 0.14;
+      workRail.style.transform = `translateX(${workCurrentX}px)`;
+      workRafId = requestAnimationFrame(springWork);
+    }
+
+    function scheduleWorkSpring() {
+      if (!workRafId) workRafId = requestAnimationFrame(springWork);
+    }
+
+    function updateWorkScroll() {
+      if (reducedMotion || !workZone) return;
+      if (window.matchMedia('(max-width: 800px)').matches) return;
+
+      const zoneTop  = workZone.offsetTop;
+      const zoneLen  = workZone.offsetHeight - window.innerHeight;
+      const rawProg  = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
+      const eased    = workEase(rawProg);
+
+      workTargetX = -eased * (WORK_SLIDES - 1) * window.innerWidth;
+      scheduleWorkSpring();
+
+      const step = Math.round(eased * (WORK_SLIDES - 1));
+      if (workFill) workFill.style.width = (eased * 100) + '%';
+      if (workCurr) workCurr.textContent = String(step + 1).padStart(2, '0');
+    }
+
+    // Arrow buttons jump to the center of each slide's hold zone
+    function scrollToSlide(index) {
+      if (!workZone) return;
+      const zoneTop = workZone.offsetTop;
+      const zoneLen = workZone.offsetHeight - window.innerHeight;
+      const target  = zoneTop + WORK_HOLD_MIDS[index] * zoneLen;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+
+    let currentSlide = 0;
+    workPrev?.addEventListener('click', () => {
+      currentSlide = Math.max(0, currentSlide - 1);
+      scrollToSlide(currentSlide);
+    });
+    workNext?.addEventListener('click', () => {
+      currentSlide = Math.min(WORK_SLIDES - 1, currentSlide + 1);
+      scrollToSlide(currentSlide);
+    });
+
+    function syncWorkSlide() {
+      if (!workZone) return;
+      const zoneTop  = workZone.offsetTop;
+      const zoneLen  = workZone.offsetHeight - window.innerHeight;
+      const rawProg  = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
+      currentSlide   = Math.round(workEase(rawProg) * (WORK_SLIDES - 1));
+    }
+
+    // ── 4. Process scroll ──
+    const procZone      = document.getElementById('proc-zone');
+    const procStepItems = document.querySelectorAll('.proc-step-item');
+    const procPanels    = document.querySelectorAll('.proc-panel');
+    let   procStep       = 0;
+    let   procTarget     = 0;
+    let   procStepAt     = -999;
+    let   procCatchTimer = null;
+    let   procWasBefore  = true;
+
+    function applyProcStep(s) {
+      procStep   = s;
+      procStepAt = performance.now();
+      procStepItems.forEach((item, i) => {
+        item.classList.toggle('active', i === s);
+        item.classList.toggle('done',   i < s);
+      });
+      procPanels.forEach((panel, i) => panel.classList.toggle('active', i === s));
+    }
+
+    function procCatchup() {
+      if (procTarget === procStep) return;
+      applyProcStep(procStep + Math.sign(procTarget - procStep));
+      if (procTarget !== procStep) procCatchTimer = setTimeout(procCatchup, 220);
+    }
+
+    function updateProcessScroll() {
+      if (!procZone) return;
+      const zoneTop = procZone.offsetTop;
+      const zoneLen = procZone.offsetHeight - window.innerHeight;
+      const raw     = (window.scrollY - zoneTop) / zoneLen;
+
+      // Before zone — ensure step 0 is ready for entry
+      if (raw <= 0) {
+        procWasBefore = true;
+        if (procStep !== 0) applyProcStep(0);
+        return;
+      }
+      // After zone — lock on last step
+      if (raw >= 1) {
+        procWasBefore = false;
+        if (procStep !== 3) applyProcStep(3);
+        return;
+      }
+
+      // Entering zone from above — always land on step 0 with fresh cooldown
+      if (procWasBefore) {
+        procWasBefore = false;
+        clearTimeout(procCatchTimer);
+        applyProcStep(0);
+        procTarget = 0;
+        return;
+      }
+
+      procTarget = Math.min(Math.floor(raw * 4), 3);
+      clearTimeout(procCatchTimer);
+      if (procTarget !== procStep && performance.now() - procStepAt >= 460) {
+        applyProcStep(procStep + Math.sign(procTarget - procStep));
+      }
+      procCatchTimer = setTimeout(procCatchup, 160);
+    }
+
+    // ── 5. About scroll — differentiators reveal progressively ──
+    const aboutZone  = document.getElementById('about-zone');
+    const aboutDiffs = document.querySelectorAll('.about-diff');
+
+    function updateAboutScroll() {
+      if (!aboutZone) return;
+      const zoneTop = aboutZone.offsetTop;
+      const zoneLen = aboutZone.offsetHeight - window.innerHeight;
+      const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
+      aboutDiffs.forEach((diff, i) => {
+        diff.classList.toggle('active', raw >= (i + 1) * 0.25);
+      });
+    }
+
+    // ── 6. Testimonials scroll — crossfade between the two ──
+    const testiZone   = document.getElementById('testi-zone');
+    const testiCards  = document.querySelectorAll('.testi-card');
+    const testiCurrEl = document.getElementById('testi-curr');
+
+    function updateTestiScroll() {
+      if (!testiZone) return;
+      const zoneTop = testiZone.offsetTop;
+      const zoneLen = testiZone.offsetHeight - window.innerHeight;
+      const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
+      const active  = raw < 0.5 ? 0 : 1;
+      testiCards.forEach((card, i) => card.classList.toggle('active', i === active));
+      if (testiCurrEl) testiCurrEl.textContent = active + 1;
+    }
+
+    // ── Combine all scroll handlers ──
+    function onScroll() {
+      updateHeader();
+      updateHeroBlur();
+      updateCapabilities();
+      updateAboutScroll();
+      updateProcessScroll();
+      updateWorkScroll();
+      syncWorkSlide();
+      updateTestiScroll();
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── Init ──
+    updateCapabilities();
+    updateAboutScroll();
+    updateProcessScroll();
+    updateWorkScroll();
+    updateTestiScroll();
+    updateHeader();
+
+    // ── Scroll reveal (work + testimonials) ──
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.section').forEach((section) => {
+      section.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = (i * 90) + 'ms';
+        revealObs.observe(el);
+      });
+    });
+    document.querySelectorAll('.form-section .reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 120) + 'ms';
+      revealObs.observe(el);
+    });
+
+    // ── Intake form ──
+    const formAnswers = {};
+    const FORM_STEPS  = 4;
+    let   formCurrentStep = 1;
+    let   formBusy = false;
+
+    const FORM_DATA = [
+      { q: 'What do you need built?', opts: [
+        ['mobile-app',    'A mobile app for my customers'],
+        ['booking-system','A booking or scheduling system'],
+        ['internal-tool', 'An internal tool or dashboard'],
+        ['other',         'Something else'],
+      ]},
+      { q: 'What kind of business do you run?', opts: [
+        ['retail',      'Retail / e-commerce'],
+        ['hospitality', 'Hospitality (salon, clinic, restaurant)'],
+        ['logistics',   'Logistics / delivery / field work'],
+        ['services',    'Professional services'],
+      ]},
+      { q: "What's your rough budget?", opts: [
+        ['under-2k', 'Under €2,000'],
+        ['2k-6k',    '€2,000 – €6,000'],
+        ['6k-plus',  '€6,000+'],
+        ['not-sure', 'Not sure yet'],
+      ]},
+      { q: 'When do you need this?', opts: [
+        ['2-weeks',  'Within 2 weeks'],
+        ['4-weeks',  'Within 4 weeks'],
+        ['8-weeks',  'Within 8 weeks'],
+        ['3-months', 'Within 3 months'],
+      ]},
+    ];
+
+    function attachOptListeners(num) {
+      document.querySelectorAll('#form-options .form-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          if (formBusy) return;
+          document.querySelectorAll('#form-options .form-option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          formAnswers['step' + num] = opt.dataset.value;
+          if (num < FORM_STEPS) {
+            setTimeout(() => formGoTo(num + 1), 140);
+          } else {
+            setTimeout(() => {
+              document.getElementById('form-counter').style.display = 'none';
+              document.getElementById('form-draft').style.display = '';
+            }, 180);
+          }
+        });
+      });
+    }
+
+    function formGoTo(num) {
+      if (formBusy || num < 1 || num > FORM_STEPS) return;
+      formBusy = true;
+
+      const forward = num > formCurrentStep;
+      const data    = FORM_DATA[num - 1];
+      const qEl     = document.getElementById('form-q');
+      const optsEl  = document.getElementById('form-options');
+
+      qEl.style.opacity = '0';
+      optsEl.style.transition = 'transform 0.3s var(--ease-out), opacity 0.25s var(--ease-out)';
+      optsEl.style.transform  = forward ? 'translateX(-105%)' : 'translateX(105%)';
+      optsEl.style.opacity    = '0';
+
+      setTimeout(() => {
+        qEl.textContent = data.q;
+
+        optsEl.style.transition = 'none';
+        optsEl.style.transform  = forward ? 'translateX(105%)' : 'translateX(-105%)';
+        optsEl.style.opacity    = '1';
+        optsEl.innerHTML = data.opts.map(([v, l]) =>
+          `<div class="form-option" data-value="${v}">${l}</div>`
+        ).join('');
+        if (formAnswers['step' + num]) {
+          optsEl.querySelector(`[data-value="${formAnswers['step'+num]}"]`)?.classList.add('selected');
+        }
+        attachOptListeners(num);
+
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          optsEl.style.transition = 'transform 0.36s var(--ease-out), opacity 0.3s var(--ease-out)';
+          optsEl.style.transform  = 'translateX(0)';
+        }));
+
+        requestAnimationFrame(() => {
+          qEl.style.transition = 'opacity 0.28s ease';
+          qEl.style.opacity    = '1';
+        });
+
+        document.getElementById('form-counter').textContent = num + ' of 4';
+        document.getElementById('form-counter').style.display = '';
+        document.getElementById('form-draft').style.display = 'none';
+        document.getElementById('form-back-btn').style.visibility = num > 1 ? 'visible' : 'hidden';
+        document.getElementById('form-progress').style.width = ((num / FORM_STEPS) * 100) + '%';
+
+        formCurrentStep = num;
+        setTimeout(() => { formBusy = false; }, 400);
+      }, 260);
+    }
+
+    // ── Email translations (pre-filled mailto body adapts to the visitor's system language) ──
+    const EMAIL_I18N = {
+      en: {
+        subject: 'Project inquiry via builtwell.dev',
+        greeting: 'Hi Jan,',
+        intro: "I'd like to talk about a project. Here's a quick summary:",
+        labels: { project: 'Project type', business: 'Business type', budget: 'Budget', timeline: 'Timeline' },
+        detailsPrompt: 'A bit more about what I need (please describe):',
+        placeholder: '...',
+        signoff: 'Thanks,',
+        namePrompt: '[your name]',
+        opt1: { 'mobile-app': 'Mobile app', 'booking-system': 'Booking / scheduling', 'internal-tool': 'Internal tool / dashboard', 'other': 'Something else' },
+        opt2: { 'retail': 'Retail / e-commerce', 'hospitality': 'Hospitality', 'logistics': 'Logistics / field work', 'services': 'Professional services' },
+        opt3: { 'under-2k': 'Under €2,000', '2k-6k': '€2,000–€6,000', '6k-plus': '€6,000+', 'not-sure': 'Not sure yet' },
+        opt4: { '2-weeks': 'Within 2 weeks', '4-weeks': 'Within 4 weeks', '8-weeks': 'Within 8 weeks', '3-months': 'Within 3 months' },
+      },
+      de: {
+        subject: 'Projektanfrage über builtwell.dev',
+        greeting: 'Hallo Jan,',
+        intro: 'ich würde gerne über ein Projekt sprechen. Hier eine kurze Übersicht:',
+        labels: { project: 'Art des Projekts', business: 'Art des Unternehmens', budget: 'Budget', timeline: 'Zeitrahmen' },
+        detailsPrompt: 'Etwas mehr dazu, was ich brauche (bitte beschreiben):',
+        placeholder: '...',
+        signoff: 'Viele Grüße,',
+        namePrompt: '[Ihr Name]',
+        opt1: { 'mobile-app': 'Mobile App', 'booking-system': 'Buchung / Terminplanung', 'internal-tool': 'Internes Tool / Dashboard', 'other': 'Etwas anderes' },
+        opt2: { 'retail': 'Einzelhandel / E-Commerce', 'hospitality': 'Gastronomie / Hotellerie', 'logistics': 'Logistik / Außendienst', 'services': 'Dienstleistungen' },
+        opt3: { 'under-2k': 'Unter 2.000 €', '2k-6k': '2.000–6.000 €', '6k-plus': '6.000 €+', 'not-sure': 'Noch unklar' },
+        opt4: { '2-weeks': 'Innerhalb von 2 Wochen', '4-weeks': 'Innerhalb von 4 Wochen', '8-weeks': 'Innerhalb von 8 Wochen', '3-months': 'Innerhalb von 3 Monaten' },
+      },
+      fr: {
+        subject: 'Demande de projet via builtwell.dev',
+        greeting: 'Bonjour Jan,',
+        intro: "j'aimerais discuter d'un projet. Voici un bref résumé :",
+        labels: { project: 'Type de projet', business: "Type d'entreprise", budget: 'Budget', timeline: 'Délai' },
+        detailsPrompt: "Un peu plus de détails sur ce dont j'ai besoin (merci de décrire) :",
+        placeholder: '...',
+        signoff: 'Merci,',
+        namePrompt: '[votre nom]',
+        opt1: { 'mobile-app': 'Application mobile', 'booking-system': 'Réservation / planification', 'internal-tool': 'Outil interne / tableau de bord', 'other': 'Autre chose' },
+        opt2: { 'retail': 'Commerce / e-commerce', 'hospitality': 'Hôtellerie / restauration', 'logistics': 'Logistique / terrain', 'services': 'Services professionnels' },
+        opt3: { 'under-2k': 'Moins de 2 000 €', '2k-6k': '2 000–6 000 €', '6k-plus': '6 000 €+', 'not-sure': 'Pas encore sûr' },
+        opt4: { '2-weeks': 'Sous 2 semaines', '4-weeks': 'Sous 4 semaines', '8-weeks': 'Sous 8 semaines', '3-months': 'Sous 3 mois' },
+      },
+      es: {
+        subject: 'Consulta de proyecto vía builtwell.dev',
+        greeting: 'Hola Jan,',
+        intro: 'me gustaría hablar de un proyecto. Aquí tienes un breve resumen:',
+        labels: { project: 'Tipo de proyecto', business: 'Tipo de negocio', budget: 'Presupuesto', timeline: 'Plazo' },
+        detailsPrompt: 'Un poco más sobre lo que necesito (por favor, descríbelo):',
+        placeholder: '...',
+        signoff: 'Gracias,',
+        namePrompt: '[tu nombre]',
+        opt1: { 'mobile-app': 'Aplicación móvil', 'booking-system': 'Reservas / programación', 'internal-tool': 'Herramienta interna / panel', 'other': 'Otra cosa' },
+        opt2: { 'retail': 'Comercio / e-commerce', 'hospitality': 'Hostelería', 'logistics': 'Logística / trabajo de campo', 'services': 'Servicios profesionales' },
+        opt3: { 'under-2k': 'Menos de 2.000 €', '2k-6k': '2.000–6.000 €', '6k-plus': '6.000 €+', 'not-sure': 'Aún no lo sé' },
+        opt4: { '2-weeks': 'En 2 semanas', '4-weeks': 'En 4 semanas', '8-weeks': 'En 8 semanas', '3-months': 'En 3 meses' },
+      },
+    };
+
+    function detectEmailLang() {
+      const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+      for (const l of langs) {
+        const code = (l || '').slice(0, 2).toLowerCase();
+        if (EMAIL_I18N[code]) return code;
+      }
+      return 'en';
+    }
+
+    // Init
+    attachOptListeners(1);
+    document.getElementById('form-back-btn').addEventListener('click', () => formGoTo(formCurrentStep - 1));
+
+    document.getElementById('form-draft').addEventListener('click', () => {
+      const t = EMAIL_I18N[detectEmailLang()];
+      const dash = '–';
+
+      const body = [
+        t.greeting,
+        '',
+        t.intro,
+        '',
+        t.labels.project  + ': ' + (t.opt1[formAnswers.step1] || dash),
+        t.labels.business + ': ' + (t.opt2[formAnswers.step2] || dash),
+        t.labels.budget   + ': ' + (t.opt3[formAnswers.step3] || dash),
+        t.labels.timeline + ': ' + (t.opt4[formAnswers.step4] || dash),
+        '',
+        t.detailsPrompt,
+        t.placeholder,
+        '',
+        t.signoff,
+        t.namePrompt,
+      ].join('\n');
+
+      document.getElementById('form-steps-wrap').style.display   = 'none';
+      document.getElementById('form-progress-bar').style.display = 'none';
+      const confirm = document.getElementById('form-confirm');
+      confirm.style.display = 'flex';
+      confirm.classList.add('visible');
+
+      window.location.href = 'mailto:aengelsjanne@gmail.com?subject=' + encodeURIComponent(t.subject) + '&body=' + encodeURIComponent(body);
+    });
+
+  </script>
+
+</body>
+</html>
