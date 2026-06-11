@@ -906,6 +906,7 @@
       line-height: 1.8;
       max-width: 460px;
     }
+    .proc-marker { display: none; }   /* mobile-only travelling timeline dot */
 
     /* ── Intake form ── */
     .form-section {
@@ -1197,7 +1198,22 @@
       .proc-sticky { position: static; height: auto; grid-template-columns: 1fr; }
       .proc-steps-list { display: none; }
       .proc-nav { border-right: none; padding: 6rem var(--pad) 1rem; }
-      .proc-detail { position: static; display: block; padding: 1rem var(--pad) 6rem; }
+      .proc-detail { position: relative; display: block; padding: 1rem var(--pad) 6rem; }
+      .proc-marker {
+        display: block;
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: var(--bg);
+        box-shadow: 0 0 0 5px rgba(248,247,244,0.12);
+        opacity: 0;
+        top: 0;
+        left: 0.25rem;
+        z-index: 2;
+        pointer-events: none;
+        transition: top 0.5s var(--ease-out), opacity 0.35s var(--ease-out);
+      }
       .proc-panel {
         display: block !important;
         position: relative;
@@ -1238,8 +1254,8 @@
       /* reveal each step + fill its dot/line as it scrolls into view */
       body.proc-anim .proc-panel { opacity: 0; transform: translateY(22px); transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out); }
       body.proc-anim .proc-panel.in-view { opacity: 1; transform: none; }
-      .proc-panel.in-view::after { background: var(--bg); transform: scale(1.25); }
-      .proc-panel.in-view::before { background: rgba(248,247,244,0.5); }
+      .proc-panel.in-view::after { background: rgba(248,247,244,0.5); }
+      .proc-panel.in-view::before { background: rgba(248,247,244,0.45); }
 
       /* work: unpin, swipeable scroll-snap carousel */
       .work-zone { height: auto; }
@@ -1309,7 +1325,7 @@
       .testi-item { display: flex; flex-direction: column-reverse; gap: 1.75rem; align-items: flex-start; }
       .testi-author { display: flex; align-items: center; gap: 1rem; }
       .testi-text { font-size: 1.125rem; line-height: 1.6; }
-      .testi-nav { display: flex; padding: 0.5rem var(--pad) 3rem; }
+      .testi-nav { display: flex; padding: 0.5rem var(--pad) 6.5rem; }
 
       /* form */
       .form-options { grid-template-columns: 1fr; }
@@ -1665,6 +1681,8 @@
 
       <!-- Right: step detail — swaps as you scroll -->
       <div class="proc-detail">
+
+        <div class="proc-marker" aria-hidden="true"></div>
 
         <div class="proc-panel active" data-step="0">
           <span class="proc-panel-num">01</span>
@@ -2334,18 +2352,28 @@
         syncTestiSwipe();
       }
 
-      // 4. Process — reveal each step + fill its dot as it scrolls into view
+      // 4. Process — reveal each step as it scrolls up, and move a single dot down to the current step
       document.body.classList.add('proc-anim');
-      if ('IntersectionObserver' in window) {
-        const procObs = new IntersectionObserver((entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) { e.target.classList.add('in-view'); procObs.unobserve(e.target); }
-          });
-        }, { threshold: 0.4 });
-        procPanels.forEach((p) => procObs.observe(p));
-      } else {
-        procPanels.forEach((p) => p.classList.add('in-view'));
-      }
+      const procMarker = document.querySelector('.proc-marker');
+      const updateProcTimeline = () => {
+        const triggerY = window.innerHeight * 0.55;   // activate a step once it reaches the upper-middle
+        let activePanel = null;
+        procPanels.forEach((p) => {
+          if (p.getBoundingClientRect().top <= triggerY) { p.classList.add('in-view'); activePanel = p; }
+        });
+        if (procMarker) {
+          if (activePanel) {
+            procMarker.style.top  = (activePanel.offsetTop + 0.6 * 16) + 'px';
+            procMarker.style.left = (activePanel.offsetLeft + 0.25 * 16) + 'px';
+            procMarker.style.opacity = '1';
+          } else {
+            procMarker.style.opacity = '0';
+          }
+        }
+      };
+      window.addEventListener('scroll', updateProcTimeline, { passive: true });
+      window.addEventListener('resize', updateProcTimeline, { passive: true });
+      updateProcTimeline();
 
       // 5. About — reveal the differentiator bullets as they scroll into view
       if (!reducedMotion && 'IntersectionObserver' in window) {
