@@ -581,6 +581,34 @@
       width: 0%;
     }
 
+    /* Mobile-only carousel indicators (capabilities + testimonials) — hidden on desktop */
+    .cap-nav, .testi-nav {
+      display: none;
+      align-items: center;
+      gap: 1.25rem;
+      width: 100%;
+    }
+    .cap-nav-counter, .testi-nav-counter {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .cap-nav-counter strong, .testi-nav-counter strong { color: var(--text); font-weight: 600; }
+    .cap-nav-track, .testi-nav-track {
+      position: relative;
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .cap-nav-fill, .testi-nav-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--text);
+      width: 0%;
+      transition: width 0.25s var(--ease-out);
+    }
+
     .work-nav-arrows { margin-left: auto; display: flex; gap: 0.5rem; }
 
     .work-nav-arrow {
@@ -1120,30 +1148,41 @@
       header { transition: transform 0.35s var(--ease-out), background 0.4s, border-color 0.4s; }
       header.header-hidden { transform: translateY(-100%); }
 
-      /* capabilities: unpin, one full-screen capability at a time */
+      /* capabilities: sideways swipe carousel, one at a time */
       .cap-zone { height: auto; }
       .cap-sticky { position: static; height: auto; display: block; padding: 4rem 0 0; }
-      .cap-sticky-head { padding: 0 var(--pad) 0.5rem; }
-      .cap-slides { position: static; overflow: visible; }
+      .cap-sticky-head { padding: 0 var(--pad) 1.5rem; }
+      .cap-slides {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 0;
+        padding: 0;
+        scrollbar-width: none;
+      }
+      .cap-slides::-webkit-scrollbar { display: none; }
       .cap-slide {
         position: static !important;
         opacity: 1 !important;
         transform: none !important;
         pointer-events: auto;
-        min-height: 100vh;
+        flex: 0 0 100%;
+        scroll-snap-align: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 3rem 0;
-        margin-bottom: 0;
+        padding: 1rem var(--pad) 0;
+        margin: 0;
       }
-      .cap-slide + .cap-slide { border-top: 1px solid var(--rule); }
-      .cap-slide-inner { display: flex; flex-direction: column; gap: 1.75rem; }
+      .cap-slide-inner { display: flex; flex-direction: column; gap: 1.5rem; }
       .cap-illus { order: 2; }
       .cap-left { order: 1; display: flex; flex-direction: row; align-items: baseline; gap: 0.6rem; }
       .cap-num { font-size: 1.125rem; color: var(--muted); margin-bottom: 0; }
       .cap-title { font-size: 1.875rem; }
       .cap-dots { display: none; }
+      .cap-nav { display: flex; padding: 1.75rem var(--pad) 0; }
       /* fallback when JS scroll-in animation is NOT active (no-JS / reduced-motion) */
       body:not(.cap-anim) .cap-illus .ig { opacity: 1 !important; animation: none !important; }
       body:not(.cap-anim) .ig-flow,
@@ -1152,50 +1191,26 @@
       /* animated mode: start illustration groups hidden so .active can draw them in */
       body.cap-anim .cap-illus .ig { opacity: 0; }
 
-      /* process: unpin, vertical timeline (all steps visible, connected) */
+      /* process: full-size steps in a long dark section, scroll down through */
       .proc-zone { height: auto; }
       .proc-sticky { position: static; height: auto; grid-template-columns: 1fr; }
       .proc-steps-list { display: none; }
-      .proc-nav { border-right: none; padding: 5rem var(--pad) 1.5rem; }
-      .proc-detail { position: relative; padding: 0 var(--pad) 4rem; }
+      .proc-nav { border-right: none; padding: 5rem var(--pad) 0.5rem; }
+      .proc-detail { position: static; padding: 0 var(--pad) 4rem; }
       .proc-panel {
         display: block !important;
-        position: relative;
+        position: static;
         opacity: 1;
         transform: none;
         pointer-events: auto;
-        padding: 0 0 2.25rem 2.75rem;
+        padding: 3rem 0;
         margin: 0;
       }
-      .proc-panel:last-child { padding-bottom: 0; }
-      .proc-panel::before {
-        content: "";
-        position: absolute;
-        left: 0.7rem;
-        top: 1.9rem;
-        bottom: -0.6rem;
-        width: 1px;
-        background: rgba(248,247,244,0.18);
-      }
-      .proc-panel:last-child::before { display: none; }
-      .proc-panel-num {
-        position: relative;
-        left: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 1.5rem;
-        height: 1.5rem;
-        margin: 0 0 0.7rem -2.75rem;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--bg);
-        background: var(--dark);
-        border: 1px solid rgba(248,247,244,0.3);
-        border-radius: 50%;
-      }
-      .proc-panel-title { font-size: 1.0625rem; margin-bottom: 0.25rem; }
-      .proc-panel-desc { font-size: 0.9375rem; }
+      .proc-panel:first-child { padding-top: 1.5rem; }
+      .proc-panel + .proc-panel { border-top: 1px solid rgba(248,247,244,0.12); }
+      .proc-panel-num { font-size: 3.5rem; margin-bottom: 0.75rem; }
+      .proc-panel-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+      .proc-panel-desc { font-size: 1rem; }
 
       /* work: unpin, swipeable scroll-snap carousel */
       .work-zone { height: auto; }
@@ -1207,8 +1222,8 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        gap: 1rem;
-        padding: 0 var(--pad) 1.5rem;
+        gap: 0;
+        padding: 0 0 1.5rem;
         height: auto;
         scrollbar-width: none;
       }
@@ -1219,6 +1234,7 @@
         width: auto;
         height: auto;
         display: block;
+        padding: 0 var(--pad);
       }
       .work-slide-inner { display: block; padding: 0; }
       .work-slide-thumb { height: 200px; margin-bottom: 1.25rem; }
@@ -1228,24 +1244,25 @@
       .work-nav { display: flex; position: static; transform: none; left: auto; padding: 0 var(--pad) 2.5rem; max-width: none; }
       .work-nav-arrows { display: none; }
 
-      /* about: unpin, text first then photo */
+      /* about: unpin, text first then bigger photo, fills the screen */
       .about-zone { height: auto; }
-      .about-sticky { position: static; height: auto; padding: 5rem var(--pad); }
+      .about-sticky { position: static; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 6rem var(--pad); }
       .about-diff { opacity: 1; transform: none; }
       .about-grid { display: flex; flex-direction: column-reverse; gap: 2.5rem; }
-      .about-photo { aspect-ratio: 4/3; max-width: none; }
+      .about-photo { aspect-ratio: 4/5; max-width: none; }
 
       /* testimonials: unpin, swipeable scroll-snap carousel */
       .testi-zone { height: auto; }
       .testi-sticky { position: static; height: auto; overflow: visible; }
       .testi-hud { position: static; padding: 5rem var(--pad) 1.5rem; }
+      .testi-counter { display: none; }   /* moved to bottom progress nav */
       .testi-rail {
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        gap: 1rem;
-        padding: 0 var(--pad) 2rem;
+        gap: 0;
+        padding: 0 0 1.5rem;
         scrollbar-width: none;
       }
       .testi-rail::-webkit-scrollbar { display: none; }
@@ -1256,11 +1273,12 @@
         pointer-events: auto;
         flex: 0 0 100%;
         scroll-snap-align: center;
-        padding: 0;
+        padding: 0 var(--pad);
       }
       .testi-item { display: flex; flex-direction: column-reverse; gap: 1.75rem; align-items: flex-start; }
       .testi-author { display: flex; align-items: center; gap: 1rem; }
       .testi-text { font-size: 1.125rem; line-height: 1.6; }
+      .testi-nav { display: flex; padding: 0.5rem var(--pad) 3rem; }
 
       /* form */
       .form-options { grid-template-columns: 1fr; }
@@ -1551,6 +1569,11 @@
         <div class="cap-dot"></div>
       </div>
 
+      <div class="cap-nav">
+        <span class="cap-nav-counter"><strong id="cap-curr">01</strong> / 03</span>
+        <div class="cap-nav-track"><div class="cap-nav-fill" id="cap-nav-fill"></div></div>
+      </div>
+
     </div>
   </div>
 
@@ -1747,6 +1770,11 @@
           </div>
         </div>
       </div>
+      </div>
+
+      <div class="testi-nav">
+        <span class="testi-nav-counter"><strong id="testi-curr-m">01</strong> / 02</span>
+        <div class="testi-nav-track"><div class="testi-nav-fill" id="testi-nav-fill"></div></div>
       </div>
 
     </div>
@@ -2225,13 +2253,23 @@
     // ── Mobile-only enhancements (≤800px): scroll-in SVG animation, swipe carousels, tappable process ──
     if (window.matchMedia('(max-width: 800px)').matches) {
 
-      // 1. Capabilities — animate each illustration as it scrolls into view
-      if (!reducedMotion && 'IntersectionObserver' in window) {
-        document.body.classList.add('cap-anim');
-        const capMobObs = new IntersectionObserver((entries) => {
-          entries.forEach((e) => e.target.classList.toggle('active', e.isIntersecting));
-        }, { threshold: 0.4 });
-        capSlides.forEach((s) => capMobObs.observe(s));
+      // 1. Capabilities — sideways swipe carousel: animate the centered slide, sync the indicator
+      if (!reducedMotion) document.body.classList.add('cap-anim');
+      const capRail = document.querySelector('.cap-slides');
+      const capFill = document.getElementById('cap-nav-fill');
+      const capCurr = document.getElementById('cap-curr');
+      if (capRail) {
+        const nCap = capSlides.length;
+        const syncCap = () => {
+          const max  = capRail.scrollWidth - capRail.clientWidth;
+          const frac = max > 0 ? capRail.scrollLeft / max : 0;
+          const idx  = Math.round(frac * (nCap - 1));
+          capSlides.forEach((s, i) => s.classList.toggle('active', i === idx));
+          if (capFill) capFill.style.width = (frac * 100) + '%';
+          if (capCurr) capCurr.textContent = String(idx + 1).padStart(2, '0');
+        };
+        capRail.addEventListener('scroll', syncCap, { passive: true });
+        syncCap();
       }
 
       // 2. Work — sync progress fill + counter to swipe position
@@ -2246,20 +2284,24 @@
         syncWorkSwipe();
       }
 
-      // 3. Testimonials — sync counter to swipe position
+      // 3. Testimonials — sync bottom progress fill + counter to swipe position
       const testiRail = document.querySelector('.testi-rail');
+      const testiFill = document.getElementById('testi-nav-fill');
+      const testiCurrM = document.getElementById('testi-curr-m');
       if (testiRail) {
         const tCount = testiCards.length;
         const syncTestiSwipe = () => {
           const max  = testiRail.scrollWidth - testiRail.clientWidth;
           const frac = max > 0 ? testiRail.scrollLeft / max : 0;
-          if (testiCurrEl) testiCurrEl.textContent = Math.round(frac * (tCount - 1)) + 1;
+          const idx  = Math.round(frac * (tCount - 1));
+          if (testiFill) testiFill.style.width = (frac * 100) + '%';
+          if (testiCurrM) testiCurrM.textContent = String(idx + 1).padStart(2, '0');
         };
         testiRail.addEventListener('scroll', syncTestiSwipe, { passive: true });
         syncTestiSwipe();
       }
 
-      // 4. Process is a static vertical timeline on mobile — all panels shown via CSS, no JS needed.
+      // 4. Process is a static full-size timeline on mobile — all panels shown via CSS, no JS needed.
     }
 
     // ── Intake form ──
