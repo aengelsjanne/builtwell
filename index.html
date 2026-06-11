@@ -886,6 +886,19 @@
       position: relative;
       overflow: hidden;
     }
+    /* Desktop: pin the intake form so visitors pause on it before the footer scrolls in */
+    @media (min-width: 801px) {
+      .form-zone { height: 190vh; position: relative; }
+      .form-section {
+        position: sticky;
+        top: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4rem 0;
+      }
+    }
     .form-section-head { margin-bottom: 4rem; text-align: center; }
     .form-section-label {
       font-size: 0.6875rem;
@@ -1068,6 +1081,7 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
       .cap-slide { opacity: 1 !important; transform: none !important; }
+      .cap-illus .ig { opacity: 1 !important; }
       .work-zone { height: auto; }
       .work-sticky { position: static; height: auto; overflow: visible; }
       .work-rail { transform: none !important; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 4rem var(--pad); height: auto; }
@@ -1114,10 +1128,13 @@
       .cap-slide-inner { grid-template-columns: 1fr; gap: 1.25rem; }
       .cap-num { font-size: 4rem; }
       .cap-dots { display: none; }
-      .cap-illus .ig { opacity: 1 !important; animation: none !important; }
-      .ig-flow { display: none; }
-      .chart-cursor { display: none; }
-      .notif-pulse { animation: none !important; }
+      /* fallback when JS scroll-in animation is NOT active (no-JS / reduced-motion) */
+      body:not(.cap-anim) .cap-illus .ig { opacity: 1 !important; animation: none !important; }
+      body:not(.cap-anim) .ig-flow,
+      body:not(.cap-anim) .chart-cursor { display: none; }
+      body:not(.cap-anim) .notif-pulse { animation: none !important; }
+      /* animated mode: start illustration groups hidden so .active can draw them in */
+      body.cap-anim .cap-illus .ig { opacity: 0; }
 
       /* process: unpin, single column */
       .proc-zone { height: auto; }
@@ -1128,19 +1145,38 @@
       .proc-panel:not(.active) { display: none; }
       .proc-panel-num { font-size: 3.5rem; margin-bottom: 1rem; }
       .proc-step-item.active .proc-step-name { font-size: 1.0625rem; }
+      .proc-step-item { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
-      /* work: unpin, stack as grid */
+      /* work: unpin, swipeable scroll-snap carousel */
       .work-zone { height: auto; }
       .work-sticky { position: static; height: auto; overflow: visible; }
       .work-sticky-head { position: static; transform: none; left: auto; padding: 6rem var(--pad) 3rem; max-width: none; }
-      .work-rail { transform: none !important; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 0 var(--pad) 4rem; height: auto; }
-      .work-slide { width: auto; height: auto; display: block; }
+      .work-rail {
+        transform: none !important;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        padding: 0 var(--pad) 1.5rem;
+        height: auto;
+        scrollbar-width: none;
+      }
+      .work-rail::-webkit-scrollbar { display: none; }
+      .work-slide {
+        flex: 0 0 82%;
+        scroll-snap-align: center;
+        width: auto;
+        height: auto;
+        display: block;
+      }
       .work-slide-inner { display: block; padding: 0; }
       .work-slide-thumb { height: 200px; margin-bottom: 1.25rem; }
       .work-slide-num { display: none; }
       .work-slide-title { font-size: 1.375rem; margin-bottom: 0.4rem; }
       .work-slide-desc { max-width: none; }
-      .work-nav { display: none; }
+      .work-nav { display: flex; position: static; transform: none; left: auto; padding: 0 var(--pad) 2.5rem; max-width: none; }
+      .work-nav-arrows { display: none; }
 
       /* about: unpin, stack */
       .about-zone { height: auto; }
@@ -1149,11 +1185,29 @@
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .about-photo { aspect-ratio: 4/3; max-width: 400px; }
 
-      /* testimonials: unpin, stack both */
+      /* testimonials: unpin, swipeable scroll-snap carousel */
       .testi-zone { height: auto; }
       .testi-sticky { position: static; height: auto; overflow: visible; }
       .testi-hud { position: static; padding: 6rem var(--pad) 2rem; }
-      .testi-card { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 0 var(--pad) 4rem; }
+      .testi-rail {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        padding: 0 var(--pad) 2rem;
+        scrollbar-width: none;
+      }
+      .testi-rail::-webkit-scrollbar { display: none; }
+      .testi-card {
+        position: static;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        flex: 0 0 88%;
+        scroll-snap-align: center;
+        padding: 0;
+      }
       .testi-item { grid-template-columns: 1fr; gap: 2rem; }
 
       /* form */
@@ -1164,7 +1218,8 @@
     @media (max-width: 560px) {
       :root { --pad: 1.25rem; }
       .hero { padding-bottom: 4.5rem; }
-      .work-rail { grid-template-columns: 1fr; }
+      .work-slide { flex-basis: 88%; }
+      .testi-card { flex-basis: 92%; }
       .work-slide-thumb { height: 220px; }
       footer { flex-direction: column; align-items: flex-start; }
       .about-photo { max-width: none; }
@@ -1605,6 +1660,7 @@
         <p class="testi-counter"><span id="testi-curr">1</span>&thinsp;/&thinsp;2</p>
       </div>
 
+      <div class="testi-rail">
       <div class="testi-card active" data-testi="0">
         <div class="testi-item">
           <div class="testi-author">
@@ -1640,11 +1696,13 @@
           </div>
         </div>
       </div>
+      </div>
 
     </div>
   </div>
 
   <!-- ── Intake form ── -->
+  <div class="form-zone">
   <div class="form-section" id="start-project">
     <div class="wrap">
       <div class="form-section-head reveal">
@@ -1688,6 +1746,7 @@
 
       </div>
     </div>
+  </div>
   </div>
 
   <!-- ── Footer ── -->
@@ -2001,6 +2060,7 @@
 
     function updateProcessScroll() {
       if (!procZone) return;
+      if (window.matchMedia('(max-width: 800px)').matches) return;
       const zoneTop = procZone.offsetTop;
       const zoneLen = procZone.offsetHeight - window.innerHeight;
       const raw     = (window.scrollY - zoneTop) / zoneLen;
@@ -2056,6 +2116,7 @@
 
     function updateTestiScroll() {
       if (!testiZone) return;
+      if (window.matchMedia('(max-width: 800px)').matches) return;
       const zoneTop = testiZone.offsetTop;
       const zoneLen = testiZone.offsetHeight - window.innerHeight;
       const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
@@ -2103,6 +2164,52 @@
       el.style.transitionDelay = (i * 120) + 'ms';
       revealObs.observe(el);
     });
+
+    // ── Mobile-only enhancements (≤800px): scroll-in SVG animation, swipe carousels, tappable process ──
+    if (window.matchMedia('(max-width: 800px)').matches) {
+
+      // 1. Capabilities — animate each illustration as it scrolls into view
+      if (!reducedMotion && 'IntersectionObserver' in window) {
+        document.body.classList.add('cap-anim');
+        const capMobObs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => e.target.classList.toggle('active', e.isIntersecting));
+        }, { threshold: 0.35 });
+        capSlides.forEach((s) => capMobObs.observe(s));
+      }
+
+      // 2. Work — sync progress fill + counter to swipe position
+      if (workRail) {
+        const syncWorkSwipe = () => {
+          const max  = workRail.scrollWidth - workRail.clientWidth;
+          const frac = max > 0 ? workRail.scrollLeft / max : 0;
+          if (workFill) workFill.style.width = (frac * 100) + '%';
+          if (workCurr) workCurr.textContent = String(Math.round(frac * (WORK_SLIDES - 1)) + 1).padStart(2, '0');
+        };
+        workRail.addEventListener('scroll', syncWorkSwipe, { passive: true });
+        syncWorkSwipe();
+      }
+
+      // 3. Testimonials — sync counter to swipe position
+      const testiRail = document.querySelector('.testi-rail');
+      if (testiRail) {
+        const tCount = testiCards.length;
+        const syncTestiSwipe = () => {
+          const max  = testiRail.scrollWidth - testiRail.clientWidth;
+          const frac = max > 0 ? testiRail.scrollLeft / max : 0;
+          if (testiCurrEl) testiCurrEl.textContent = Math.round(frac * (tCount - 1)) + 1;
+        };
+        testiRail.addEventListener('scroll', syncTestiSwipe, { passive: true });
+        syncTestiSwipe();
+      }
+
+      // 4. Process — tappable steps (scroll switcher is disabled on mobile)
+      procStepItems.forEach((item, i) => {
+        item.addEventListener('click', () => {
+          procStepItems.forEach((s, j) => s.classList.toggle('active', j === i));
+          procPanels.forEach((p, j) => p.classList.toggle('active', j === i));
+        });
+      });
+    }
 
     // ── Intake form ──
     const formAnswers = {};
