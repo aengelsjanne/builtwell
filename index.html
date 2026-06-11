@@ -1150,7 +1150,7 @@
 
       /* capabilities: sideways swipe carousel, one at a time */
       .cap-zone { height: auto; }
-      .cap-sticky { position: static; height: auto; display: block; padding: 4rem 0 0; }
+      .cap-sticky { position: static; height: auto; display: block; padding: 5rem 0 7rem; border-bottom: 1px solid var(--rule); }
       .cap-sticky-head { padding: 0 var(--pad) 1.5rem; }
       .cap-slides {
         position: static;
@@ -1173,14 +1173,15 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 1rem var(--pad) 0;
+        padding: 2rem var(--pad) 0;
         margin: 0;
+        min-height: 62vh;
       }
-      .cap-slide-inner { display: flex; flex-direction: column; gap: 1.5rem; }
+      .cap-slide-inner { display: flex; flex-direction: column; gap: 2rem; }
       .cap-illus { order: 2; }
       .cap-left { order: 1; display: flex; flex-direction: row; align-items: baseline; gap: 0.6rem; }
-      .cap-num { font-size: 1.125rem; color: var(--muted); margin-bottom: 0; }
-      .cap-title { font-size: 1.875rem; }
+      .cap-num { font-size: 1.25rem; color: var(--muted); margin-bottom: 0; }
+      .cap-title { font-size: 2.125rem; }
       .cap-dots { display: none; }
       .cap-nav { display: flex; padding: 1.75rem var(--pad) 0; }
       /* fallback when JS scroll-in animation is NOT active (no-JS / reduced-motion) */
@@ -1195,21 +1196,42 @@
       .proc-zone { height: auto; }
       .proc-sticky { position: static; height: auto; grid-template-columns: 1fr; }
       .proc-steps-list { display: none; }
-      .proc-nav { border-right: none; padding: 5rem var(--pad) 0.5rem; }
-      .proc-detail { position: static; padding: 0 var(--pad) 4rem; }
+      .proc-nav { border-right: none; padding: 6rem var(--pad) 1rem; }
+      .proc-detail { position: static; padding: 1rem var(--pad) 6rem; }
       .proc-panel {
         display: block !important;
-        position: static;
+        position: relative;
         opacity: 1;
         transform: none;
         pointer-events: auto;
-        padding: 3rem 0;
+        padding: 0 0 4rem 2.75rem;
         margin: 0;
       }
-      .proc-panel:first-child { padding-top: 1.5rem; }
-      .proc-panel + .proc-panel { border-top: 1px solid rgba(248,247,244,0.12); }
-      .proc-panel-num { font-size: 3.5rem; margin-bottom: 0.75rem; }
-      .proc-panel-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+      .proc-panel:last-child { padding-bottom: 0; }
+      /* vertical connecting line down the steps */
+      .proc-panel::before {
+        content: "";
+        position: absolute;
+        left: 0.7rem;
+        top: 1rem;
+        bottom: 0;
+        width: 1px;
+        background: rgba(248,247,244,0.22);
+      }
+      .proc-panel:last-child::before { display: none; }
+      /* dot marker on the line */
+      .proc-panel::after {
+        content: "";
+        position: absolute;
+        left: 0.35rem;
+        top: 0.7rem;
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        background: var(--bg);
+      }
+      .proc-panel-num { font-size: 2.5rem; margin-bottom: 0.5rem; }
+      .proc-panel-title { font-size: 1.4375rem; margin-bottom: 0.5rem; }
       .proc-panel-desc { font-size: 1rem; }
 
       /* work: unpin, swipeable scroll-snap carousel */
@@ -1244,12 +1266,12 @@
       .work-nav { display: flex; position: static; transform: none; left: auto; padding: 0 var(--pad) 2.5rem; max-width: none; }
       .work-nav-arrows { display: none; }
 
-      /* about: unpin, text first then bigger photo, fills the screen */
+      /* about: unpin, text first then bigger full-bleed photo, fills the screen */
       .about-zone { height: auto; }
       .about-sticky { position: static; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 6rem var(--pad); }
-      .about-diff { opacity: 1; transform: none; }
-      .about-grid { display: flex; flex-direction: column-reverse; gap: 2.5rem; }
-      .about-photo { aspect-ratio: 4/5; max-width: none; }
+      .about-grid { display: flex; flex-direction: column-reverse; gap: 2.75rem; }
+      .about-photo { aspect-ratio: 3/4; max-width: none; margin: 0 calc(-1 * var(--pad)); border-radius: 0; }
+      .about-photo-hint { font-size: 0.9rem; }
 
       /* testimonials: unpin, swipeable scroll-snap carousel */
       .testi-zone { height: auto; }
@@ -2186,6 +2208,7 @@
 
     function updateAboutScroll() {
       if (!aboutZone) return;
+      if (window.matchMedia('(max-width: 800px)').matches) return;
       const zoneTop = aboutZone.offsetTop;
       const zoneLen = aboutZone.offsetHeight - window.innerHeight;
       const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
@@ -2302,6 +2325,19 @@
       }
 
       // 4. Process is a static full-size timeline on mobile — all panels shown via CSS, no JS needed.
+
+      // 5. About — reveal the differentiator bullets as they scroll into view
+      if (!reducedMotion && 'IntersectionObserver' in window) {
+        const aboutObs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('active'); aboutObs.unobserve(e.target); }
+          });
+        }, { threshold: 0.6 });
+        aboutDiffs.forEach((d, i) => {
+          d.style.transitionDelay = (i * 130) + 'ms';
+          aboutObs.observe(d);
+        });
+      }
     }
 
     // ── Intake form ──
