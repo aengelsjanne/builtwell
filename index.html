@@ -2289,7 +2289,7 @@
           const frac = max > 0 ? capRail.scrollLeft / max : 0;
           const idx  = Math.round(frac * (nCap - 1));
           capSlides.forEach((s, i) => s.classList.toggle('active', i === idx));
-          if (capFill) capFill.style.width = (frac * 100) + '%';
+          if (capFill) capFill.style.width = ((idx + 1) / nCap * 100) + '%';
           if (capCurr) capCurr.textContent = String(idx + 1).padStart(2, '0');
         };
         capRail.addEventListener('scroll', syncCap, { passive: true });
@@ -2301,8 +2301,9 @@
         const syncWorkSwipe = () => {
           const max  = workRail.scrollWidth - workRail.clientWidth;
           const frac = max > 0 ? workRail.scrollLeft / max : 0;
-          if (workFill) workFill.style.width = (frac * 100) + '%';
-          if (workCurr) workCurr.textContent = String(Math.round(frac * (WORK_SLIDES - 1)) + 1).padStart(2, '0');
+          const idx  = Math.round(frac * (WORK_SLIDES - 1));
+          if (workFill) workFill.style.width = ((idx + 1) / WORK_SLIDES * 100) + '%';
+          if (workCurr) workCurr.textContent = String(idx + 1).padStart(2, '0');
         };
         workRail.addEventListener('scroll', syncWorkSwipe, { passive: true });
         syncWorkSwipe();
@@ -2318,7 +2319,7 @@
           const max  = testiRail.scrollWidth - testiRail.clientWidth;
           const frac = max > 0 ? testiRail.scrollLeft / max : 0;
           const idx  = Math.round(frac * (tCount - 1));
-          if (testiFill) testiFill.style.width = (frac * 100) + '%';
+          if (testiFill) testiFill.style.width = ((idx + 1) / tCount * 100) + '%';
           if (testiCurrM) testiCurrM.textContent = String(idx + 1).padStart(2, '0');
         };
         testiRail.addEventListener('scroll', syncTestiSwipe, { passive: true });
