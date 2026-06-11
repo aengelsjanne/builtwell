@@ -1152,7 +1152,7 @@
       /* capabilities: sideways swipe carousel, one at a time */
       .cap-zone { height: auto; }
       .cap-sticky { position: static; height: auto; display: block; padding: 8rem 0 7rem; border-bottom: 1px solid var(--rule); }
-      .cap-sticky-head { padding: 0 var(--pad) 1.5rem; }
+      .cap-sticky-head { padding: 0 var(--pad) 0.5rem; }
       .cap-slides {
         position: static;
         display: flex;
@@ -1174,7 +1174,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 2rem var(--pad) 0;
+        padding: 0.5rem var(--pad) 0;
         margin: 0;
         min-height: 62vh;
       }
@@ -1198,7 +1198,7 @@
       .proc-sticky { position: static; height: auto; grid-template-columns: 1fr; }
       .proc-steps-list { display: none; }
       .proc-nav { border-right: none; padding: 6rem var(--pad) 1rem; }
-      .proc-detail { position: relative; display: block; padding: 1rem var(--pad) 6rem; }
+      .proc-detail { position: relative; display: block; padding: 1rem var(--pad) 9rem; }
       .proc-marker {
         display: block;
         position: absolute;
@@ -1251,11 +1251,6 @@
       .proc-panel-num { font-size: 2.5rem; margin-bottom: 0.5rem; }
       .proc-panel-title { font-size: 1.4375rem; margin-bottom: 0.5rem; }
       .proc-panel-desc { font-size: 1rem; }
-      /* reveal each step + fill its dot/line as it scrolls into view */
-      body.proc-anim .proc-panel { opacity: 0; transform: translateY(22px); transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out); }
-      body.proc-anim .proc-panel.in-view { opacity: 1; transform: none; }
-      .proc-panel.in-view::after { background: rgba(248,247,244,0.5); }
-      .proc-panel.in-view::before { background: rgba(248,247,244,0.45); }
 
       /* work: unpin, swipeable scroll-snap carousel */
       .work-zone { height: auto; }
@@ -2352,14 +2347,13 @@
         syncTestiSwipe();
       }
 
-      // 4. Process — reveal each step as it scrolls up, and move a single dot down to the current step
-      document.body.classList.add('proc-anim');
+      // 4. Process — text is shown immediately; only the highlight circle moves to the current step
       const procMarker = document.querySelector('.proc-marker');
       const updateProcTimeline = () => {
-        const triggerY = window.innerHeight * 0.55;   // activate a step once it reaches the upper-middle
+        const triggerY = window.innerHeight * 0.55;   // circle advances once a step reaches the upper-middle
         let activePanel = null;
         procPanels.forEach((p) => {
-          if (p.getBoundingClientRect().top <= triggerY) { p.classList.add('in-view'); activePanel = p; }
+          if (p.getBoundingClientRect().top <= triggerY) activePanel = p;
         });
         if (procMarker) {
           if (activePanel) {
