@@ -1216,7 +1216,8 @@
         top: 1rem;
         bottom: 0;
         width: 1px;
-        background: rgba(248,247,244,0.22);
+        background: rgba(248,247,244,0.18);
+        transition: background 0.5s var(--ease-out);
       }
       .proc-panel:last-child::before { display: none; }
       /* dot marker on the line */
@@ -1228,11 +1229,17 @@
         width: 0.8rem;
         height: 0.8rem;
         border-radius: 50%;
-        background: var(--bg);
+        background: rgba(248,247,244,0.3);
+        transition: background 0.4s var(--ease-out), transform 0.4s var(--ease-out);
       }
       .proc-panel-num { font-size: 2.5rem; margin-bottom: 0.5rem; }
       .proc-panel-title { font-size: 1.4375rem; margin-bottom: 0.5rem; }
       .proc-panel-desc { font-size: 1rem; }
+      /* reveal each step + fill its dot/line as it scrolls into view */
+      body.proc-anim .proc-panel { opacity: 0; transform: translateY(22px); transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out); }
+      body.proc-anim .proc-panel.in-view { opacity: 1; transform: none; }
+      .proc-panel.in-view::after { background: var(--bg); transform: scale(1.25); }
+      .proc-panel.in-view::before { background: rgba(248,247,244,0.5); }
 
       /* work: unpin, swipeable scroll-snap carousel */
       .work-zone { height: auto; }
@@ -2327,7 +2334,18 @@
         syncTestiSwipe();
       }
 
-      // 4. Process is a static full-size timeline on mobile — all panels shown via CSS, no JS needed.
+      // 4. Process — reveal each step + fill its dot as it scrolls into view
+      document.body.classList.add('proc-anim');
+      if ('IntersectionObserver' in window) {
+        const procObs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in-view'); procObs.unobserve(e.target); }
+          });
+        }, { threshold: 0.4 });
+        procPanels.forEach((p) => procObs.observe(p));
+      } else {
+        procPanels.forEach((p) => p.classList.add('in-view'));
+      }
 
       // 5. About — reveal the differentiator bullets as they scroll into view
       if (!reducedMotion && 'IntersectionObserver' in window) {
