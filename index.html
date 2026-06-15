@@ -286,7 +286,15 @@
       width: 100%;
       margin: 0 auto;
     }
-    .cap-sticky-head .section-label { margin-bottom: 0; }
+    .cap-sticky-head .section-label { margin-bottom: 1rem; }
+    .cap-headline {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 3vw, 2.75rem);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      max-width: 620px;
+    }
+    .cap-headline em { font-style: italic; color: var(--muted); }
 
     .cap-slides {
       flex: 1;
@@ -1392,7 +1400,8 @@
     <div class="cap-sticky" id="cap-sticky">
 
       <div class="cap-sticky-head">
-        <p class="section-label">Whatever you need, we build it</p>
+        <p class="section-label">What grows your business</p>
+        <h2 class="cap-headline">We understand it — and we <em>build it.</em></h2>
       </div>
 
       <div class="cap-slides">
@@ -1570,9 +1579,9 @@
               <span class="cap-num">02</span>
               <h2 class="cap-title">Mobile apps</h2>
               <ul class="cap-examples">
-                <li>Booking &amp; appointments</li>
-                <li>Loyalty &amp; rewards</li>
-                <li>Delivery &amp; driver apps</li>
+                <li>Customer-facing apps</li>
+                <li>Internal &amp; team tools</li>
+                <li>iOS &amp; Android</li>
               </ul>
             </div>
           </div>
@@ -1637,7 +1646,7 @@
               <ul class="cap-examples">
                 <li>Workflow automation</li>
                 <li>AI integrations</li>
-                <li>Connecting your systems</li>
+                <li>Linking your existing tools</li>
               </ul>
             </div>
           </div>
