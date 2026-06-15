@@ -638,6 +638,7 @@
       width: 0%;
       transition: width 0.25s var(--ease-out);
     }
+    .testi-hint { display: none; }   /* mobile-only deck hint */
 
     .work-nav-arrows { margin-left: auto; display: flex; gap: 0.5rem; }
 
@@ -1340,34 +1341,55 @@
       .about-photo { aspect-ratio: 3/4; max-width: none; margin: 0 calc(-1 * var(--pad)); border-radius: 0; }
       .about-photo-hint { font-size: 0.9rem; }
 
-      /* testimonials: unpin, swipeable scroll-snap carousel */
+      /* testimonials: unpin, tactile stacked card deck (peel / swipe to cycle) */
       .testi-zone { height: auto; }
       .testi-sticky { position: static; height: auto; overflow: visible; }
-      .testi-hud { position: static; padding: 5rem var(--pad) 1.5rem; }
+      .testi-hud { position: static; padding: 5rem var(--pad) 2rem; }
       .testi-counter { display: none; }   /* moved to bottom progress nav */
       .testi-rail {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        gap: 0;
-        padding: 0 0 1.5rem;
-        scrollbar-width: none;
+        position: relative;
+        display: block;
+        height: 400px;
+        margin: 0 var(--pad);
+        perspective: 1200px;
+        overflow: visible;
+        scroll-snap-type: none;
+        touch-action: pan-y;
       }
       .testi-rail::-webkit-scrollbar { display: none; }
       .testi-card {
-        position: static;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        flex: none;
         opacity: 1;
-        transform: none;
-        pointer-events: auto;
-        flex: 0 0 100%;
-        scroll-snap-align: center;
-        padding: 0 var(--pad);
+        padding: 2.25rem 1.75rem;
+        background: var(--bg);
+        border: 1px solid var(--rule);
+        border-radius: 18px;
+        box-shadow: 0 14px 36px rgba(17,16,8,0.10);
+        cursor: grab;
+        scroll-snap-align: none;
+        transform-origin: center bottom;
+        transition: transform 0.55s var(--ease-spring), opacity 0.45s var(--ease-out);
+        will-change: transform, opacity;
       }
-      .testi-item { display: flex; flex-direction: column-reverse; gap: 1.75rem; align-items: flex-start; }
+      .testi-card:active { cursor: grabbing; }
+      .testi-item { display: flex; flex-direction: column-reverse; gap: 1.75rem; align-items: flex-start; width: 100%; margin: auto 0; }
       .testi-author { display: flex; align-items: center; gap: 1rem; }
       .testi-text { font-size: 1.125rem; line-height: 1.6; }
-      .testi-nav { display: flex; padding: 0.5rem var(--pad) 8.5rem; }
+      .testi-nav { display: flex; padding: 1.75rem var(--pad) 8.5rem; }
+      .testi-hint {
+        display: block;
+        text-align: center;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 1.25rem;
+        transition: opacity 0.3s var(--ease-out);
+      }
 
       /* form */
       .form-options { grid-template-columns: 1fr; }
@@ -1878,6 +1900,8 @@
         </div>
       </div>
       </div>
+
+      <span class="testi-hint" id="testi-hint">Swipe or tap to read more</span>
 
       <div class="testi-nav">
         <span class="testi-nav-counter"><strong id="testi-curr-m">01</strong> / 02</span>
@@ -2393,21 +2417,116 @@
         syncWorkSwipe();
       }
 
-      // 3. Testimonials — sync bottom progress fill + counter to swipe position
+      // 3. Testimonials — tactile stacked card deck: tap or swipe the front card to peel it
+      //    away and reveal the next; it re-stacks behind, cycling endlessly.
       const testiRail = document.querySelector('.testi-rail');
       const testiFill = document.getElementById('testi-nav-fill');
       const testiCurrM = document.getElementById('testi-curr-m');
-      if (testiRail) {
-        const tCount = testiCards.length;
-        const syncTestiSwipe = () => {
-          const max  = testiRail.scrollWidth - testiRail.clientWidth;
-          const frac = max > 0 ? testiRail.scrollLeft / max : 0;
-          const idx  = Math.round(frac * (tCount - 1));
-          if (testiFill) testiFill.style.width = ((idx + 1) / tCount * 100) + '%';
-          if (testiCurrM) testiCurrM.textContent = String(idx + 1).padStart(2, '0');
+      const testiHint = document.getElementById('testi-hint');
+      if (testiRail && testiCards.length) {
+        const deck  = Array.from(testiCards);
+        const n     = deck.length;
+        let   order = deck.map((_, i) => i);   // order[0] = front
+        let   busy  = false;
+        let   used  = false;
+
+        // stack position styles by depth (0 = front)
+        const POS = [
+          { t: 'translateY(0) scale(1)',       o: 1,    z: 30 },
+          { t: 'translateY(20px) scale(0.93)', o: 0.5,  z: 20 },
+          { t: 'translateY(38px) scale(0.86)', o: 0.25, z: 10 },
+        ];
+        const at = (depth) => POS[Math.min(depth, POS.length - 1)];
+
+        const setIndicator = (frontIdx) => {
+          if (testiCurrM) testiCurrM.textContent = String(frontIdx + 1).padStart(2, '0');
+          if (testiFill)  testiFill.style.width  = ((frontIdx + 1) / n * 100) + '%';
         };
-        testiRail.addEventListener('scroll', syncTestiSwipe, { passive: true });
-        syncTestiSwipe();
+
+        const place = (cardIdx, depth, animate) => {
+          const c = deck[cardIdx];
+          const p = at(depth);
+          c.style.transition = animate ? '' : 'none';
+          c.style.transform  = p.t;
+          c.style.opacity     = p.o;
+          c.style.zIndex      = p.z;
+          c.style.pointerEvents = depth === 0 ? 'auto' : 'none';
+        };
+
+        const layout = (animate) => {
+          order.forEach((cardIdx, depth) => place(cardIdx, depth, animate));
+          setIndicator(order[0]);
+        };
+
+        const peel = (dir) => {
+          if (busy) return;
+          busy = true;
+          if (!used && testiHint) { used = true; testiHint.style.opacity = '0'; }
+
+          const frontIdx = order[0];
+          const c = deck[frontIdx];
+          c.style.transition = 'transform 0.5s var(--ease-out), opacity 0.45s var(--ease-out)';
+          c.style.transform  = `translateX(${dir * 125}%) rotate(${dir * 9}deg)`;
+          c.style.opacity    = '0';
+          c.style.zIndex     = 40;
+
+          // promote the rest immediately so the next card rises as this one peels
+          order.slice(1).forEach((cardIdx, i) => place(cardIdx, i, true));
+          setIndicator(order[1 % n]);
+
+          setTimeout(() => {
+            order.push(order.shift());                 // front goes to back
+            const depth = order.indexOf(frontIdx);
+            c.style.transition = 'none';
+            c.style.transform  = at(depth).t;
+            c.style.opacity    = '0';
+            c.style.zIndex     = at(depth).z;
+            c.style.pointerEvents = 'none';
+            void c.offsetWidth;                        // reflow
+            c.style.transition = 'transform 0.5s var(--ease-out), opacity 0.45s var(--ease-out)';
+            c.style.opacity    = at(depth).o;
+            busy = false;
+          }, 470);
+        };
+
+        // pointer drag on the front card
+        let startX = 0, dx = 0, dragging = false, moved = false;
+        const frontEl = () => deck[order[0]];
+
+        testiRail.addEventListener('pointerdown', (e) => {
+          if (busy) return;
+          if (e.target.closest('.testi-card') !== frontEl()) return;
+          dragging = true; moved = false; startX = e.clientX; dx = 0;
+          frontEl().style.transition = 'none';
+          try { frontEl().setPointerCapture(e.pointerId); } catch (_) {}
+        });
+        testiRail.addEventListener('pointermove', (e) => {
+          if (!dragging) return;
+          dx = e.clientX - startX;
+          if (Math.abs(dx) > 4) moved = true;
+          frontEl().style.transform = `translateX(${dx}px) rotate(${dx * 0.04}deg)`;
+        });
+        const endDrag = () => {
+          if (!dragging) return;
+          dragging = false;
+          if (Math.abs(dx) > 70) {
+            peel(dx < 0 ? -1 : 1);
+          } else {
+            const f = frontEl();
+            f.style.transition = 'transform 0.4s var(--ease-spring)';
+            f.style.transform  = at(0).t;
+          }
+        };
+        testiRail.addEventListener('pointerup', endDrag);
+        testiRail.addEventListener('pointercancel', endDrag);
+
+        // tap to peel (ignore if it was a drag)
+        testiRail.addEventListener('click', (e) => {
+          if (busy || moved) return;
+          if (e.target.closest('.testi-card') === frontEl()) peel(-1);
+        });
+
+        layout(false);
       }
 
       // 4. Process — text is shown immediately; only the highlight circle moves to the current step
