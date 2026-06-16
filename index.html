@@ -824,8 +824,8 @@
       margin: 0 auto;
       padding: 0 var(--pad);
     }
-    .team-head { max-width: 660px; margin-bottom: 4.5rem; }
-    .team-head .section-label { margin-bottom: 1.25rem; }
+    .team-head { max-width: 660px; margin: 0 auto 4.5rem; text-align: center; }
+    .team-head .section-label { margin-bottom: 1.25rem; justify-content: center; }
     .team-headline {
       font-family: var(--serif);
       font-size: clamp(2rem, 3.5vw, 3rem);
@@ -845,7 +845,9 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 2.5rem;
       max-width: 720px;
+      margin: 0 auto;
     }
+    .team-member { text-align: center; }
     .team-photo {
       width: 100%;
       aspect-ratio: 4/5;
@@ -1416,16 +1418,15 @@
       .about-photo { aspect-ratio: 3/4; max-width: none; margin: 0 calc(-1 * var(--pad)); border-radius: 0; }
       .about-photo-hint { font-size: 0.9rem; }
 
-      /* team variant: tidy list — compact photo + text rows */
+      /* team variant: centered stacked cards */
       .team-zone { padding: 5rem 0; }
       .team-inner { padding: 0 var(--pad); }
       .team-head { margin-bottom: 2.75rem; }
-      .team-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .team-member { display: flex; gap: 1.25rem; align-items: flex-start; }
-      .team-photo { width: 96px; flex: none; aspect-ratio: 1; border-radius: 12px; margin-bottom: 0; }
-      .team-info { padding-top: 0.15rem; }
-      .team-name { font-size: 1.25rem; }
-      .team-role { margin-bottom: 0.55rem; }
+      .team-grid { grid-template-columns: 1fr; gap: 2.75rem; }
+      .team-member { display: block; text-align: center; }
+      .team-photo { width: 160px; aspect-ratio: 4/5; border-radius: 14px; margin: 0 auto 1rem; }
+      .team-name { font-size: 1.375rem; }
+      .team-role { margin-bottom: 0; }
 
       /* testimonials: unpin, tactile stacked card deck (peel / swipe to cycle) */
       .testi-zone { height: auto; }
