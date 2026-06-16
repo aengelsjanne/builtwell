@@ -844,6 +844,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2.5rem;
+      max-width: 720px;
     }
     .team-photo {
       width: 100%;
@@ -1818,31 +1819,27 @@
       <div class="team-head">
         <p class="section-label">Who you'll work with</p>
         <h2 class="team-headline">A small team, <em>fully invested.</em></h2>
-        <p class="team-sub">No account managers, no hand-offs to juniors. You work directly with the people designing and building your product — from the first call to launch.</p>
       </div>
       <div class="team-grid">
         <div class="team-member">
           <div class="team-photo"><p class="team-photo-hint">Photo</p></div>
           <div class="team-info">
-            <p class="team-name">Jan E.</p>
+            <p class="team-name">Jan</p>
             <p class="team-role">Founder &amp; Lead Developer</p>
-            <p class="team-bio">Leads every project end to end — architecture, build, and the call you'll have on day one.</p>
           </div>
         </div>
         <div class="team-member">
           <div class="team-photo"><p class="team-photo-hint">Photo</p></div>
           <div class="team-info">
-            <p class="team-name">Lena V.</p>
+            <p class="team-name">Lena</p>
             <p class="team-role">Product Designer</p>
-            <p class="team-bio">Shapes how it looks and feels — clean, intuitive interfaces your customers actually enjoy.</p>
           </div>
         </div>
         <div class="team-member">
           <div class="team-photo"><p class="team-photo-hint">Photo</p></div>
           <div class="team-info">
-            <p class="team-name">Tomás R.</p>
+            <p class="team-name">Tomás</p>
             <p class="team-role">Full-Stack Developer</p>
-            <p class="team-bio">Builds the engine behind the scenes — fast, reliable, and made to scale with you.</p>
           </div>
         </div>
       </div>
@@ -2501,6 +2498,12 @@
     });
     document.querySelectorAll('.form-section .reveal').forEach((el, i) => {
       el.style.transitionDelay = (i * 120) + 'ms';
+      revealObs.observe(el);
+    });
+    // Team members — staggered fade-in as the section scrolls into view
+    document.querySelectorAll('.team-member').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i * 130) + 'ms';
       revealObs.observe(el);
     });
 
