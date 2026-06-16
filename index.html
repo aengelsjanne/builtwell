@@ -813,19 +813,37 @@
       margin-top: 0.05em;
     }
 
-    /* ── About — TEAM variant ── */
+    /* ── About — TEAM variant (sticky scroll zone) ── */
     .team-zone {
+      height: 200vh;
       background: var(--bg);
-      padding: 8rem 0;
       border-top: 1px solid var(--rule);
+    }
+    .team-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
     }
     .team-inner {
       max-width: var(--max);
       margin: 0 auto;
       padding: 0 var(--pad);
+      width: 100%;
     }
     .team-head { max-width: 660px; margin: 0 auto 4.5rem; text-align: center; }
     .team-head .section-label { margin-bottom: 1.25rem; justify-content: center; }
+    .team-head .section-label::after {
+      content: '';
+      width: 1.75rem;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
     .team-headline {
       font-family: var(--serif);
       font-size: clamp(2rem, 3.5vw, 3rem);
@@ -847,7 +865,13 @@
       max-width: 720px;
       margin: 0 auto;
     }
-    .team-member { text-align: center; }
+    .team-member {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .team-member.in { opacity: 1; transform: none; }
     .team-photo {
       width: 100%;
       aspect-ratio: 4/5;
@@ -1252,6 +1276,9 @@
       .about-zone { height: auto; }
       .about-sticky { position: static; height: auto; padding: 6rem var(--pad); }
       .about-diff { opacity: 1; transform: none; }
+      .team-zone { height: auto; }
+      .team-sticky { position: static; height: auto; display: block; padding: 6rem 0; }
+      .team-member { opacity: 1; transform: none; }
       .testi-zone { height: auto; }
       .testi-sticky { position: static; height: auto; }
       .testi-hud { position: static; padding: 0 var(--pad) 2rem; }
@@ -1418,8 +1445,9 @@
       .about-photo { aspect-ratio: 3/4; max-width: none; margin: 0 calc(-1 * var(--pad)); border-radius: 0; }
       .about-photo-hint { font-size: 0.9rem; }
 
-      /* team variant: centered stacked cards */
-      .team-zone { padding: 5rem 0; }
+      /* team variant: unpin, centered stacked cards */
+      .team-zone { height: auto; }
+      .team-sticky { position: static; height: auto; display: block; overflow: visible; padding: 5rem 0; }
       .team-inner { padding: 0 var(--pad); }
       .team-head { margin-bottom: 2.75rem; }
       .team-grid { grid-template-columns: 1fr; gap: 2.75rem; }
@@ -1816,6 +1844,7 @@
 
   <!-- ── About (TEAM variant — placed below the current one for comparison) ── -->
   <div class="team-zone" id="team-zone">
+    <div class="team-sticky">
     <div class="team-inner">
       <div class="team-head">
         <p class="section-label">Who you'll work with</p>
@@ -1844,6 +1873,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -2446,6 +2476,21 @@
       });
     }
 
+    // ── Team scroll — reveal members one by one while the section is pinned ──
+    const teamZone    = document.getElementById('team-zone');
+    const teamMembers = document.querySelectorAll('.team-member');
+
+    function updateTeamScroll() {
+      if (!teamZone) return;
+      if (window.matchMedia('(max-width: 800px)').matches) return;
+      const zoneTop = teamZone.offsetTop;
+      const zoneLen = teamZone.offsetHeight - window.innerHeight;
+      const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
+      teamMembers.forEach((m, i) => {
+        m.classList.toggle('in', raw >= 0.14 + i * 0.16);
+      });
+    }
+
     // ── 6. Testimonials scroll — crossfade between the two ──
     const testiZone   = document.getElementById('testi-zone');
     const testiCards  = document.querySelectorAll('.testi-card');
@@ -2468,6 +2513,7 @@
       updateHeroBlur();
       updateCapabilities();
       updateAboutScroll();
+      updateTeamScroll();
       updateProcessScroll();
       updateWorkScroll();
       syncWorkSlide();
@@ -2479,6 +2525,7 @@
     // ── Init ──
     updateCapabilities();
     updateAboutScroll();
+    updateTeamScroll();
     updateProcessScroll();
     updateWorkScroll();
     updateTestiScroll();
@@ -2499,12 +2546,6 @@
     });
     document.querySelectorAll('.form-section .reveal').forEach((el, i) => {
       el.style.transitionDelay = (i * 120) + 'ms';
-      revealObs.observe(el);
-    });
-    // Team members — staggered fade-in as the section scrolls into view
-    document.querySelectorAll('.team-member').forEach((el, i) => {
-      el.classList.add('reveal');
-      el.style.transitionDelay = (i * 130) + 'ms';
       revealObs.observe(el);
     });
 
@@ -2688,6 +2729,21 @@
           d.style.transitionDelay = (i * 130) + 'ms';
           aboutObs.observe(d);
         });
+      }
+
+      // 6. Team — staggered reveal of each member as the section scrolls into view
+      if ('IntersectionObserver' in window) {
+        const teamObs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in'); teamObs.unobserve(e.target); }
+          });
+        }, { threshold: 0.35 });
+        teamMembers.forEach((m, i) => {
+          m.style.transitionDelay = (i * 140) + 'ms';
+          teamObs.observe(m);
+        });
+      } else {
+        teamMembers.forEach((m) => m.classList.add('in'));
       }
     }
 
