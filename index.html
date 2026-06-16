@@ -815,7 +815,7 @@
 
     /* ── About — TEAM variant (sticky scroll zone) ── */
     .team-zone {
-      height: 320vh;
+      height: 380vh;
       background: var(--bg);
       border-top: 1px solid var(--rule);
     }
@@ -2487,7 +2487,7 @@
       const zoneLen = teamZone.offsetHeight - window.innerHeight;
       const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
       teamMembers.forEach((m, i) => {
-        m.classList.toggle('in', raw >= 0.16 + i * 0.28);
+        m.classList.toggle('in', raw >= 0.14 + i * 0.25);
       });
     }
 
