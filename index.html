@@ -106,8 +106,8 @@
       background: var(--dark);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding-bottom: 12rem;
+      justify-content: center;
+      padding: 9rem 0 6rem;
       overflow: hidden;
     }
 
@@ -211,6 +211,13 @@
       height: 36px;
       background: linear-gradient(to bottom, rgba(248,247,244,0.28), rgba(248,247,244,0));
       animation: scrollPulse 2s ease-in-out 1.5s infinite;
+    }
+
+    /* tighten hero vertical rhythm on 13" / short-viewport desktops */
+    @media (min-width: 801px) and (max-height: 860px) {
+      .hero { padding-top: 7rem; padding-bottom: 5rem; }
+      .hero-eyebrow { margin-bottom: 1.25rem; }
+      .hero-headline { margin-bottom: 2.5rem; }
     }
 
     /* ── CTA ── */
@@ -516,6 +523,7 @@
     .thumb-2 { background: linear-gradient(135deg, #A86850 0%, #CE9278 55%, #E0AF96 100%); }
     .thumb-3 { background: linear-gradient(135deg, #565E84 0%, #8591B8 55%, #A3ACD0 100%); }
     .thumb-4 { background: linear-gradient(135deg, #383834 0%, #666660 55%, #828278 100%); }
+    .work-slide-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
     .work-slide-thumb::before {
       content: '';
@@ -658,7 +666,7 @@
     .work-nav-arrow:hover { border-color: var(--text); color: var(--text); background: rgba(17,16,8,0.04); }
 
     /* ── Testimonials ── */
-    .testi-zone { height: 220vh; }
+    .testi-zone { height: 320vh; }
     .testi-sticky {
       position: sticky;
       top: 0;
@@ -703,8 +711,8 @@
     .testi-author { display: flex; flex-direction: column; gap: 1rem; }
 
     .testi-avatar {
-      width: 72px;
-      height: 72px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       background: var(--rule);
       overflow: hidden;
@@ -885,7 +893,7 @@
       margin-bottom: 1.25rem;
       transition: transform 0.45s var(--ease-out);
     }
-    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
     .team-photo-hint {
       font-size: 0.7rem;
       color: rgba(17,16,8,0.4);
@@ -1820,29 +1828,6 @@
   </div>
 
   <!-- ── About ── -->
-  <div class="about-zone" id="about-zone">
-    <div class="about-sticky">
-      <div class="about-grid">
-        <div>
-          <div class="about-photo">
-            <!-- Replace src with your actual photo -->
-            <p class="about-photo-hint">Your photo here</p>
-          </div>
-        </div>
-        <div>
-          <p class="section-label">About</p>
-          <h2 class="about-headline">Not just an app.<br><em>A business built right.</em></h2>
-          <ul class="about-diffs">
-            <li class="about-diff"><span class="about-diff-dash">—</span>Product thinking, design sensibility, and technical execution.</li>
-            <li class="about-diff"><span class="about-diff-dash">—</span>Covering everything from first call to launch.</li>
-            <li class="about-diff"><span class="about-diff-dash">—</span>Native support in German, English, French, and Spanish.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── About (TEAM variant — placed below the current one for comparison) ── -->
   <div class="team-zone" id="team-zone">
     <div class="team-sticky">
     <div class="team-inner">
@@ -1852,24 +1837,24 @@
       </div>
       <div class="team-grid">
         <div class="team-member">
-          <div class="team-photo"><p class="team-photo-hint">Photo</p></div>
+          <div class="team-photo"><img src="jan.png" alt="Jan" style="object-position: center 60%;"></div>
           <div class="team-info">
             <p class="team-name">Jan</p>
-            <p class="team-role">Founder &amp; Lead Developer</p>
+            <p class="team-role">Tech Lead &amp; Sales</p>
           </div>
         </div>
         <div class="team-member">
-          <div class="team-photo"><p class="team-photo-hint">Photo</p></div>
+          <div class="team-photo"><img src="sofia.jpeg" alt="Sofia" style="object-position: center 60%;"></div>
           <div class="team-info">
-            <p class="team-name">Lena</p>
-            <p class="team-role">Product Designer</p>
+            <p class="team-name">Sofia</p>
+            <p class="team-role">Head of Design</p>
           </div>
         </div>
         <div class="team-member">
-          <div class="team-photo"><p class="team-photo-hint">Photo</p></div>
+          <div class="team-photo"><img src="omar.jpeg" alt="Omar" style="object-position: center top;"></div>
           <div class="team-info">
-            <p class="team-name">Tomás</p>
-            <p class="team-role">Full-Stack Developer</p>
+            <p class="team-name">Omar</p>
+            <p class="team-role">Automation &amp; Data</p>
           </div>
         </div>
       </div>
@@ -1955,36 +1940,36 @@
 
         <div class="work-slide">
           <div class="work-slide-inner">
-            <div class="work-slide-thumb thumb-1"></div>
+            <div class="work-slide-thumb"><img src="atletiq.png" alt="Atletiq"></div>
             <div class="work-slide-text">
               <span class="work-slide-num">01</span>
-              <p class="work-slide-tag">Hospitality</p>
-              <h3 class="work-slide-title">Salon Suite</h3>
-              <p class="work-slide-desc">Booking and client management system for a local beauty salon — appointments, reminders, and integrated payments.</p>
+              <p class="work-slide-tag">Mobile · Fitness</p>
+              <h3 class="work-slide-title">Atletiq</h3>
+              <p class="work-slide-desc">Intelligent personal training app for iPhone — pose estimation, AI workout generation, and progress tracking.</p>
             </div>
           </div>
         </div>
 
         <div class="work-slide">
           <div class="work-slide-inner">
-            <div class="work-slide-thumb thumb-2"></div>
+            <div class="work-slide-thumb"><img src="sigis.png" alt="Sigis Backstüble" style="object-position: left top;"></div>
             <div class="work-slide-text">
               <span class="work-slide-num">02</span>
-              <p class="work-slide-tag">Logistics</p>
-              <h3 class="work-slide-title">Trackr</h3>
-              <p class="work-slide-desc">React Native app for a delivery company to manage driver routes, live tracking, and customer notifications.</p>
+              <p class="work-slide-tag">Web · Food & Hospitality</p>
+              <h3 class="work-slide-title">Sigis Backstüble</h3>
+              <p class="work-slide-desc">Web platform for a Swabian artisan bakery — online ordering, branch locator, and loyalty club.</p>
             </div>
           </div>
         </div>
 
         <div class="work-slide">
           <div class="work-slide-inner">
-            <div class="work-slide-thumb thumb-3"></div>
+            <div class="work-slide-thumb"><img src="bryte.png" alt="Bryte" style="object-position: left top;"></div>
             <div class="work-slide-text">
               <span class="work-slide-num">03</span>
-              <p class="work-slide-tag">Retail</p>
-              <h3 class="work-slide-title">Stockroom</h3>
-              <p class="work-slide-desc">Inventory and order management dashboard for a multi-location clothing retailer with real-time stock sync.</p>
+              <p class="work-slide-tag">Web · AI / SaaS</p>
+              <h3 class="work-slide-title">Bryte</h3>
+              <p class="work-slide-desc">AI platform that reads and drafts tender packages — cutting analysis time from 6 hours to 30 seconds.</p>
             </div>
           </div>
         </div>
@@ -2010,7 +1995,7 @@
 
       <div class="testi-hud">
         <p class="section-label">What clients say</p>
-        <p class="testi-counter"><span id="testi-curr">1</span>&thinsp;/&thinsp;2</p>
+        <p class="testi-counter"><span id="testi-curr">1</span>&thinsp;/&thinsp;3</p>
       </div>
 
       <div class="testi-rail">
@@ -2036,16 +2021,34 @@
         <div class="testi-item">
           <div class="testi-author">
             <div class="testi-avatar">
-              <img src="https://i.pravatar.cc/96?img=68" alt="Marco P.">
+              <img src="bryte-testimonial.png" alt="Marouane">
             </div>
             <div>
-              <p class="testi-name">Marco P.</p>
-              <p class="testi-company">Co-founder, FlexiDeliver</p>
+              <p class="testi-name">Marouane</p>
+              <p class="testi-company">Founder, Bryte</p>
             </div>
           </div>
           <div class="testi-body">
             <span class="testi-mark">"</span>
-            <p class="testi-text">I've worked with agencies three times the price and got less. Jan delivers clean work, on time, without drama. Exactly what a small business needs.</p>
+            <p class="testi-text">We needed an AI analysis tool that could actually handle the complexity of tender documents. Builtwell built exactly that — what used to take our team a full day now runs in under a minute. It changed how we operate.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" data-testi="2">
+        <div class="testi-item">
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <img src="yannick.jpg" alt="Yannick" style="object-position: center 25%;">
+            </div>
+            <div>
+              <p class="testi-name">Yannick</p>
+              <p class="testi-company">Sigis Backstüble</p>
+            </div>
+          </div>
+          <div class="testi-body">
+            <span class="testi-mark">"</span>
+            <p class="testi-text">We wanted a website that truly reflects who we are — not something off the shelf. Builtwell understood that and built something that captures our craftsmanship and makes ordering effortless for our customers.</p>
           </div>
         </div>
       </div>
@@ -2054,7 +2057,7 @@
       <span class="testi-hint" id="testi-hint">Swipe or tap to read more</span>
 
       <div class="testi-nav">
-        <span class="testi-nav-counter"><strong id="testi-curr-m">01</strong> / 02</span>
+        <span class="testi-nav-counter"><strong id="testi-curr-m">01</strong> / 03</span>
         <div class="testi-nav-track"><div class="testi-nav-fill" id="testi-nav-fill"></div></div>
       </div>
 
@@ -2502,7 +2505,7 @@
       const zoneTop = testiZone.offsetTop;
       const zoneLen = testiZone.offsetHeight - window.innerHeight;
       const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
-      const active  = raw < 0.5 ? 0 : 1;
+      const active  = raw < 0.33 ? 0 : raw < 0.66 ? 1 : 2;
       testiCards.forEach((card, i) => card.classList.toggle('active', i === active));
       if (testiCurrEl) testiCurrEl.textContent = active + 1;
     }
