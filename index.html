@@ -288,7 +288,7 @@
 
     .cap-sticky-head {
       flex-shrink: 0;
-      padding: 7rem var(--pad) 0.75rem;
+      padding: 7rem var(--pad) 2rem;
       max-width: var(--max);
       width: 100%;
       margin: 0 auto;
@@ -915,6 +915,17 @@
       font-weight: 500;
       margin-bottom: 0.9rem;
     }
+    .team-location {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: 0.25rem;
+      opacity: 0.7;
+    }
+    .team-location::before {
+      content: '◎ ';
+      font-size: 0.65rem;
+    }
     .team-bio {
       font-size: 0.9375rem;
       color: var(--muted);
@@ -1301,6 +1312,9 @@
       /* hero: pull content up so the CTA is visible */
       .hero { justify-content: center; padding: 7rem 0 3rem; }
       .hero-headline { font-size: clamp(2.75rem, 10vw, 3.75rem); margin-bottom: 2rem; }
+
+      /* hide capabilities headline on mobile */
+      .cap-headline { display: none; }
 
       /* header: hide on scroll down, reveal on scroll up */
       header { transition: transform 0.35s var(--ease-out), background 0.4s, border-color 0.4s; }
@@ -1843,13 +1857,15 @@
           <div class="team-info">
             <p class="team-name">Jan</p>
             <p class="team-role">Tech Lead &amp; Sales</p>
+            <p class="team-location">Stuttgart</p>
           </div>
         </div>
         <div class="team-member">
-          <div class="team-photo"><img src="sofia.jpeg" alt="Sofia" style="object-position: center 60%; filter: grayscale(1);"></div>
+          <div class="team-photo"><img src="sophia.jpg" alt="Sophia" style="object-position: center 15%; transform: scale(1.45); transform-origin: center 20%;"></div>
           <div class="team-info">
-            <p class="team-name">Sofia</p>
+            <p class="team-name">Sophia</p>
             <p class="team-role">Head of Design</p>
+            <p class="team-location">Madrid</p>
           </div>
         </div>
         <div class="team-member">
@@ -1857,6 +1873,7 @@
           <div class="team-info">
             <p class="team-name">Omar</p>
             <p class="team-role">Automation &amp; Data</p>
+            <p class="team-location">Paris</p>
           </div>
         </div>
       </div>
