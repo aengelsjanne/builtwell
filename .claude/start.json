@@ -1,0 +1,17 @@
+{
+  "name": "Jan Landing",
+  "baseBranch": "main",
+  "worktreePrefix": "jan-landing",
+  "dbPushCommand": "",
+  "envFile": "",
+  "envCheck": [],
+  "servers": [
+    {
+      "name": "Dev",
+      "defaultPort": 3500,
+      "cwd": ".",
+      "command": "npx browser-sync start --server --files '*.html, *.css, *.js' --port $PORT --no-open"
+    }
+  ],
+  "credentials": ""
+}
