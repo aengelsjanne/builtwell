@@ -170,6 +170,13 @@
       color: rgba(248, 247, 244, 0.38);
     }
 
+    /* translated headlines are naturally longer — pull them down a notch */
+    :lang(de) .hero-headline,
+    :lang(fr) .hero-headline,
+    :lang(es) .hero-headline {
+      font-size: clamp(2.75rem, 6.5vw, 7.25rem);
+    }
+
     .hero-bottom {
       display: flex;
       align-items: flex-end;
@@ -1248,6 +1255,18 @@
     .footer-link { font-size: 0.8125rem; color: var(--muted); text-decoration: none; transition: color 0.18s; }
     .footer-link:hover { color: var(--text); }
 
+    .lang-switcher { display: flex; gap: 0.25rem; align-items: center; }
+    .lang-btn {
+      background: none; border: none;
+      font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer;
+      padding: 0.2rem 0.4rem; border-radius: 3px;
+      transition: color 0.18s, background 0.18s;
+    }
+    .lang-btn:hover { color: var(--text); background: rgba(17,16,8,0.06); }
+    .lang-btn.active { color: var(--text); font-weight: 700; }
+
     /* ── Reveal ── */
     .reveal {
       opacity: 0;
@@ -1558,15 +1577,15 @@
     <canvas id="wire-canvas"></canvas>
     <div class="hero-bg-num">B</div>
     <div class="hero-content" id="hero-content">
-      <p class="hero-eyebrow">Web &amp; Mobile · Germany &amp; Europe</p>
-      <h1 class="hero-headline">Build the tools that grow your <em>business.</em></h1>
+      <p class="hero-eyebrow" data-i18n="hero.eyebrow">Web &amp; Mobile · Germany &amp; Europe</p>
+      <h1 class="hero-headline" data-i18n-html="hero.headline">Build the tools that grow your <em>business.</em></h1>
       <div class="hero-bottom">
-        <p class="hero-sub">Custom apps built around how your business actually works.</p>
-        <a href="mailto:info@impecable.dev" class="cta">Get in touch &nbsp;→</a>
+        <p class="hero-sub" data-i18n="hero.sub">Custom apps built around how your business actually works.</p>
+        <a href="mailto:info@impecable.dev" class="cta" data-i18n="hero.cta">Get in touch &nbsp;→</a>
       </div>
     </div>
     <div class="hero-scroll">
-      <span>Scroll</span>
+      <span data-i18n="hero.scroll">Scroll</span>
       <div class="hero-scroll-line"></div>
     </div>
   </section>
@@ -1576,8 +1595,8 @@
     <div class="cap-sticky" id="cap-sticky">
 
       <div class="cap-sticky-head">
-        <p class="section-label">What your business needs</p>
-        <h2 class="cap-headline">We understand it. And we <em>build it.</em></h2>
+        <p class="section-label" data-i18n="cap.label">What your business needs</p>
+        <h2 class="cap-headline" data-i18n-html="cap.headline">We understand it. And we <em>build it.</em></h2>
       </div>
 
       <div class="cap-slides">
@@ -1662,11 +1681,11 @@
             </div>
             <div class="cap-left">
               <span class="cap-num">01</span>
-              <h2 class="cap-title">Web apps</h2>
+              <h2 class="cap-title" data-i18n="cap.s1.title">Web apps</h2>
               <ul class="cap-examples">
-                <li>Booking &amp; scheduling systems</li>
-                <li>Customer dashboards &amp; portals</li>
-                <li>Online stores</li>
+                <li data-i18n="cap.s1.e1">Booking &amp; scheduling systems</li>
+                <li data-i18n="cap.s1.e2">Customer dashboards &amp; portals</li>
+                <li data-i18n="cap.s1.e3">Online stores</li>
               </ul>
             </div>
           </div>
@@ -1753,11 +1772,11 @@
             </div>
             <div class="cap-left">
               <span class="cap-num">02</span>
-              <h2 class="cap-title">Mobile apps</h2>
+              <h2 class="cap-title" data-i18n="cap.s2.title">Mobile apps</h2>
               <ul class="cap-examples">
-                <li>Customer-facing apps</li>
-                <li>Internal &amp; team tools</li>
-                <li>iOS &amp; Android</li>
+                <li data-i18n="cap.s2.e1">Customer-facing apps</li>
+                <li data-i18n="cap.s2.e2">Internal &amp; team tools</li>
+                <li data-i18n="cap.s2.e3">iOS &amp; Android</li>
               </ul>
             </div>
           </div>
@@ -1818,11 +1837,11 @@
             </div>
             <div class="cap-left">
               <span class="cap-num">03</span>
-              <h2 class="cap-title">Digital products</h2>
+              <h2 class="cap-title" data-i18n="cap.s3.title">Digital products</h2>
               <ul class="cap-examples">
-                <li>Workflow automation</li>
-                <li>AI integrations</li>
-                <li>Linking your existing tools</li>
+                <li data-i18n="cap.s3.e1">Workflow automation</li>
+                <li data-i18n="cap.s3.e2">AI integrations</li>
+                <li data-i18n="cap.s3.e3">Linking your existing tools</li>
               </ul>
             </div>
           </div>
@@ -1848,15 +1867,15 @@
     <div class="team-sticky">
     <div class="team-inner">
       <div class="team-head">
-        <p class="section-label">Who you'll work with</p>
-        <h2 class="team-headline">A small team, <em>fully invested.</em></h2>
+        <p class="section-label" data-i18n="team.label">Who you'll work with</p>
+        <h2 class="team-headline" data-i18n-html="team.headline">A small team, <em>fully invested.</em></h2>
       </div>
       <div class="team-grid">
         <div class="team-member">
           <div class="team-photo"><img src="jan.png" alt="Jan" style="object-position: center 60%;"></div>
           <div class="team-info">
             <p class="team-name">Jan</p>
-            <p class="team-role">Tech Lead &amp; Sales</p>
+            <p class="team-role" data-i18n="team.jan.role">Tech Lead &amp; Sales</p>
             <p class="team-location">Stuttgart</p>
           </div>
         </div>
@@ -1864,7 +1883,7 @@
           <div class="team-photo"><img src="sophia.jpg" alt="Sophia" style="object-position: center 15%; transform: scale(1.45); transform-origin: center 20%;"></div>
           <div class="team-info">
             <p class="team-name">Sophia</p>
-            <p class="team-role">Head of Design</p>
+            <p class="team-role" data-i18n="team.sophia.role">Head of Design</p>
             <p class="team-location">Madrid</p>
           </div>
         </div>
@@ -1872,7 +1891,7 @@
           <div class="team-photo"><img src="omar.jpeg" alt="Omar" style="object-position: center top;"></div>
           <div class="team-info">
             <p class="team-name">Omar</p>
-            <p class="team-role">Automation &amp; Data</p>
+            <p class="team-role" data-i18n="team.omar.role">Automation &amp; Data</p>
             <p class="team-location">Paris</p>
           </div>
         </div>
@@ -1887,27 +1906,27 @@
 
       <!-- Left: persistent step list — always shows full journey -->
       <div class="proc-nav">
-        <h2 class="proc-nav-title">How it works.</h2>
+        <h2 class="proc-nav-title" data-i18n="proc.title">How it works.</h2>
         <ol class="proc-steps-list" id="proc-steps-list">
 
           <li class="proc-step-item active" data-step="0">
             <span class="proc-step-num">01</span>
-            <span class="proc-step-name">Discovery call</span>
+            <span class="proc-step-name" data-i18n="proc.s1.name">Discovery call</span>
           </li>
 
           <li class="proc-step-item" data-step="1">
             <span class="proc-step-num">02</span>
-            <span class="proc-step-name">Proposal</span>
+            <span class="proc-step-name" data-i18n="proc.s2.name">Proposal</span>
           </li>
 
           <li class="proc-step-item" data-step="2">
             <span class="proc-step-num">03</span>
-            <span class="proc-step-name">The build</span>
+            <span class="proc-step-name" data-i18n="proc.s3.name">The build</span>
           </li>
 
           <li class="proc-step-item" data-step="3">
             <span class="proc-step-num">04</span>
-            <span class="proc-step-name">Handoff</span>
+            <span class="proc-step-name" data-i18n="proc.s4.name">Handoff</span>
           </li>
 
         </ol>
@@ -1920,26 +1939,26 @@
 
         <div class="proc-panel active" data-step="0">
           <span class="proc-panel-num">01</span>
-          <h2 class="proc-panel-title">Discovery call</h2>
-          <p class="proc-panel-desc">30 minutes on your business and what you actually need.</p>
+          <h2 class="proc-panel-title" data-i18n="proc.s1.name">Discovery call</h2>
+          <p class="proc-panel-desc" data-i18n="proc.s1.desc">30 minutes on your business and what you actually need.</p>
         </div>
 
         <div class="proc-panel" data-step="1">
           <span class="proc-panel-num">02</span>
-          <h2 class="proc-panel-title">Proposal</h2>
-          <p class="proc-panel-desc">Fixed price, clear scope, realistic timeline.</p>
+          <h2 class="proc-panel-title" data-i18n="proc.s2.name">Proposal</h2>
+          <p class="proc-panel-desc" data-i18n="proc.s2.desc">Fixed price, clear scope, realistic timeline.</p>
         </div>
 
         <div class="proc-panel" data-step="2">
           <span class="proc-panel-num">03</span>
-          <h2 class="proc-panel-title">The build</h2>
-          <p class="proc-panel-desc">Structured, planned, and executed on schedule.</p>
+          <h2 class="proc-panel-title" data-i18n="proc.s3.name">The build</h2>
+          <p class="proc-panel-desc" data-i18n="proc.s3.desc">Structured, planned, and executed on schedule.</p>
         </div>
 
         <div class="proc-panel" data-step="3">
           <span class="proc-panel-num">04</span>
-          <h2 class="proc-panel-title">Handoff</h2>
-          <p class="proc-panel-desc">Handed over with a run-through and support options.</p>
+          <h2 class="proc-panel-title" data-i18n="proc.s4.name">Handoff</h2>
+          <p class="proc-panel-desc" data-i18n="proc.s4.desc">Handed over with a run-through and support options.</p>
         </div>
 
       </div>
@@ -1952,7 +1971,7 @@
     <div class="work-sticky">
 
       <div class="work-sticky-head">
-        <p class="section-label">Work</p>
+        <p class="section-label" data-i18n="work.label">Work</p>
       </div>
 
       <div class="work-rail" id="work-rail">
@@ -1962,9 +1981,9 @@
             <div class="work-slide-thumb"><img src="atletiq.png" alt="Atletiq"></div>
             <div class="work-slide-text">
               <span class="work-slide-num">01</span>
-              <p class="work-slide-tag">Mobile · Fitness</p>
+              <p class="work-slide-tag" data-i18n="work.s1.tag">Mobile · Fitness</p>
               <h3 class="work-slide-title">Atletiq</h3>
-              <p class="work-slide-desc">Intelligent personal training app for iPhone — pose estimation, AI workout generation, and progress tracking.</p>
+              <p class="work-slide-desc" data-i18n="work.s1.desc">Intelligent personal training app for iPhone — pose estimation, AI workout generation, and progress tracking.</p>
             </div>
           </div>
         </div>
@@ -1974,9 +1993,9 @@
             <div class="work-slide-thumb"><img src="sigis.png" alt="Sigis Backstüble" style="object-position: left top;"></div>
             <div class="work-slide-text">
               <span class="work-slide-num">02</span>
-              <p class="work-slide-tag">Web · Food & Hospitality</p>
+              <p class="work-slide-tag" data-i18n="work.s2.tag">Web · Food & Hospitality</p>
               <h3 class="work-slide-title">Sigis Backstüble</h3>
-              <p class="work-slide-desc">Web platform for a Swabian artisan bakery — online ordering, branch locator, and loyalty club.</p>
+              <p class="work-slide-desc" data-i18n="work.s2.desc">Web platform for a Swabian artisan bakery — online ordering, branch locator, and loyalty club.</p>
             </div>
           </div>
         </div>
@@ -1986,9 +2005,9 @@
             <div class="work-slide-thumb"><img src="bryte.png" alt="Bryte" style="object-position: left top;"></div>
             <div class="work-slide-text">
               <span class="work-slide-num">03</span>
-              <p class="work-slide-tag">Web · AI / SaaS</p>
+              <p class="work-slide-tag" data-i18n="work.s3.tag">Web · AI / SaaS</p>
               <h3 class="work-slide-title">Bryte</h3>
-              <p class="work-slide-desc">AI platform that reads and drafts tender packages — cutting analysis time from 6 hours to 30 seconds.</p>
+              <p class="work-slide-desc" data-i18n="work.s3.desc">AI platform that reads and drafts tender packages — cutting analysis time from 6 hours to 30 seconds.</p>
             </div>
           </div>
         </div>
@@ -2013,7 +2032,7 @@
     <div class="testi-sticky">
 
       <div class="testi-hud">
-        <p class="section-label">What clients say</p>
+        <p class="section-label" data-i18n="testi.label">What clients say</p>
         <p class="testi-counter"><span id="testi-curr">1</span>&thinsp;/&thinsp;3</p>
       </div>
 
@@ -2031,7 +2050,7 @@
           </div>
           <div class="testi-body">
             <span class="testi-mark">"</span>
-            <p class="testi-text">Jan turned our manual booking chaos into a slick app our clients actually love. We saved six hours a week on admin alone — and we haven't looked back.</p>
+            <p class="testi-text" data-i18n="testi.t1">Impecable turned our manual booking chaos into a slick app our clients actually love. We saved six hours a week on admin alone — and we haven't looked back.</p>
           </div>
         </div>
       </div>
@@ -2049,7 +2068,7 @@
           </div>
           <div class="testi-body">
             <span class="testi-mark">"</span>
-            <p class="testi-text">We needed an AI analysis tool that could actually handle the complexity of tender documents. impecable built exactly that — what used to take our team a full day now runs in under a minute. It changed how we operate.</p>
+            <p class="testi-text" data-i18n="testi.t2">We needed an AI analysis tool that could actually handle the complexity of tender documents. Impecable built exactly that — what used to take our team a full day now runs in under a minute. It changed how we operate.</p>
           </div>
         </div>
       </div>
@@ -2067,7 +2086,7 @@
           </div>
           <div class="testi-body">
             <span class="testi-mark">"</span>
-            <p class="testi-text">We wanted a website that truly reflects who we are — not something off the shelf. Impecable understood that and built something that captures our craftsmanship and makes ordering effortless for our customers.</p>
+            <p class="testi-text" data-i18n="testi.t3">We wanted a website that truly reflects who we are — not something off the shelf. Impecable understood that and built something that captures our craftsmanship and makes ordering effortless for our customers.</p>
           </div>
         </div>
       </div>
@@ -2088,8 +2107,8 @@
   <div class="form-section" id="start-project">
     <div class="wrap">
       <div class="form-section-head reveal">
-        <p class="form-section-label">Start a project</p>
-        <h2 class="form-section-headline">Let's build it <em>right.</em></h2>
+        <p class="form-section-label" data-i18n="form.label">Start a project</p>
+        <h2 class="form-section-headline" data-i18n-html="form.headline">Let's build it <em>right.</em></h2>
       </div>
       <div class="form-card reveal">
         <div class="form-progress-bar" id="form-progress-bar">
@@ -2112,9 +2131,9 @@
 
           <!-- Footer — never animates -->
           <div class="form-actions" id="form-footer">
-            <button class="form-back" id="form-back-btn" style="visibility:hidden">← Back</button>
+            <button class="form-back" id="form-back-btn" style="visibility:hidden" data-i18n="form.back">← Back</button>
             <span class="form-step-counter" id="form-counter">1 of 4</span>
-            <button class="form-btn" id="form-draft" style="display:none">Draft message &nbsp;→</button>
+            <button class="form-btn" id="form-draft" style="display:none" data-i18n="form.draft">Draft message →</button>
           </div>
 
         </div>
@@ -2122,8 +2141,8 @@
         <!-- Confirmation state -->
         <div class="form-confirm" id="form-confirm">
           <div class="form-confirm-check">✓</div>
-          <h3 class="form-confirm-title">Draft ready.</h3>
-          <p class="form-confirm-sub">Your email client should have opened with a pre-filled message — just add your name and hit send.</p>
+          <h3 class="form-confirm-title" data-i18n="form.confirmTitle">Draft ready.</h3>
+          <p class="form-confirm-sub" data-i18n="form.confirmSub">Your email client should have opened with a pre-filled message — just add your name and hit send.</p>
         </div>
 
       </div>
@@ -2134,7 +2153,13 @@
   <!-- ── Footer ── -->
   <div class="wrap">
     <footer>
-      <span class="footer-copy">© 2026 impecable</span>
+      <span class="footer-copy" data-i18n="footer.copy">© 2026 impecable</span>
+      <div class="lang-switcher" aria-label="Language">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+        <button class="lang-btn" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
       <a href="mailto:info@impecable.dev" class="footer-link">info@impecable.dev</a>
     </footer>
   </div>
@@ -2826,7 +2851,7 @@
       formBusy = true;
 
       const forward = num > formCurrentStep;
-      const data    = FORM_DATA[num - 1];
+      const data    = getI18n(currentLang).form.steps[num - 1];
       const qEl     = document.getElementById('form-q');
       const optsEl  = document.getElementById('form-options');
 
@@ -2859,7 +2884,7 @@
           qEl.style.opacity    = '1';
         });
 
-        document.getElementById('form-counter').textContent = num + ' of 4';
+        document.getElementById('form-counter').textContent = num + ' ' + getI18n(currentLang).form.ofN;
         document.getElementById('form-counter').style.display = '';
         document.getElementById('form-draft').style.display = 'none';
         document.getElementById('form-back-btn').style.visibility = num > 1 ? 'visible' : 'hidden';
@@ -2868,6 +2893,294 @@
         formCurrentStep = num;
         setTimeout(() => { formBusy = false; }, 400);
       }, 260);
+    }
+
+    // ── Page i18n ──
+    let currentLang = 'en';
+
+    const PAGE_I18N = {
+      en: {
+        hero: {
+          eyebrow: 'Web & Mobile · Germany & Europe',
+          headline: 'Build the tools that grow your <em>business.</em>',
+          sub: 'Custom apps built around how your business actually works.',
+          cta: 'Get in touch →',
+          scroll: 'Scroll',
+        },
+        cap: {
+          label: 'What your business needs',
+          headline: 'We understand it. And we <em>build it.</em>',
+          s1: { title: 'Web apps',         e1: 'Booking & scheduling systems', e2: 'Customer dashboards & portals', e3: 'Online stores' },
+          s2: { title: 'Mobile apps',      e1: 'Customer-facing apps',         e2: 'Internal & team tools',        e3: 'iOS & Android' },
+          s3: { title: 'Digital products', e1: 'Workflow automation',           e2: 'AI integrations',              e3: 'Linking your existing tools' },
+        },
+        team: {
+          label: "Who you'll work with",
+          headline: 'A small team, <em>fully invested.</em>',
+          jan:    { role: 'Tech Lead & Sales' },
+          sophia: { role: 'Head of Design' },
+          omar:   { role: 'Automation & Data' },
+        },
+        proc: {
+          title: 'How it works.',
+          s1: { name: 'Discovery call', desc: '30 minutes on your business and what you actually need.' },
+          s2: { name: 'Proposal',       desc: 'Fixed price, clear scope, realistic timeline.' },
+          s3: { name: 'The build',      desc: 'Structured, planned, and executed on schedule.' },
+          s4: { name: 'Handoff',        desc: 'Handed over with a run-through and support options.' },
+        },
+        work: {
+          label: 'Work',
+          s1: { tag: 'Mobile · Fitness',         desc: 'Intelligent personal training app for iPhone — pose estimation, AI workout generation, and progress tracking.' },
+          s2: { tag: 'Web · Food & Hospitality',  desc: 'Web platform for a Swabian artisan bakery — online ordering, branch locator, and loyalty club.' },
+          s3: { tag: 'Web · AI / SaaS',           desc: 'AI platform that reads and drafts tender packages — cutting analysis time from 6 hours to 30 seconds.' },
+        },
+        testi: {
+          label: 'What clients say',
+          t1: "Impecable turned our manual booking chaos into a slick app our clients actually love. We saved six hours a week on admin alone — and we haven't looked back.",
+          t2: "We needed an AI analysis tool that could actually handle the complexity of tender documents. Impecable built exactly that — what used to take our team a full day now runs in under a minute. It changed how we operate.",
+          t3: "We wanted a website that truly reflects who we are — not something off the shelf. Impecable understood that and built something that captures our craftsmanship and makes ordering effortless for our customers.",
+        },
+        form: {
+          label: 'Start a project',
+          headline: "Let's build it <em>right.</em>",
+          back: '← Back', ofN: 'of 4', draft: 'Draft message →',
+          confirmTitle: 'Draft ready.',
+          confirmSub: 'Your email client should have opened with a pre-filled message — just add your name and hit send.',
+          steps: [
+            { q: 'What do you need built?', opts: [['mobile-app','A mobile app for my customers'],['booking-system','A booking or scheduling system'],['internal-tool','An internal tool or dashboard'],['other','Something else']] },
+            { q: 'What kind of business do you run?', opts: [['retail','Retail / e-commerce'],['hospitality','Hospitality (salon, clinic, restaurant)'],['logistics','Logistics / delivery / field work'],['services','Professional services']] },
+            { q: "What's your rough budget?", opts: [['under-2k','Under €2,000'],['2k-6k','€2,000–€6,000'],['6k-plus','€6,000+'],['not-sure','Not sure yet']] },
+            { q: 'When do you need this?', opts: [['2-weeks','Within 2 weeks'],['4-weeks','Within 4 weeks'],['8-weeks','Within 8 weeks'],['3-months','Within 3 months']] },
+          ],
+        },
+        footer: { copy: '© 2026 impecable' },
+      },
+      de: {
+        hero: {
+          eyebrow: 'Web & Mobile · Deutschland & Europa',
+          headline: 'Bauen Sie Tools, die Ihr <em>Business voranbringen.</em>',
+          sub: 'Individuelle Apps, die genau zu Ihrem Geschäft passen.',
+          cta: 'Kontakt aufnehmen →',
+          scroll: 'Scrollen',
+        },
+        cap: {
+          label: 'Was Ihr Unternehmen braucht',
+          headline: 'Lösungen maßgeschneidert für <em>Ihre Prozesse.</em>',
+          s1: { title: 'Web-Apps',           e1: 'Buchungs- & Terminierungssysteme', e2: 'Kunden-Dashboards & Portale',    e3: 'Online-Shops' },
+          s2: { title: 'Mobile Apps',         e1: 'Kunden-Apps',                     e2: 'Interne Tools & Team-Apps',       e3: 'iOS & Android' },
+          s3: { title: 'Digitale Produkte',   e1: 'Workflow-Automatisierung',         e2: 'KI-Integrationen',               e3: 'Verknüpfung bestehender Tools' },
+        },
+        team: {
+          label: 'Über uns',
+          headline: 'Ein kleines Team, <em>voll engagiert.</em>',
+          jan:    { role: 'Tech Lead & Vertrieb' },
+          sophia: { role: 'Head of Design' },
+          omar:   { role: 'Automatisierung & Daten' },
+        },
+        proc: {
+          title: 'Unser Prozess.',
+          s1: { name: 'Erstgespräch', desc: '30 Minuten über Ihr Geschäft und was Sie wirklich brauchen.' },
+          s2: { name: 'Angebot',           desc: 'Festpreis, klarer Umfang, realistischer Zeitplan.' },
+          s3: { name: 'Umsetzung',         desc: 'Strukturiert, geplant und termingerecht umgesetzt.' },
+          s4: { name: 'Übergabe',     desc: 'Mit Einführung und Supportoptionen übergeben.' },
+        },
+        work: {
+          label: 'Projekte',
+          s1: { tag: 'Mobile · Fitness',    desc: 'Intelligente Personal-Training-App für iPhone — Haltungserkennung, KI-Workout-Generierung und Fortschrittsverfolgung.' },
+          s2: { tag: 'Web · Gastronomie',   desc: 'Webplattform für eine schwäbische Handwerkbäckerei — Online-Bestellung, Filialfinder und Treueprogramm.' },
+          s3: { tag: 'Web · KI / SaaS',     desc: 'KI-Plattform, die Ausschreibungsunterlagen liest und entwirft — Analysezeit von 6 Stunden auf 30 Sekunden reduziert.' },
+        },
+        testi: {
+          label: 'Was Kunden sagen',
+          t1: "Impecable hat unser chaotisches Buchungssystem in eine App verwandelt, die unsere Kunden wirklich lieben. Wir sparen allein bei der Verwaltung sechs Stunden pro Woche — und möchten nicht mehr zurück.",
+          t2: "Wir brauchten ein KI-Analyse-Tool, das wirklich mit der Komplexität von Ausschreibungsunterlagen umgehen kann. Impecable hat genau das gebaut — was früher einen ganzen Tag dauerte, läuft jetzt in unter einer Minute.",
+          t3: "Wir wollten eine Website, die wirklich widerspiegelt, wer wir sind — nichts von der Stange. Impecable hat das verstanden und etwas gebaut, das unser Handwerk zeigt und das Bestellen für unsere Kunden mühelos macht.",
+        },
+        form: {
+          label: 'Projekt starten',
+          headline: 'Gehen wir es <em>an!</em>',
+          back: '← Zurück', ofN: 'von 4', draft: 'Nachricht entwerfen →',
+          confirmTitle: 'Entwurf bereit.',
+          confirmSub: 'Ihr E-Mail-Programm sollte sich mit einer vorgefertigten Nachricht geöffnet haben — fügen Sie Ihren Namen hinzu und senden Sie ab.',
+          steps: [
+            { q: 'Was soll entwickelt werden?', opts: [['mobile-app','Eine mobile App für meine Kunden'],['booking-system','Ein Buchungs- oder Terminierungssystem'],['internal-tool','Ein internes Tool oder Dashboard'],['other','Etwas anderes']] },
+            { q: 'Was für ein Unternehmen betreiben Sie?', opts: [['retail','Einzelhandel / E-Commerce'],['hospitality','Gastronomie (Salon, Klinik, Restaurant)'],['logistics','Logistik / Lieferung / Außendienst'],['services','Dienstleistungen']] },
+            { q: 'Was ist Ihr ungefähres Budget?', opts: [['under-2k','Unter 2.000 €'],['2k-6k','2.000–6.000 €'],['6k-plus','6.000 €+'],['not-sure','Noch unklar']] },
+            { q: 'Wann wird es benötigt?', opts: [['2-weeks','Innerhalb von 2 Wochen'],['4-weeks','Innerhalb von 4 Wochen'],['8-weeks','Innerhalb von 8 Wochen'],['3-months','Innerhalb von 3 Monaten']] },
+          ],
+        },
+        footer: { copy: '© 2026 impecable' },
+      },
+      fr: {
+        hero: {
+          eyebrow: 'Web & Mobile · France & Europe',
+          headline: 'Créez les outils qui font <em>grandir votre activité.</em>',
+          sub: 'Des applications sur mesure, conçues autour de votre façon de travailler.',
+          cta: 'Nous contacter →',
+          scroll: 'Défiler',
+        },
+        cap: {
+          label: "Ce dont votre entreprise a besoin",
+          headline: 'Des solutions sur mesure pour <em>vos processus.</em>',
+          s1: { title: 'Applications web',      e1: 'Systèmes de réservation', e2: 'Tableaux de bord clients',       e3: 'Boutiques en ligne' },
+          s2: { title: 'Applications mobiles',  e1: 'Apps pour vos clients',          e2: "Outils internes & d'équipe",  e3: 'iOS & Android' },
+          s3: { title: 'Produits digitaux',      e1: 'Automatisation des flux',        e2: 'Intégrations IA',            e3: 'Connexion de vos outils existants' },
+        },
+        team: {
+          label: 'À propos',
+          headline: 'Une petite équipe, <em>pleinement investie.</em>',
+          jan:    { role: 'Tech Lead & Commercial' },
+          sophia: { role: 'Responsable Design' },
+          omar:   { role: 'Automatisation & Données' },
+        },
+        proc: {
+          title: 'Comment ça marche.',
+          s1: { name: 'Appel découverte', desc: "30 minutes sur votre activité et ce dont vous avez vraiment besoin." },
+          s2: { name: 'Proposition',           desc: 'Prix fixe, périmètre clair, calendrier réaliste.' },
+          s3: { name: 'La réalisation',   desc: 'Structuré, planifié, livré dans les délais.' },
+          s4: { name: 'Livraison',             desc: 'Remis avec une présentation et des options de support.' },
+        },
+        work: {
+          label: 'Réalisations',
+          s1: { tag: 'Mobile · Fitness',    desc: "Application d'entraînement personnel pour iPhone — estimation de posture, génération de séances par IA et suivi des progrès." },
+          s2: { tag: 'Web · Restauration',  desc: "Plateforme web pour une boulangerie artisanale souabe — commande en ligne, localisateur de boutiques et carte de fidélité." },
+          s3: { tag: 'Web · IA / SaaS',     desc: "Plateforme IA qui lit et rédige des dossiers d'appel d'offres — temps d'analyse réduit de 6 heures à 30 secondes." },
+        },
+        testi: {
+          label: 'Ce que disent les clients',
+          t1: "Impecable a transformé notre chaos de réservations manuelles en une application que nos clients adorent vraiment. On économise six heures par semaine rien que sur l'administration — et on ne revient pas en arrière.",
+          t2: "Nous avions besoin d'un outil d'analyse IA capable de gérer la complexité des dossiers d'appel d'offres. Impecable a construit exactement ça — ce qui prenait à notre équipe une journée se fait maintenant en moins d'une minute.",
+          t3: "On voulait un site qui nous ressemble vraiment — pas quelque chose de générique. Impecable l'a compris et a créé quelque chose qui capture notre savoir-faire et rend la commande simple pour nos clients.",
+        },
+        form: {
+          label: 'Démarrer un projet',
+          headline: 'On se <em>lance !</em>',
+          back: '← Retour', ofN: 'sur 4', draft: 'Rédiger un message →',
+          confirmTitle: 'Brouillon prêt.',
+          confirmSub: "Votre client de messagerie devrait s'être ouvert avec un message pré-rempli — ajoutez votre nom et envoyez.",
+          steps: [
+            { q: "Que souhaitez-vous faire construire ?", opts: [['mobile-app','Une application mobile pour mes clients'],['booking-system','Un système de réservation ou de planification'],['internal-tool','Un outil interne ou tableau de bord'],['other','Autre chose']] },
+            { q: "Quel type d'entreprise dirigez-vous ?", opts: [['retail','Commerce / e-commerce'],['hospitality','Hôtellerie / restauration'],['logistics','Logistique / livraison / terrain'],['services','Services professionnels']] },
+            { q: 'Quel est votre budget approximatif ?', opts: [['under-2k','Moins de 2 000 €'],['2k-6k','2 000–6 000 €'],['6k-plus','6 000 €+'],['not-sure','Pas encore sûr']] },
+            { q: 'Pour quand en avez-vous besoin ?', opts: [['2-weeks','Sous 2 semaines'],['4-weeks','Sous 4 semaines'],['8-weeks','Sous 8 semaines'],['3-months','Sous 3 mois']] },
+          ],
+        },
+        footer: { copy: '© 2026 impecable' },
+      },
+      es: {
+        hero: {
+          eyebrow: 'Web & Mobile · España & Europa',
+          headline: 'Crea las herramientas que hacen <em>crecer tu negocio.</em>',
+          sub: 'Apps personalizadas diseñadas en torno a cómo trabaja tu negocio.',
+          cta: 'Contáctanos →',
+          scroll: 'Desplazar',
+        },
+        cap: {
+          label: 'Lo que necesita tu negocio',
+          headline: 'Soluciones a medida para <em>tus procesos.</em>',
+          s1: { title: 'Aplicaciones web',  e1: 'Sistemas de reservas',               e2: 'Paneles y portales de clientes', e3: 'Tiendas online' },
+          s2: { title: 'Apps móviles', e1: 'Apps para tus clientes',              e2: 'Herramientas internas y de equipo', e3: 'iOS & Android' },
+          s3: { title: 'Productos digitales', e1: 'Automatización de flujos',     e2: 'Integraciones de IA',           e3: 'Conecta tus herramientas existentes' },
+        },
+        team: {
+          label: 'Sobre nosotros',
+          headline: 'Un equipo pequeño, <em>totalmente comprometido.</em>',
+          jan:    { role: 'Tech Lead & Ventas' },
+          sophia: { role: 'Head of Design' },
+          omar:   { role: 'Automatización & Datos' },
+        },
+        proc: {
+          title: 'Cómo funciona.',
+          s1: { name: 'Llamada de descubrimiento', desc: '30 minutos sobre tu negocio y lo que realmente necesitas.' },
+          s2: { name: 'Propuesta',                  desc: 'Precio fijo, alcance claro, plazo realista.' },
+          s3: { name: 'El desarrollo',              desc: 'Estructurado, planificado y ejecutado en tiempo.' },
+          s4: { name: 'Entrega',                    desc: 'Entregado con una presentación y opciones de soporte.' },
+        },
+        work: {
+          label: 'Proyectos',
+          s1: { tag: 'Mobile · Fitness',    desc: 'App de entrenamiento personal para iPhone — estimación de postura, generación de rutinas con IA y seguimiento del progreso.' },
+          s2: { tag: 'Web · Restauración', desc: 'Plataforma web para una panadería artesanal de Suabia — pedidos online, localizador de tiendas y club de fidelidad.' },
+          s3: { tag: 'Web · IA / SaaS',     desc: 'Plataforma de IA que lee y redacta pliegos de licitación — reduciendo el tiempo de análisis de 6 horas a 30 segundos.' },
+        },
+        testi: {
+          label: 'Qué dicen los clientes',
+          t1: "Impecable convirtió nuestro caos de reservas manuales en una app que nuestros clientes realmente aman. Solo en administración ahorramos seis horas a la semana — y no hemos mirado atrás.",
+          t2: "Necesitábamos una herramienta de análisis IA que pudiera manejar de verdad la complejidad de los pliegos de licitación. Impecable construyó exactamente eso — lo que antes le llevaba a nuestro equipo un día ahora se hace en menos de un minuto.",
+          t3: "Queríamos un sitio que reflejara realmente quiénes somos — nada genérico. Impecable lo entendió y creó algo que captura nuestra artesanía y hace que pedir sea fácil para nuestros clientes.",
+        },
+        form: {
+          label: 'Iniciar un proyecto',
+          headline: '¡Manos a <em>la obra!</em>',
+          back: '← Atrás', ofN: 'de 4', draft: 'Redactar mensaje →',
+          confirmTitle: 'Borrador listo.',
+          confirmSub: 'Tu cliente de correo debería haberse abierto con un mensaje predefinido — añade tu nombre y envíalo.',
+          steps: [
+            { q: '¿Qué necesitas que desarrollemos?', opts: [['mobile-app','Una app móvil para mis clientes'],['booking-system','Un sistema de reservas o programación'],['internal-tool','Una herramienta interna o panel'],['other','Otra cosa']] },
+            { q: '¿Qué tipo de negocio tienes?', opts: [['retail','Comercio / e-commerce'],['hospitality','Hostelería (salón, clínica, restaurante)'],['logistics','Logística / reparto / trabajo de campo'],['services','Servicios profesionales']] },
+            { q: '¿Cuál es tu presupuesto aproximado?', opts: [['under-2k','Menos de 2.000 €'],['2k-6k','2.000–6.000 €'],['6k-plus','6.000 €+'],['not-sure','Aún no lo sé']] },
+            { q: '¿Para cuándo lo necesitas?', opts: [['2-weeks','En 2 semanas'],['4-weeks','En 4 semanas'],['8-weeks','En 8 semanas'],['3-months','En 3 meses']] },
+          ],
+        },
+        footer: { copy: '© 2026 impecable' },
+      },
+    };
+
+    function getI18n(lang) { return PAGE_I18N[lang] || PAGE_I18N.en; }
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('lang', lang); } catch (_) {}
+      const T = getI18n(lang);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const keys = el.dataset.i18n.split('.');
+        let val = T;
+        for (const k of keys) val = val?.[k];
+        if (val !== undefined) el.textContent = val;
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const keys = el.dataset.i18nHtml.split('.');
+        let val = T;
+        for (const k of keys) val = val?.[k];
+        if (val !== undefined) el.innerHTML = val;
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      updateFormLang();
+    }
+
+    function detectLang() {
+      try { const s = localStorage.getItem('lang'); if (s && PAGE_I18N[s]) return s; } catch (_) {}
+      const langs = navigator.languages?.length ? navigator.languages : [navigator.language || 'en'];
+      for (const l of langs) {
+        const code = (l || '').slice(0, 2).toLowerCase();
+        if (PAGE_I18N[code]) return code;
+      }
+      return 'en';
+    }
+
+    function updateFormLang() {
+      if (document.getElementById('form-confirm').classList.contains('visible')) return;
+      const T = getI18n(currentLang);
+      const data = T.form.steps[formCurrentStep - 1];
+      if (!data) return;
+      document.getElementById('form-q').textContent = data.q;
+      const optsEl = document.getElementById('form-options');
+      optsEl.innerHTML = data.opts.map(([v, l]) =>
+        `<div class="form-option" data-value="${v}">${l}</div>`
+      ).join('');
+      if (formAnswers['step' + formCurrentStep]) {
+        optsEl.querySelector(`[data-value="${formAnswers['step' + formCurrentStep]}"]`)?.classList.add('selected');
+      }
+      attachOptListeners(formCurrentStep);
+      const counterEl = document.getElementById('form-counter');
+      if (counterEl.style.display !== 'none') {
+        counterEl.textContent = formCurrentStep + ' ' + T.form.ofN;
+      }
     }
 
     // ── Email translations (pre-filled mailto body adapts to the visitor's system language) ──
@@ -2930,18 +3243,13 @@
       },
     };
 
-    function detectEmailLang() {
-      const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
-      for (const l of langs) {
-        const code = (l || '').slice(0, 2).toLowerCase();
-        if (EMAIL_I18N[code]) return code;
-      }
-      return 'en';
-    }
+    function detectEmailLang() { return EMAIL_I18N[currentLang] ? currentLang : 'en'; }
 
     // Init
+    applyLang(detectLang());
     attachOptListeners(1);
     document.getElementById('form-back-btn').addEventListener('click', () => formGoTo(formCurrentStep - 1));
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
 
     document.getElementById('form-draft').addEventListener('click', () => {
       const t = EMAIL_I18N[detectEmailLang()];
