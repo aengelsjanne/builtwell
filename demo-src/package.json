@@ -1,0 +1,21 @@
+{
+  "name": "impecable-demo-src",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build && node patch.mjs"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "wouter": "^3.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4",
+    "typescript": "^5",
+    "vite": "^7"
+  }
+}

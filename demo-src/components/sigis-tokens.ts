@@ -1,0 +1,16 @@
+export const S = {
+  red: "#E8242A",
+  redDeep: "#C71A20",
+  yellow: "#F5C800",
+  dark: "#1A1A1A",
+  ink: "#2A2A28",
+  surface: "#FAFAF8",
+  cream: "#F3EFE4",
+  warmBg: "#F7F3EC",
+  softBg: "#FFFDF8",
+  muted: "#7A7A78",
+  mutedSoft: "#9D9B94",
+  border: "#E8E8E4",
+  borderSoft: "#EDE9E1",
+  success: "#2D9E5F",
+} as const;
