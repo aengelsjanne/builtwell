@@ -7,10 +7,16 @@
   "envCheck": [],
   "servers": [
     {
-      "name": "Dev",
+      "name": "Landing",
       "defaultPort": 3500,
       "cwd": ".",
       "command": "npx browser-sync start --server --files '*.html, *.css, *.js' --port $PORT --no-open"
+    },
+    {
+      "name": "Demo",
+      "defaultPort": 5175,
+      "cwd": "demo-src",
+      "command": "npx vite --port $PORT --open"
     }
   ],
   "credentials": ""
