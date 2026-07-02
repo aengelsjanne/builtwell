@@ -79,8 +79,8 @@ function PhoneLoyalty() {
               </div>
             </div>
           </div>
-          <div style={{ position: "absolute", top: 10, right: 10, backgroundColor: S.red, borderRadius: 3, padding: "2px 6px" }}>
-            <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 7, letterSpacing: 1.5, color: "#FFF" }}>BONUSCLUB</span>
+          <div style={{ position: "absolute", top: 10, right: 10, backgroundColor: S.red, borderRadius: 3, padding: "2px 6px 2px 7.5px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 7, letterSpacing: 1.5, lineHeight: 1, color: "#FFF" }}>BONUSCLUB</span>
           </div>
         </div>
         {/* Prämien header */}
@@ -101,8 +101,8 @@ function PhoneLoyalty() {
                 <div style={{ height: 3, width: `${p.progress * 100}%`, backgroundColor: S.red, borderRadius: 2 }} />
               </div>
             </div>
-            <div style={{ backgroundColor: p.progress >= 1 ? S.red : "#EDEAE4", borderRadius: 999, padding: "5px 7px", flexShrink: 0 }}>
-              <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 9, color: p.progress >= 1 ? "#FFF" : "#9A9894" }}>
+            <div style={{ backgroundColor: p.progress >= 1 ? S.red : "#EDEAE4", borderRadius: 999, padding: "5px 7px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 9, lineHeight: 1, color: p.progress >= 1 ? "#FFF" : "#9A9894" }}>
                 {p.progress >= 1 ? "EINLÖSEN" : `${p.cost}♥`}
               </span>
             </div>
@@ -733,8 +733,8 @@ function MobileBrowserPreview() {
         </div>
       </div>
       {/* Yellow strip */}
-      <div style={{ backgroundColor: S.yellow, borderTop: `1.5px solid ${S.dark}`, borderBottom: `1.5px solid ${S.dark}`, padding: "4px 14px" }}>
-        <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 9, letterSpacing: "0.1em", color: S.dark }}>TÄGLICH FRISCH ◆ HANDGEMACHT ◆ OFEN AN UM 04:30 ◆ FRISCH AB 06:00 ◆ NATURSAUERTEIG</span>
+      <div style={{ backgroundColor: S.yellow, borderTop: `1.5px solid ${S.dark}`, borderBottom: `1.5px solid ${S.dark}`, padding: "4px 14px", overflow: "hidden", whiteSpace: "nowrap" }}>
+        <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 9, letterSpacing: "0.1em", color: S.dark, textOverflow: "ellipsis", overflow: "hidden", display: "inline-block", maxWidth: "100%" }}>TÄGLICH FRISCH ◆ HANDGEMACHT ◆ OFEN AN UM 04:30 ◆ FRISCH AB 06:00 ◆ NATURSAUERTEIG</span>
       </div>
       {/* Content */}
       <div style={{ backgroundColor: S.warmBg, height: 360, overflow: "hidden" }}>
@@ -887,7 +887,7 @@ function MobileAdminPreview({ bars }: { bars: number[] }) {
       {/* Section nav */}
       <div style={{ backgroundColor: "#ECEAE5", borderBottom: `1px solid ${S.border}`, padding: "8px 14px", display: "flex", gap: 6, flexWrap: "wrap" }}>
         {adminSections.map(s => (
-          <button key={s} onClick={() => handleSectionClick(s)} style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 10, letterSpacing: "0.08em", color: section === s ? "#FFF" : S.muted, backgroundColor: section === s ? S.red : "transparent", border: `1px solid ${section === s ? S.red : S.border}`, borderRadius: 3, padding: "3px 8px", cursor: "pointer", animation: section === s ? "demo-tab-flash 0.45s ease-out" : "none" }}>
+          <button key={s} onClick={() => handleSectionClick(s)} style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 10, letterSpacing: "0.08em", color: section === s ? "#FFF" : S.muted, backgroundColor: section === s ? S.red : "transparent", border: `1px solid ${section === s ? S.red : S.border}`, borderRadius: 3, padding: "3px 8px", cursor: "pointer", transition: "background-color 0.15s, color 0.15s, border-color 0.15s" }}>
             {sectionLabels[s]}
           </button>
         ))}
@@ -1055,12 +1055,14 @@ export function Demo() {
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? `48px ${hPad}px 64px` : isTablet ? `56px ${hPad}px 72px` : `72px ${hPad}px 96px`, display: "grid", gridTemplateColumns: isTablet ? "1fr" : "1.05fr 1fr", gap: isTablet ? 48 : 64, alignItems: "center", position: "relative" }}>
           <div>
             <Eyebrow color={S.yellow} style={{ marginBottom: 24 }}>◆ FÜR HANDWERKSBÄCKER</Eyebrow>
-            <Display size={isMobile ? 52 : isTablet ? 80 : 108} color="#FFFFFF" style={{ lineHeight: 0.86, marginBottom: 28 }}>
+            <Display size={isMobile ? 64 : isTablet ? 80 : 108} color="#FFFFFF" style={{ lineHeight: 0.86, marginBottom: isMobile ? 20 : 28 }}>
               IHRE BÄCKEREI VERDIENT MEHR <span style={{ color: S.yellow }}>STAMMKUNDEN.</span>
             </Display>
-            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.78)", lineHeight: 1.65, maxWidth: 490, marginBottom: 40 }}>
-              Wir bauen Ihnen die digitale Plattform dafür — Bonusclub-App, Webauftritt und Bestellsystem. Maßgeschneidert für Ihre Bäckerei, alles aus einer Hand.
-            </p>
+            {!isMobile && (
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.78)", lineHeight: 1.65, maxWidth: 490, marginBottom: 40 }}>
+                Wir bauen Ihnen die digitale Plattform dafür — Bonusclub-App, Webauftritt und Bestellsystem. Maßgeschneidert für Ihre Bäckerei, alles aus einer Hand.
+              </p>
+            )}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {["BONUSCLUB-APP", "QR-SCAN-SYSTEM", "WEB-PLATTFORM", "iOS + ANDROID"].map(chip => (
                 <span key={chip} style={{ backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 3, padding: "7px 14px", fontFamily: "'Bebas Neue', sans-serif", fontSize: 12, letterSpacing: "0.16em", color: S.yellow }}>{chip}</span>
@@ -1167,12 +1169,12 @@ export function Demo() {
                   { n: "03", title: "ECHTZEITDATEN", desc: "Jeden Scan sofort im Dashboard sehen." },
                   { n: "04", title: "STAMMKUNDEN", desc: "Aus Einmalkäufern werden treue Gäste." },
                 ].map(step => (
-                  <div key={step.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, color: S.yellow, flexShrink: 0, width: 28 }}>{step.n}</span>
-                    <div>
-                      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 14, color: "#FFF", marginBottom: 2 }}>{step.title}</p>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.7)" }}>{step.desc}</p>
+                  <div key={step.n} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 24, color: S.yellow, lineHeight: 1, flexShrink: 0 }}>{step.n}</span>
+                      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color: "#FFF", lineHeight: 1, margin: 0 }}>{step.title}</p>
                     </div>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.7)", marginLeft: 34 }}>{step.desc}</p>
                   </div>
                 ))}
               </div>
