@@ -7,7 +7,7 @@
   <meta name="description" content="I build web apps and mobile apps that help small businesses grow. Designed clean, delivered on time.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -830,7 +830,7 @@
 
     /* ── About — TEAM variant (sticky scroll zone) ── */
     .team-zone {
-      height: 380vh;
+      height: 280vh;
       background: var(--bg);
       border-top: 1px solid var(--rule);
     }
@@ -937,6 +937,85 @@
       font-size: 0.9375rem;
       color: var(--muted);
       line-height: 1.6;
+    }
+
+    /* ── Client marquee (worked-with strip) ── */
+    .clients {
+      background: var(--bg);
+      padding: 2rem 0 5.25rem;
+      overflow: hidden;
+    }
+    .marquee {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 34s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-group {
+      display: flex;
+      align-items: center;
+      gap: 4.5rem;
+      padding-right: 4.5rem;
+      list-style: none;
+      margin: 0;
+    }
+    .client {
+      font-family: var(--sans);
+      font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+      line-height: 1;
+      white-space: nowrap;
+      color: var(--text);
+      opacity: 0.5;
+      transition: opacity 0.4s var(--ease-out);
+    }
+    .marquee:hover .client { opacity: 0.38; }
+    .client:hover { opacity: 1; }
+
+    /* per-brand wordmark treatments — approximating each logo's typography */
+    .client--chanel {
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.34em;
+      text-indent: 0.34em;
+    }
+    .client--tf1 {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .client--michelin {
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .client--atletiq {
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .client--samsung {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-indent: 0.05em;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-33.3333%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee { -webkit-mask-image: none; mask-image: none; }
+      .marquee-track { animation: none; width: 100%; justify-content: center; }
+      .marquee-track .marquee-group:nth-child(n+2) { display: none; }
+      .marquee-group { flex-wrap: wrap; justify-content: center; padding-right: 0; gap: 2.75rem; row-gap: 1.5rem; }
     }
 
     /* ── Process (split sticky) ── */
@@ -1078,6 +1157,10 @@
        behind the fixed header) when the form is taller than the viewport — so it stays
        fully visible and sticky on short laptops (e.g. 13" Air) AND big screens alike. */
     @media (min-width: 801px) {
+      /* team block is centered in a sticky viewport, leaving empty space below the
+         cards — pull the clients strip up so the gap above the brands roughly
+         matches the gap below them (into the next dark section) */
+      .clients { margin-top: -16vh; }
       .form-zone { height: 190vh; position: relative; }
       .form-section {
         position: sticky;
@@ -1315,8 +1398,9 @@
       .about-sticky { position: static; height: auto; padding: 6rem var(--pad); }
       .about-diff { opacity: 1; transform: none; }
       .team-zone { height: auto; }
-      .team-sticky { position: static; height: auto; display: block; padding: 6rem 0; }
+      .team-sticky { position: static; height: auto; display: block; padding: 6rem 0 2.5rem; }
       .team-member { opacity: 1; transform: none; }
+      .clients { margin-top: 0; }
       .testi-zone { height: auto; }
       .testi-sticky { position: static; height: auto; }
       .testi-hud { position: static; padding: 0 var(--pad) 2rem; }
@@ -1488,7 +1572,7 @@
 
       /* team variant: unpin, centered stacked cards */
       .team-zone { height: auto; }
-      .team-sticky { position: static; height: auto; display: block; overflow: visible; padding: 5rem 0; }
+      .team-sticky { position: static; height: auto; display: block; overflow: visible; padding: 5rem 0 2.5rem; }
       .team-inner { padding: 0 var(--pad); }
       .team-head { margin-bottom: 2.75rem; }
       .team-grid { grid-template-columns: 1fr; gap: 2.75rem; }
@@ -1899,6 +1983,35 @@
     </div>
     </div>
   </div>
+
+  <!-- ── Client marquee — worked-with strip ── -->
+  <section class="clients" aria-label="Brands our team has worked with">
+    <div class="marquee">
+      <div class="marquee-track">
+        <ul class="marquee-group">
+          <li class="client client--chanel">Chanel</li>
+          <li class="client client--tf1">TF1</li>
+          <li class="client client--michelin">Michelin</li>
+          <li class="client client--atletiq">Atletiq</li>
+          <li class="client client--samsung">Samsung</li>
+        </ul>
+        <ul class="marquee-group" aria-hidden="true">
+          <li class="client client--chanel">Chanel</li>
+          <li class="client client--tf1">TF1</li>
+          <li class="client client--michelin">Michelin</li>
+          <li class="client client--atletiq">Atletiq</li>
+          <li class="client client--samsung">Samsung</li>
+        </ul>
+        <ul class="marquee-group" aria-hidden="true">
+          <li class="client client--chanel">Chanel</li>
+          <li class="client client--tf1">TF1</li>
+          <li class="client client--michelin">Michelin</li>
+          <li class="client client--atletiq">Atletiq</li>
+          <li class="client client--samsung">Samsung</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <!-- ── How it works — split sticky ── -->
   <div class="proc-zone" id="proc-zone">
@@ -2534,7 +2647,7 @@
       const zoneLen = teamZone.offsetHeight - window.innerHeight;
       const raw     = Math.max(0, Math.min(1, (window.scrollY - zoneTop) / zoneLen));
       teamMembers.forEach((m, i) => {
-        m.classList.toggle('in', raw >= 0.14 + i * 0.25);
+        m.classList.toggle('in', raw >= 0.15 + i * 0.34);
       });
     }
 
