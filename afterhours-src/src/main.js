@@ -22,6 +22,11 @@ document.querySelectorAll("a.cta-mail").forEach((a) => {
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* ---- Payoff KPI icons: normalize each glyph to pathLength=1 so the CSS draw-on
+        (stroke-dasharray/offset: 1) means "fully undrawn" regardless of the glyph's
+        real geometry — same trick as the platform-section connector lines. ---- */
+document.querySelectorAll(".kpi-ic svg *").forEach((el) => el.setAttribute("pathLength", "1"));
+
 /* ---- Nav: solidify on scroll ---- */
 const nav = document.querySelector(".nav");
 const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
@@ -52,13 +57,17 @@ if (reduce) {
   document.querySelectorAll("[data-anim]").forEach((el) => el.classList.add("run"));
   document.querySelectorAll("[data-count]").forEach(countUp);
 } else {
-  /* Stagger siblings that reveal together for a gentle cascade. */
+  /* Stagger siblings that reveal together for a gentle cascade. Grouped by the nearest
+     .feature-copy (so a feature's number/heading/paragraph/ticks cascade as one sequence,
+     independent of the feature's own visual, which reveals on its own beat) — falling back
+     to the immediate parent everywhere else. */
   const groups = new Map();
   document.querySelectorAll("[data-reveal]").forEach((el) => {
-    const arr = groups.get(el.parentElement) || [];
+    const key = el.closest(".feature-copy") || el.parentElement;
+    const arr = groups.get(key) || [];
     el.style.transitionDelay = `${arr.length * 80}ms`;
     arr.push(el);
-    groups.set(el.parentElement, arr);
+    groups.set(key, arr);
   });
 
   const revealObs = new IntersectionObserver(
@@ -258,10 +267,18 @@ function makePinnedScrubber(zone, apply, ease = easeInOut, isActive = desktopMQ)
       }
       const ln = lineForNode(i);
       if (!ln) continue;
+      // Pull the node-side tip back to the pill's near edge (not its center) so the line
+      // stops at the border instead of drawing into the middle of the node.
+      const hw = nodes[i].offsetWidth / 2;
+      const hh = nodes[i].offsetHeight / 2;
+      const { _ux: ux, _uy: uy } = nodes[i];
+      const t = 1 / (Math.max(Math.abs(ux) / hw, Math.abs(uy) / hh) || 1);
+      const ex = mx - ux * t;
+      const ey = my - uy * t;
       ln.setAttribute("x1", ((best.ax / W) * 100).toFixed(2));
       ln.setAttribute("y1", ((best.ay / H) * VBH).toFixed(2));
-      ln.setAttribute("x2", ((mx / W) * 100).toFixed(2));
-      ln.setAttribute("y2", ((my / H) * VBH).toFixed(2));
+      ln.setAttribute("x2", ((ex / W) * 100).toFixed(2));
+      ln.setAttribute("y2", ((ey / H) * VBH).toFixed(2));
       ln.setAttribute("pathLength", "1");
     }
     linesReady = true;
