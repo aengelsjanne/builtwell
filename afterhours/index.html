@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AFTERHOURS — the operating system for your club</title>
+    <meta
+      name="description"
+      content="AFTERHOURS is one platform to sell tickets, run the door, book VIP tables, and keep guests coming back — a guest app and a staff dashboard on one backend, built for nightlife venues."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AFTERHOURS — the operating system for your club" />
+    <meta
+      property="og:description"
+      content="Ticketing, door check-in, VIP tables, DJ requests, safety, and face-recognition photos — one platform for your venue."
+    />
+    <meta name="theme-color" content="#07080A" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-QS3C8BmR.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index--CpXGo-a.css">
+  </head>
+  <body>
+    <!-- ══════════════════════════ NAV ══════════════════════════ -->
+    <header class="nav">
+      <a class="brandmark" href="#top" aria-label="AFTERHOURS home">
+        <span class="dot"></span>
+        <span class="wm">AFTERHOURS<small>NIGHTLIFE OS</small></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#platform">Platform</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#process">How it works</a>
+      </nav>
+      <a class="btn primary sm cta-mail" href="mailto:info@impecable.dev">Book a walkthrough</a>
+    </header>
+
+    <main id="top">
+      <!-- ══════════════════════════ HERO ══════════════════════════ -->
+      <section class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-grid-lines" aria-hidden="true"></div>
+        <div class="wrap hero-inner">
+          <span class="status live reveal" data-reveal><span class="led"></span>Built for nightlife venues</span>
+          <h1 class="hero-title reveal" data-reveal>
+            The operating system <br />for your club.
+          </h1>
+          <p class="hero-sub reveal" data-reveal>
+            Sell tickets, run the door, book VIP tables, and keep guests coming back —
+            one guest app, one staff dashboard, one backend.
+          </p>
+          <div class="hero-cta reveal" data-reveal>
+            <a class="btn primary lg cta-mail" href="mailto:info@impecable.dev">Book a walkthrough</a>
+            <a class="btn secondary lg" href="#platform">See the platform</a>
+          </div>
+          <div class="hero-modules reveal" data-reveal>
+            <span class="chip">Ticketing</span>
+            <span class="chip">Door check-in</span>
+            <span class="chip">VIP tables</span>
+            <span class="chip">DJ requests</span>
+            <span class="chip">Safety</span>
+            <span class="chip">Event photos</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ WHAT IT IS · convergence scene ══════════════════════════ -->
+      <!-- Sticky-pinned .zone: scroll progress pulls the scattered modules + the two apps
+           inward onto one glowing core (see setupConstellation in main.js). Degrades to the
+           static .platform-static two-card block on mobile / reduced motion. -->
+      <section class="band converge" id="platform">
+        <div class="zone conv-zone">
+          <div class="sticky conv-sticky">
+            <div class="wrap">
+              <div class="section-head conv-head">
+                <span class="eyebrow">The platform</span>
+                <h2>Everything your night runs on, <span class="conv-hl">in one system.</span></h2>
+                <p class="conv-sub">A guest app and a staff dashboard — every part of your night, connected.</p>
+              </div>
+
+              <div class="constellation" aria-hidden="true">
+                <svg class="conv-lines" viewBox="0 0 100 60" preserveAspectRatio="none">
+                  <!-- each capability line runs from the central product cluster (50,30) out to
+                       its docked node; JS draws it on as the node connects. -->
+                  <line data-i="0" x1="50" y1="30" x2="16" y2="9" />
+                  <line data-i="1" x1="50" y1="30" x2="50" y2="6" />
+                  <line data-i="2" x1="50" y1="30" x2="84" y2="9" />
+                  <line data-i="3" x1="50" y1="30" x2="16" y2="51" />
+                  <line data-i="4" x1="50" y1="30" x2="50" y2="54" />
+                  <line data-i="5" x1="50" y1="30" x2="84" y2="51" />
+                </svg>
+
+                <!-- central product cluster: the two real surfaces the venue gets -->
+                <div class="cluster">
+                  <div class="device">
+                    <div class="phone">
+                      <span class="phone-notch"></span>
+                      <div class="phone-scr">
+                        <div class="ps-top"><span class="ps-dot"></span><span class="ps-bar"></span></div>
+                        <div class="ps-ticket">
+                          <span class="ps-qr"></span>
+                          <span class="ps-tlines"><i></i><i></i><i class="em"></i></span>
+                        </div>
+                        <div class="ps-row"><span class="ps-ic ice"></span><i class="ps-rl"></i></div>
+                        <div class="ps-row"><span class="ps-ic em"></span><i class="ps-rl sm"></i></div>
+                        <div class="ps-photos"><span></span><span></span><span></span><span></span></div>
+                      </div>
+                    </div>
+                    <span class="dv-cap"><span class="badge ice">Guest app</span></span>
+                  </div>
+
+                  <div class="device">
+                    <div class="dash">
+                      <div class="dash-bar"><span class="wd"></span><span class="wd"></span><span class="wd"></span><i class="dash-ttl"></i></div>
+                      <div class="dash-body">
+                        <div class="dash-side"><i></i><i></i><i></i><i></i></div>
+                        <div class="dash-main">
+                          <div class="dash-stats"><span></span><span></span><span></span></div>
+                          <div class="dash-chart"><i style="--h:38%"></i><i style="--h:64%"></i><i style="--h:48%"></i><i style="--h:82%"></i><i style="--h:58%"></i><i style="--h:96%"></i></div>
+                          <div class="dash-live"><span class="ps-ic em"></span><i class="ps-rl"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="dv-cap"><span class="badge ember">Staff dashboard</span></span>
+                  </div>
+                </div>
+
+                <span class="cnode" data-i="0" data-x="16" data-y="9"><i class="cn-dot"></i>Ticketing</span>
+                <span class="cnode" data-i="1" data-x="50" data-y="6"><i class="cn-dot"></i>Door check-in</span>
+                <span class="cnode" data-i="2" data-x="84" data-y="9"><i class="cn-dot"></i>VIP tables</span>
+                <span class="cnode" data-i="3" data-x="16" data-y="51"><i class="cn-dot"></i>DJ requests</span>
+                <span class="cnode" data-i="4" data-x="50" data-y="54"><i class="cn-dot"></i>Safety</span>
+                <span class="cnode" data-i="5" data-x="84" data-y="51"><i class="cn-dot"></i>Event photos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Static fallback: mobile / reduced-motion get the clean two-app cards, no scrubbing. -->
+        <div class="platform-static">
+          <div class="wrap">
+            <div class="section-head reveal" data-reveal>
+              <span class="eyebrow">The platform</span>
+              <h2>Everything your night runs on, in one system.</h2>
+              <p class="lede">
+                A guest app and a staff dashboard on one backend — ticketing, the door, tables,
+                and photos in one place, not six separate tools.
+              </p>
+            </div>
+            <div class="two-apps reveal" data-reveal>
+              <article class="app-card">
+                <div class="app-tag"><span class="badge ice">Guest app</span></div>
+                <h3>For your guests</h3>
+                <p>Buy tickets, hold a QR pass, book a table, and find their photos — all in
+                  your venue's own app.</p>
+                <ul class="ticks">
+                  <li>Tickets &amp; QR passes in the wallet</li>
+                  <li>Table bookings &amp; bottle service</li>
+                  <li>Face-recognition photo galleries</li>
+                </ul>
+              </article>
+              <article class="app-card">
+                <div class="app-tag"><span class="badge ember">Staff dashboard</span></div>
+                <h3>For your team</h3>
+                <p>One command center for your whole team. Each role — owner, manager, DJ,
+                  security — signs in and sees exactly what it needs.</p>
+                <ul class="ticks">
+                  <li>Publish events &amp; track sales</li>
+                  <li>Door scanning &amp; live capacity</li>
+                  <li>Role-based access for every staff type</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ CAPABILITIES ══════════════════════════ -->
+      <section class="band alt" id="capabilities">
+        <div class="wrap">
+          <div class="section-head reveal" data-reveal>
+            <span class="eyebrow">Capabilities</span>
+            <h2>Purpose-built for how a venue actually operates.</h2>
+            <p class="lede">Six modules that share one guest and sales record — each works on
+              its own, or as one system.</p>
+          </div>
+
+          <!-- 1 · Events & ticketing -->
+          <div class="feature reveal" data-reveal>
+            <div class="feature-copy">
+              <span class="feature-no mono">01</span>
+              <h3>Events &amp; ticketing</h3>
+              <p>Publish an event and sell tickets through Stripe. Revenue settles straight to
+                your own account — no middleman holding your money.</p>
+              <ul class="ticks">
+                <li>Stripe checkout, your account</li>
+                <li>QR passes issued automatically</li>
+                <li>Live sales on your dashboard</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <div class="mock mock-ticket" data-anim="ticket" aria-hidden="true">
+                <div class="mock-head"><span class="dot-sm"></span><span class="mono">EVENT · SATURDAY</span></div>
+                <div class="ticket">
+                  <div class="ticket-main">
+                    <div class="ticket-title">Neon Cellar</div>
+                    <div class="mono ticket-meta">GA · 11:00 PM</div>
+                    <div class="ticket-price mono">$25.00</div>
+                  </div>
+                  <div class="ticket-stub">
+                    <div class="qr" aria-hidden="true"></div>
+                    <div class="mono ticket-code">#AH-4821</div>
+                  </div>
+                </div>
+                <div class="mock-foot"><span class="status ok"><span class="led"></span>Paid · ticket issued</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2 · Door & check-in -->
+          <div class="feature reverse reveal" data-reveal>
+            <div class="feature-copy">
+              <span class="feature-no mono">02</span>
+              <h3>Door &amp; check-in</h3>
+              <p>Scan tickets in seconds and watch capacity update live — so you always know
+                exactly how full the room is.</p>
+              <ul class="ticks">
+                <li>Fast QR scanning at entry</li>
+                <li>Live headcount and capacity</li>
+                <li>Role-based access for every staff type</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <div class="mock mock-door" data-anim="door" aria-hidden="true">
+                <div class="mock-head"><span class="dot-sm"></span><span class="mono">DOOR · LIVE</span></div>
+                <div class="scanner">
+                  <div class="scan-frame"><div class="scan-line"></div><div class="qr small"></div></div>
+                </div>
+                <div class="capacity">
+                  <div class="cap-row"><span class="mono">Inside</span><span class="mono cap-count" data-count="284">0</span></div>
+                  <div class="cap-bar"><span style="--to: 71%"></span></div>
+                  <div class="cap-row muted"><span class="mono">Capacity 400</span><span class="status live"><span class="led"></span>71%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 · VIP tables -->
+          <div class="feature reveal" data-reveal>
+            <div class="feature-copy">
+              <span class="feature-no mono">03</span>
+              <h3>VIP tables</h3>
+              <p>Lay out your floor once, then take bookings against it. Guests reserve a table
+                and add bottle service at checkout, with a waitlist for the overflow.</p>
+              <ul class="ticks">
+                <li>Visual floor-plan blueprint</li>
+                <li>Bookings, waitlist &amp; bottle-service upsell</li>
+                <li>See what's booked at a glance</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <div class="mock mock-floor" data-anim="floor" aria-hidden="true">
+                <div class="mock-head"><span class="dot-sm"></span><span class="mono">FLOOR PLAN</span></div>
+                <div class="floor">
+                  <span class="table t1 booked" style="animation-delay: 0.15s"></span><span class="table t2"></span><span class="table t3 booked" style="animation-delay: 0.3s"></span>
+                  <span class="table t4"></span><span class="table t5 booked" style="animation-delay: 0.45s"></span><span class="table t6 booked" style="animation-delay: 0.6s"></span>
+                  <span class="stage mono">STAGE</span>
+                </div>
+                <div class="mock-foot floor-legend">
+                  <span class="lg-item"><i class="sw booked"></i>Booked</span>
+                  <span class="lg-item"><i class="sw open"></i>Open</span>
+                  <span class="mono floor-rev" data-count="4">0</span><span class="muted mono">of 6 booked</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 · DJ & song requests -->
+          <div class="feature reverse reveal" data-reveal>
+            <div class="feature-copy">
+              <span class="feature-no mono">04</span>
+              <h3>DJ &amp; song requests</h3>
+              <p>Guests send requests straight into a DJ queue. Your DJ stays in control —
+                accept, reorder, or skip.</p>
+              <ul class="ticks">
+                <li>Requests from the guest app</li>
+                <li>A queue the DJ fully controls</li>
+                <li>Keeps the floor engaged</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <div class="mock mock-queue" data-anim="queue" aria-hidden="true">
+                <div class="mock-head"><span class="dot-sm"></span><span class="mono">DJ QUEUE</span></div>
+                <ul class="queue">
+                  <li class="q-row"><span class="q-eq"><i></i><i></i><i></i></span><span class="q-name">Now playing</span><span class="status live"><span class="led"></span>LIVE</span></li>
+                  <li class="q-row"><span class="q-no mono">02</span><span class="q-name">Next up</span><span class="mono muted">requested ×7</span></li>
+                  <li class="q-row"><span class="q-no mono">03</span><span class="q-name">Queued</span><span class="mono muted">requested ×3</span></li>
+                  <li class="q-row"><span class="q-no mono">04</span><span class="q-name">Queued</span><span class="mono muted">requested ×2</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 · Safety -->
+          <div class="feature reveal" data-reveal>
+            <div class="feature-copy">
+              <span class="feature-no mono">05</span>
+              <h3>Safety</h3>
+              <p>Security raises an alert in one tap and the right staff are notified instantly
+                — incidents handled fast and on the record.</p>
+              <ul class="ticks">
+                <li>One-tap alerts for security</li>
+                <li>The right people notified instantly</li>
+                <li>A calmer, safer room</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <div class="mock mock-safety" data-anim="safety" aria-hidden="true">
+                <div class="mock-head"><span class="dot-sm"></span><span class="mono">SECURITY</span></div>
+                <div class="safety">
+                  <button class="panic" type="button" tabindex="-1"><span class="panic-ring"></span>ALERT</button>
+                  <div class="safety-feed">
+                    <div class="sf-row"><span class="status ok"><span class="led"></span>All clear</span><span class="mono muted">Main floor</span></div>
+                    <div class="sf-row"><span class="status ok"><span class="led"></span>All clear</span><span class="mono muted">Entrance</span></div>
+                    <div class="sf-row"><span class="status warn"><span class="led"></span>Check-in</span><span class="mono muted">Bar 2</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6 · Event photos -->
+          <div class="feature reverse reveal" data-reveal>
+            <div class="feature-copy">
+              <span class="feature-no mono">06</span>
+              <h3>Event photos</h3>
+              <p>Upload the night's photos and face recognition sorts them by guest. They reshare
+                to their followers — marketing your next night — and a paid membership to unlock
+                them opens a whole new revenue stream.</p>
+              <ul class="ticks">
+                <li>Face-recognition photo matching</li>
+                <li>Reshares that market the next night</li>
+                <li>Paid membership to unlock photos — a new revenue stream</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <div class="mock mock-photos" data-anim="photos" aria-hidden="true">
+                <div class="mock-head"><span class="dot-sm"></span><span class="mono">PHOTOS · MATCHED</span></div>
+                <div class="photo-grid">
+                  <span class="ph-tile"><span class="reticle"></span></span>
+                  <span class="ph-tile"></span><span class="ph-tile"></span>
+                  <span class="ph-tile"></span><span class="ph-tile"></span>
+                  <span class="ph-tile"></span><span class="ph-tile"></span><span class="ph-tile"></span>
+                </div>
+                <div class="mock-foot"><span class="status info"><span class="led"></span>Matched to <span class="mono">&nbsp;128&nbsp;</span> guests</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ WHY IT MATTERS ══════════════════════════ -->
+      <section class="band payoff">
+        <div class="wrap">
+          <div class="section-head reveal" data-reveal>
+            <span class="eyebrow">The payoff</span>
+            <h2>Grow your revenue. Own the guest relationship.</h2>
+          </div>
+          <div class="kpi-row reveal" data-reveal data-anim="tiles">
+            <div class="kpi">
+              <span class="kpi-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 3 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg>
+              </span>
+              <div class="val">Keep your ticket revenue</div>
+              <p class="note">Sales go straight to your Stripe. No reseller takes a cut.</p>
+            </div>
+            <div class="kpi">
+              <span class="kpi-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </span>
+              <div class="val">Run the night from one screen</div>
+              <p class="note">Door, tables, sales, and safety in one dashboard — not six tools.</p>
+            </div>
+            <div class="kpi">
+              <span class="kpi-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6l6.8-4.2M8.6 13.4l6.8 4.2"/></svg>
+              </span>
+              <div class="val">Guests fill your next event</div>
+              <p class="note">Reshared photos put your night in front of new crowds — free.</p>
+            </div>
+            <div class="kpi">
+              <span class="kpi-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+              </span>
+              <div class="val">Build your own audience</div>
+              <p class="note">Guests download your app. Every regular you earn stays yours.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ PROCESS (sticky-pinned timeline) ══════════════════════════ -->
+      <!-- .zone is tall; .sticky pins for its duration. Scroll progress fills the
+           1→2→3 line fuller and fuller (see setupTimeline in main.js). -->
+      <section class="band alt process" id="process">
+        <div class="zone">
+          <div class="sticky">
+            <div class="wrap">
+              <div class="section-head">
+                <span class="eyebrow">Getting started</span>
+                <h2>You're live in three steps — that's it.</h2>
+              </div>
+              <div class="journey">
+                <div class="jstep">
+                  <span class="jconn" aria-hidden="true"><span class="jfill"></span></span>
+                  <span class="jnode">1</span>
+                  <div class="jbody">
+                    <h3>See a walkthrough</h3>
+                    <p>We show you the platform and learn how your venue runs today.</p>
+                  </div>
+                </div>
+                <div class="jstep">
+                  <span class="jconn" aria-hidden="true"><span class="jfill"></span></span>
+                  <span class="jnode">2</span>
+                  <div class="jbody">
+                    <h3>We tailor &amp; build it</h3>
+                    <p>We set up the modules you need, in your brand — your name, your app.</p>
+                  </div>
+                </div>
+                <div class="jstep">
+                  <span class="jnode">3</span>
+                  <div class="jbody">
+                    <h3>Launch your night</h3>
+                    <p>We deploy it and support you through your first events.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ CTA ══════════════════════════ -->
+      <section class="cta">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="wrap cta-inner reveal" data-reveal>
+          <h2>Let's talk about your venue.</h2>
+          <p>Tell us about your club and we'll show you how AFTERHOURS would run your nights.</p>
+          <div class="hero-cta">
+            <a class="btn primary lg cta-mail" href="mailto:info@impecable.dev">Book a walkthrough</a>
+          </div>
+          <p class="cta-mailline mono"><a class="cta-mail" href="mailto:info@impecable.dev">info@impecable.dev</a></p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+    <footer class="foot">
+      <div class="wrap foot-inner">
+        <a class="brandmark" href="#top" aria-label="AFTERHOURS home">
+          <span class="dot"></span>
+          <span class="wm">AFTERHOURS<small>NIGHTLIFE OS</small></span>
+        </a>
+        <p class="mono foot-note">The operating system for your club.</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
