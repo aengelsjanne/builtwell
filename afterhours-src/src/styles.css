@@ -558,6 +558,15 @@ button { font-family: inherit; cursor: pointer; }
 .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .foot-note { font-size: 12px; color: var(--text-3); letter-spacing: 0.04em; }
 
+.lang-switcher { display: flex; align-items: center; gap: 4px; }
+.lang-btn {
+  background: none; border: none; font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--text-3); cursor: pointer;
+  padding: 4px 8px; border-radius: var(--r-xs); transition: color var(--dur), background var(--dur);
+}
+.lang-btn:hover { color: var(--text-1); background: rgba(244, 246, 248, 0.06); }
+.lang-btn.active { color: var(--ember-400); font-weight: 700; }
+
 /* ============================================================ MOBILE */
 @media (max-width: 620px) {
   .wrap { padding: 0 18px; }
@@ -574,6 +583,9 @@ button { font-family: inherit; cursor: pointer; }
   .section-head { margin-bottom: 38px; }
   .feature { padding: 34px 0; }
   .cta { padding: 84px 0; }
+  /* Platform section repeats the capabilities section on small screens — drop it there only. */
+  .band.converge { display: none; }
+  .foot-inner { flex-direction: column; text-align: center; }
 }
 @media (max-width: 400px) {
   .nav .btn.cta-mail { padding: 0 12px; font-size: 12.5px; }
