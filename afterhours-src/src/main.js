@@ -559,11 +559,6 @@ function detectLang() {
     const saved = localStorage.getItem("afterhours_lang");
     if (saved && AFTERHOURS_I18N[saved]) return saved;
   } catch (_) {}
-  const langs = navigator.languages?.length ? navigator.languages : [navigator.language || "en"];
-  for (const l of langs) {
-    const code = (l || "").slice(0, 2).toLowerCase();
-    if (AFTERHOURS_I18N[code]) return code;
-  }
   return "en";
 }
 
